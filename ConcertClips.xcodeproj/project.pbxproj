@@ -13,6 +13,8 @@
 		BABED9E92915D146003BB814 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BABED9E82915D146003BB814 /* Preview Assets.xcassets */; };
 		BABED9EB2915D146003BB814 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABED9EA2915D146003BB814 /* Persistence.swift */; };
 		BABED9EE2915D146003BB814 /* ConcertClips.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BABED9EC2915D146003BB814 /* ConcertClips.xcdatamodeld */; };
+		BABED9F62915D533003BB814 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BABED9F52915D533003BB814 /* FirebaseFirestore */; };
+		BABED9F82915D533003BB814 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BABED9F72915D533003BB814 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BABED9F62915D533003BB814 /* FirebaseFirestore in Frameworks */,
+				BABED9F82915D533003BB814 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +93,10 @@
 			dependencies = (
 			);
 			name = ConcertClips;
+			packageProductDependencies = (
+				BABED9F52915D533003BB814 /* FirebaseFirestore */,
+				BABED9F72915D533003BB814 /* FirebaseFirestoreSwift */,
+			);
 			productName = ConcertClips;
 			productReference = BABED9DE2915D145003BB814 /* ConcertClips.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +125,9 @@
 				Base,
 			);
 			mainGroup = BABED9D52915D145003BB814;
+			packageReferences = (
+				BABED9F42915D533003BB814 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = BABED9DF2915D145003BB814 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -347,6 +358,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BABED9F42915D533003BB814 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BABED9F52915D533003BB814 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BABED9F42915D533003BB814 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		BABED9F72915D533003BB814 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BABED9F42915D533003BB814 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		BABED9EC2915D146003BB814 /* ConcertClips.xcdatamodeld */ = {

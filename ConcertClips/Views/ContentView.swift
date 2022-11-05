@@ -14,7 +14,7 @@ struct ContentView: View {
     TabView {
       NewEventView()
       .tabItem {
-          Image(systemName: "books.vertical")
+          Image(systemName: "rectangle.stack.badge.plus")
           Text("New Event")
       }
       
@@ -24,17 +24,17 @@ struct ContentView: View {
           Text("Library of Content")
       }
 
-//      NewUserView()
-//      .tabItem {
-//          Image(systemName: "rectangle.stack.badge.plus")
-//          Text("New User")
-//      }
-//
-//      NewClipView()
-//      .tabItem {
-//          Image(systemName: "chart.bar.xaxis")
-//          Text("New Clip")
-//      }
+      NewUserView()
+      .tabItem {
+          Image(systemName: "rectangle.stack.badge.plus")
+          Text("New User")
+      }
+
+      NewClipView()
+      .tabItem {
+          Image(systemName: "chart.bar.xaxis")
+          Text("New Clip")
+      }
     }
   // But since I am using Firebase, do I really need this anymore?
   //    .environmentObject(libraryViewModel)

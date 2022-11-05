@@ -10,6 +10,16 @@
 		35519C422916AA0C00B63497 /* NewEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C412916AA0C00B63497 /* NewEventView.swift */; };
 		35519C452916AB7E00B63497 /* EventsManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C442916AB7E00B63497 /* EventsManagerViewModel.swift */; };
 		35519C482916B17800B63497 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C472916B17800B63497 /* LibraryView.swift */; };
+		35519C4A2916B8E400B63497 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C492916B8E400B63497 /* User.swift */; };
+		35519C4C2916B95400B63497 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C4B2916B95400B63497 /* UserRepository.swift */; };
+		35519C4E2916B9C400B63497 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C4D2916B9C400B63497 /* UserViewModel.swift */; };
+		35519C502916BA0400B63497 /* UsersManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C4F2916BA0400B63497 /* UsersManagerViewModel.swift */; };
+		35519C522916BA5700B63497 /* NewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C512916BA5700B63497 /* NewUserView.swift */; };
+		35519C542916BCDB00B63497 /* Clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C532916BCDB00B63497 /* Clip.swift */; };
+		35519C562916BDD500B63497 /* ClipRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C552916BDD500B63497 /* ClipRepository.swift */; };
+		35519C582916BF6C00B63497 /* ClipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C572916BF6C00B63497 /* ClipViewModel.swift */; };
+		35519C5A2916BFF000B63497 /* ClipsManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C592916BFF000B63497 /* ClipsManagerViewModel.swift */; };
+		35519C5C2916C09F00B63497 /* NewClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C5B2916C09F00B63497 /* NewClipView.swift */; };
 		35E0C6092915DE210019D623 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35E0C6082915DE210019D623 /* GoogleService-Info.plist */; };
 		35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C60E2915E8850019D623 /* EventRepository.swift */; };
 		35E0C6122915E9950019D623 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C6112915E9950019D623 /* Event.swift */; };
@@ -28,6 +38,16 @@
 		35519C412916AA0C00B63497 /* NewEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventView.swift; sourceTree = "<group>"; };
 		35519C442916AB7E00B63497 /* EventsManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManagerViewModel.swift; sourceTree = "<group>"; };
 		35519C472916B17800B63497 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		35519C492916B8E400B63497 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		35519C4B2916B95400B63497 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		35519C4D2916B9C400B63497 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		35519C4F2916BA0400B63497 /* UsersManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersManagerViewModel.swift; sourceTree = "<group>"; };
+		35519C512916BA5700B63497 /* NewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserView.swift; sourceTree = "<group>"; };
+		35519C532916BCDB00B63497 /* Clip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clip.swift; sourceTree = "<group>"; };
+		35519C552916BDD500B63497 /* ClipRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipRepository.swift; sourceTree = "<group>"; };
+		35519C572916BF6C00B63497 /* ClipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipViewModel.swift; sourceTree = "<group>"; };
+		35519C592916BFF000B63497 /* ClipsManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipsManagerViewModel.swift; sourceTree = "<group>"; };
+		35519C5B2916C09F00B63497 /* NewClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClipView.swift; sourceTree = "<group>"; };
 		35E0C6082915DE210019D623 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ConcertClips/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		35E0C60E2915E8850019D623 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		35E0C6112915E9950019D623 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -60,6 +80,8 @@
 				35519C412916AA0C00B63497 /* NewEventView.swift */,
 				BABED9E32915D145003BB814 /* ContentView.swift */,
 				35519C472916B17800B63497 /* LibraryView.swift */,
+				35519C512916BA5700B63497 /* NewUserView.swift */,
+				35519C5B2916C09F00B63497 /* NewClipView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -68,6 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				35E0C60E2915E8850019D623 /* EventRepository.swift */,
+				35519C4B2916B95400B63497 /* UserRepository.swift */,
+				35519C552916BDD500B63497 /* ClipRepository.swift */,
 			);
 			path = DataRepositories;
 			sourceTree = "<group>";
@@ -76,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				35E0C6112915E9950019D623 /* Event.swift */,
+				35519C492916B8E400B63497 /* User.swift */,
+				35519C532916BCDB00B63497 /* Clip.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -85,6 +111,10 @@
 			children = (
 				35E0C6142915EB300019D623 /* EventViewModel.swift */,
 				35519C442916AB7E00B63497 /* EventsManagerViewModel.swift */,
+				35519C4D2916B9C400B63497 /* UserViewModel.swift */,
+				35519C4F2916BA0400B63497 /* UsersManagerViewModel.swift */,
+				35519C572916BF6C00B63497 /* ClipViewModel.swift */,
+				35519C592916BFF000B63497 /* ClipsManagerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -209,15 +239,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				BABED9EB2915D146003BB814 /* Persistence.swift in Sources */,
+				35519C502916BA0400B63497 /* UsersManagerViewModel.swift in Sources */,
 				BABED9E42915D145003BB814 /* ContentView.swift in Sources */,
+				35519C5A2916BFF000B63497 /* ClipsManagerViewModel.swift in Sources */,
+				35519C562916BDD500B63497 /* ClipRepository.swift in Sources */,
+				35519C4C2916B95400B63497 /* UserRepository.swift in Sources */,
 				BABED9EE2915D146003BB814 /* ConcertClips.xcdatamodeld in Sources */,
 				35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */,
 				35519C422916AA0C00B63497 /* NewEventView.swift in Sources */,
+				35519C522916BA5700B63497 /* NewUserView.swift in Sources */,
 				35E0C6122915E9950019D623 /* Event.swift in Sources */,
 				35E0C6152915EB300019D623 /* EventViewModel.swift in Sources */,
 				35519C452916AB7E00B63497 /* EventsManagerViewModel.swift in Sources */,
+				35519C4E2916B9C400B63497 /* UserViewModel.swift in Sources */,
 				35519C482916B17800B63497 /* LibraryView.swift in Sources */,
+				35519C582916BF6C00B63497 /* ClipViewModel.swift in Sources */,
+				35519C542916BCDB00B63497 /* Clip.swift in Sources */,
+				35519C5C2916C09F00B63497 /* NewClipView.swift in Sources */,
 				BABED9E22915D145003BB814 /* ConcertClipsApp.swift in Sources */,
+				35519C4A2916B8E400B63497 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

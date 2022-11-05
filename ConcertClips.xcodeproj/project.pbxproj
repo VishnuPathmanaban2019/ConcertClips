@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35519C422916AA0C00B63497 /* NewEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C412916AA0C00B63497 /* NewEventView.swift */; };
+		35519C452916AB7E00B63497 /* EventsManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C442916AB7E00B63497 /* EventsManagerViewModel.swift */; };
+		35E0C6092915DE210019D623 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35E0C6082915DE210019D623 /* GoogleService-Info.plist */; };
+		35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C60E2915E8850019D623 /* EventRepository.swift */; };
+		35E0C6122915E9950019D623 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C6112915E9950019D623 /* Event.swift */; };
+		35E0C6152915EB300019D623 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C6142915EB300019D623 /* EventViewModel.swift */; };
 		BABED9E22915D145003BB814 /* ConcertClipsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABED9E12915D145003BB814 /* ConcertClipsApp.swift */; };
 		BABED9E42915D145003BB814 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABED9E32915D145003BB814 /* ContentView.swift */; };
 		BABED9E62915D146003BB814 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BABED9E52915D146003BB814 /* Assets.xcassets */; };
@@ -18,6 +24,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35519C412916AA0C00B63497 /* NewEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventView.swift; sourceTree = "<group>"; };
+		35519C442916AB7E00B63497 /* EventsManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManagerViewModel.swift; sourceTree = "<group>"; };
+		35E0C6082915DE210019D623 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ConcertClips/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		35E0C60E2915E8850019D623 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
+		35E0C6112915E9950019D623 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		35E0C6142915EB300019D623 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		BABED9DE2915D145003BB814 /* ConcertClips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcertClips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BABED9E12915D145003BB814 /* ConcertClipsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertClipsApp.swift; sourceTree = "<group>"; };
 		BABED9E32915D145003BB814 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -40,9 +52,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		35519C432916AA1A00B63497 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				35519C412916AA0C00B63497 /* NewEventView.swift */,
+				BABED9E32915D145003BB814 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		35519C462916B08B00B63497 /* DataRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				35E0C60E2915E8850019D623 /* EventRepository.swift */,
+			);
+			path = DataRepositories;
+			sourceTree = "<group>";
+		};
+		35E0C6102915E98C0019D623 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35E0C6112915E9950019D623 /* Event.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		35E0C6132915EB240019D623 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				35E0C6142915EB300019D623 /* EventViewModel.swift */,
+				35519C442916AB7E00B63497 /* EventsManagerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		BABED9D52915D145003BB814 = {
 			isa = PBXGroup;
 			children = (
+				35E0C6082915DE210019D623 /* GoogleService-Info.plist */,
 				BABED9E02915D145003BB814 /* ConcertClips */,
 				BABED9DF2915D145003BB814 /* Products */,
 			);
@@ -59,8 +106,11 @@
 		BABED9E02915D145003BB814 /* ConcertClips */ = {
 			isa = PBXGroup;
 			children = (
+				35519C462916B08B00B63497 /* DataRepositories */,
+				35519C432916AA1A00B63497 /* Views */,
+				35E0C6132915EB240019D623 /* ViewModel */,
+				35E0C6102915E98C0019D623 /* Models */,
 				BABED9E12915D145003BB814 /* ConcertClipsApp.swift */,
-				BABED9E32915D145003BB814 /* ContentView.swift */,
 				BABED9E52915D146003BB814 /* Assets.xcassets */,
 				BABED9EA2915D146003BB814 /* Persistence.swift */,
 				BABED9EC2915D146003BB814 /* ConcertClips.xcdatamodeld */,
@@ -144,6 +194,7 @@
 			files = (
 				BABED9E92915D146003BB814 /* Preview Assets.xcassets in Resources */,
 				BABED9E62915D146003BB814 /* Assets.xcassets in Resources */,
+				35E0C6092915DE210019D623 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +208,11 @@
 				BABED9EB2915D146003BB814 /* Persistence.swift in Sources */,
 				BABED9E42915D145003BB814 /* ContentView.swift in Sources */,
 				BABED9EE2915D146003BB814 /* ConcertClips.xcdatamodeld in Sources */,
+				35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */,
+				35519C422916AA0C00B63497 /* NewEventView.swift in Sources */,
+				35E0C6122915E9950019D623 /* Event.swift in Sources */,
+				35E0C6152915EB300019D623 /* EventViewModel.swift in Sources */,
+				35519C452916AB7E00B63497 /* EventsManagerViewModel.swift in Sources */,
 				BABED9E22915D145003BB814 /* ConcertClipsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,6 +17,12 @@ struct ContentView: View {
           Image(systemName: "books.vertical")
           Text("New Event")
       }
+      
+      LibraryView()
+      .tabItem {
+          Image(systemName: "books.vertical")
+          Text("Library of Content")
+      }
 
 //      NewUserView()
 //      .tabItem {

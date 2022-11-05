@@ -39,6 +39,7 @@ class EventRepository: ObservableObject {
   func add(_ event: Event) {
     do {
       let newEvent = event
+      print("got here")
       _ = try store.collection(path).addDocument(from: newEvent)
     } catch {
       fatalError("Unable to add event: \(error.localizedDescription).")

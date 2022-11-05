@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		35519C422916AA0C00B63497 /* NewEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C412916AA0C00B63497 /* NewEventView.swift */; };
 		35519C452916AB7E00B63497 /* EventsManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C442916AB7E00B63497 /* EventsManagerViewModel.swift */; };
+		35519C482916B17800B63497 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C472916B17800B63497 /* LibraryView.swift */; };
 		35E0C6092915DE210019D623 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35E0C6082915DE210019D623 /* GoogleService-Info.plist */; };
 		35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C60E2915E8850019D623 /* EventRepository.swift */; };
 		35E0C6122915E9950019D623 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C6112915E9950019D623 /* Event.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		35519C412916AA0C00B63497 /* NewEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventView.swift; sourceTree = "<group>"; };
 		35519C442916AB7E00B63497 /* EventsManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManagerViewModel.swift; sourceTree = "<group>"; };
+		35519C472916B17800B63497 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		35E0C6082915DE210019D623 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ConcertClips/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		35E0C60E2915E8850019D623 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		35E0C6112915E9950019D623 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				35519C412916AA0C00B63497 /* NewEventView.swift */,
 				BABED9E32915D145003BB814 /* ContentView.swift */,
+				35519C472916B17800B63497 /* LibraryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				35E0C6122915E9950019D623 /* Event.swift in Sources */,
 				35E0C6152915EB300019D623 /* EventViewModel.swift in Sources */,
 				35519C452916AB7E00B63497 /* EventsManagerViewModel.swift in Sources */,
+				35519C482916B17800B63497 /* LibraryView.swift in Sources */,
 				BABED9E22915D145003BB814 /* ConcertClipsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

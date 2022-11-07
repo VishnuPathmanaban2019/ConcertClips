@@ -20,6 +20,12 @@
 		35519C582916BF6C00B63497 /* ClipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C572916BF6C00B63497 /* ClipViewModel.swift */; };
 		35519C5A2916BFF000B63497 /* ClipsManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C592916BFF000B63497 /* ClipsManagerViewModel.swift */; };
 		35519C5C2916C09F00B63497 /* NewClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C5B2916C09F00B63497 /* NewClipView.swift */; };
+		35519C5F29186D2200B63497 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 35519C5E29186D2200B63497 /* FirebaseFirestore */; };
+		35519C6129186D2200B63497 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 35519C6029186D2200B63497 /* FirebaseFirestoreSwift */; };
+		35519C6329186D2200B63497 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 35519C6229186D2200B63497 /* FirebaseStorage */; };
+		35519C6529186ECC00B63497 /* ClipSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C6429186ECC00B63497 /* ClipSelectView.swift */; };
+		35519C6729186F2600B63497 /* ClipSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C6629186F2600B63497 /* ClipSelectViewModel.swift */; };
+		35519C6929187C8500B63497 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C6829187C8500B63497 /* Movie.swift */; };
 		35E0C6092915DE210019D623 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35E0C6082915DE210019D623 /* GoogleService-Info.plist */; };
 		35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C60E2915E8850019D623 /* EventRepository.swift */; };
 		35E0C6122915E9950019D623 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C6112915E9950019D623 /* Event.swift */; };
@@ -30,8 +36,6 @@
 		BABED9E92915D146003BB814 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BABED9E82915D146003BB814 /* Preview Assets.xcassets */; };
 		BABED9EB2915D146003BB814 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABED9EA2915D146003BB814 /* Persistence.swift */; };
 		BABED9EE2915D146003BB814 /* ConcertClips.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BABED9EC2915D146003BB814 /* ConcertClips.xcdatamodeld */; };
-		BABED9F62915D533003BB814 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BABED9F52915D533003BB814 /* FirebaseFirestore */; };
-		BABED9F82915D533003BB814 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BABED9F72915D533003BB814 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +52,9 @@
 		35519C572916BF6C00B63497 /* ClipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipViewModel.swift; sourceTree = "<group>"; };
 		35519C592916BFF000B63497 /* ClipsManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipsManagerViewModel.swift; sourceTree = "<group>"; };
 		35519C5B2916C09F00B63497 /* NewClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClipView.swift; sourceTree = "<group>"; };
+		35519C6429186ECC00B63497 /* ClipSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipSelectView.swift; sourceTree = "<group>"; };
+		35519C6629186F2600B63497 /* ClipSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipSelectViewModel.swift; sourceTree = "<group>"; };
+		35519C6829187C8500B63497 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		35E0C6082915DE210019D623 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ConcertClips/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		35E0C60E2915E8850019D623 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		35E0C6112915E9950019D623 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -66,8 +73,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BABED9F62915D533003BB814 /* FirebaseFirestore in Frameworks */,
-				BABED9F82915D533003BB814 /* FirebaseFirestoreSwift in Frameworks */,
+				35519C5F29186D2200B63497 /* FirebaseFirestore in Frameworks */,
+				35519C6129186D2200B63497 /* FirebaseFirestoreSwift in Frameworks */,
+				35519C6329186D2200B63497 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +90,7 @@
 				35519C472916B17800B63497 /* LibraryView.swift */,
 				35519C512916BA5700B63497 /* NewUserView.swift */,
 				35519C5B2916C09F00B63497 /* NewClipView.swift */,
+				35519C6429186ECC00B63497 /* ClipSelectView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -102,6 +111,7 @@
 				35E0C6112915E9950019D623 /* Event.swift */,
 				35519C492916B8E400B63497 /* User.swift */,
 				35519C532916BCDB00B63497 /* Clip.swift */,
+				35519C6829187C8500B63497 /* Movie.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -115,6 +125,7 @@
 				35519C4F2916BA0400B63497 /* UsersManagerViewModel.swift */,
 				35519C572916BF6C00B63497 /* ClipViewModel.swift */,
 				35519C592916BFF000B63497 /* ClipsManagerViewModel.swift */,
+				35519C6629186F2600B63497 /* ClipSelectViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -177,8 +188,9 @@
 			);
 			name = ConcertClips;
 			packageProductDependencies = (
-				BABED9F52915D533003BB814 /* FirebaseFirestore */,
-				BABED9F72915D533003BB814 /* FirebaseFirestoreSwift */,
+				35519C5E29186D2200B63497 /* FirebaseFirestore */,
+				35519C6029186D2200B63497 /* FirebaseFirestoreSwift */,
+				35519C6229186D2200B63497 /* FirebaseStorage */,
 			);
 			productName = ConcertClips;
 			productReference = BABED9DE2915D145003BB814 /* ConcertClips.app */;
@@ -209,7 +221,7 @@
 			);
 			mainGroup = BABED9D52915D145003BB814;
 			packageReferences = (
-				BABED9F42915D533003BB814 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				35519C5D29186D2100B63497 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = BABED9DF2915D145003BB814 /* Products */;
 			projectDirPath = "";
@@ -238,12 +250,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35519C6729186F2600B63497 /* ClipSelectViewModel.swift in Sources */,
 				BABED9EB2915D146003BB814 /* Persistence.swift in Sources */,
 				35519C502916BA0400B63497 /* UsersManagerViewModel.swift in Sources */,
+				35519C6929187C8500B63497 /* Movie.swift in Sources */,
 				BABED9E42915D145003BB814 /* ContentView.swift in Sources */,
 				35519C5A2916BFF000B63497 /* ClipsManagerViewModel.swift in Sources */,
 				35519C562916BDD500B63497 /* ClipRepository.swift in Sources */,
 				35519C4C2916B95400B63497 /* UserRepository.swift in Sources */,
+				35519C6529186ECC00B63497 /* ClipSelectView.swift in Sources */,
 				BABED9EE2915D146003BB814 /* ConcertClips.xcdatamodeld in Sources */,
 				35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */,
 				35519C422916AA0C00B63497 /* NewEventView.swift in Sources */,
@@ -460,26 +475,31 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		BABED9F42915D533003BB814 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		35519C5D29186D2100B63497 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		BABED9F52915D533003BB814 /* FirebaseFirestore */ = {
+		35519C5E29186D2200B63497 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BABED9F42915D533003BB814 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 35519C5D29186D2100B63497 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		BABED9F72915D533003BB814 /* FirebaseFirestoreSwift */ = {
+		35519C6029186D2200B63497 /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BABED9F42915D533003BB814 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 35519C5D29186D2100B63497 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		35519C6229186D2200B63497 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35519C5D29186D2100B63497 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 

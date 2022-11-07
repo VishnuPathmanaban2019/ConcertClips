@@ -30,7 +30,7 @@ struct ContentView: View {
           Text("New User")
       }
 
-      NewClipView()
+      ClipSelectView()
       .tabItem {
           Image(systemName: "chart.bar.xaxis")
           Text("New Clip")

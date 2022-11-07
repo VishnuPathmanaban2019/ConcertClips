@@ -9,6 +9,11 @@ import SwiftUI
 
 struct NewClipView: View {
   @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
+  @State private var downloadURL: String
+  
+  init(downloadURL: String) {
+    self.downloadURL = downloadURL
+  }
 
   @State private var name = ""
   @State private var event = ""
@@ -58,7 +63,7 @@ struct NewClipView: View {
   }
   
   private func addClip() {
-    let clip = Clip(name: name, event: event, user: user, section: section, song: song, likes: likes)
+    let clip = Clip(name: name, event: event, user: user, section: section, song: song, likes: likes, downloadURL: downloadURL)
     clipsManagerViewModel.add(clip)
   }
 }

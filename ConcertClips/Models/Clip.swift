@@ -18,6 +18,7 @@ struct Clip: Identifiable, Comparable, Codable {
   var section: String
   var song: String
   var likes: Int
+  var downloadURL: String
   
   // MARK: Codable
   enum CodingKeys: String, CodingKey {
@@ -28,6 +29,7 @@ struct Clip: Identifiable, Comparable, Codable {
     case section
     case song
     case likes
+    case downloadURL
   }
   
   // MARK: Comparable

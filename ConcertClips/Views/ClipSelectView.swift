@@ -15,6 +15,7 @@ struct ClipSelectView: View {
   @State var data: Movie?
   @State var showNewClipView: Bool = false
   @State var downloadURL: String = ""
+  @State var confirmText: String = "Upload clip"
   
   @ObservedObject var clipSelectViewModel = ClipSelectViewModel()
   
@@ -26,11 +27,15 @@ struct ClipSelectView: View {
         if showNewClipView {
           NewClipView(downloadURL: downloadURL)
         } else {
+          let _ = confirmText = "Upload clip"
           Button(action: {
-            let downloadURL = clipSelectViewModel.upload(file: data.url)
-            self.showNewClipView = true
+            Task {
+              downloadURL = try await clipSelectViewModel.upload(file: data.url)
+              showNewClipView = true
+            }
+            confirmText = "Click again to confirm"
           }) {
-            Text("Confirm Upload")
+            Text(confirmText)
           }
         }
       } else {

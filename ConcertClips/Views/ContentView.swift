@@ -32,7 +32,7 @@ struct ContentView: View {
 
       ClipSelectView()
       .tabItem {
-          Image(systemName: "chart.bar.xaxis")
+          Image(systemName: "rectangle.stack.badge.plus")
           Text("New Clip")
       }
     }

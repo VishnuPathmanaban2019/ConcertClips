@@ -35,12 +35,14 @@ struct NewClipView: View {
         TextField("Song", text: $song)
       }
       if self.isValidClip() {
-        NavigationLink(destination: LibraryView()) {
-          Text("Add Clip")
-        }.simultaneousGesture(TapGesture().onEnded{
-          addClip()
-          clearFields()
-        })
+        // adds whenever there's valid entries, then presents add clip in user trickery
+        let _ = addClip()
+        let _ = clearFields()
+        NavigationLink {
+            LibraryView()
+        } label: {
+            Text("Add Clip")
+        }
       } // back button shows up because it has the history of the previous screens
       // somehow clear history of previous screens
       // either hide the back button

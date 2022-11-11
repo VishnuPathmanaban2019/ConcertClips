@@ -21,6 +21,7 @@ struct NewClipView: View {
   @State private var section = ""
   @State private var song = ""
   @State private var likes = 0
+  @State private var isActive = false
 
   var body: some View {
     VStack {
@@ -35,18 +36,13 @@ struct NewClipView: View {
         TextField("Song", text: $song)
       }
       if self.isValidClip() {
-        // adds whenever there's valid entries, then presents add clip in user trickery
-        let _ = addClip()
-        let _ = clearFields()
+        let clip = Clip(name: name, event: event, user: user, section: section, song: song, likes: likes, downloadURL: downloadURL)
         NavigationLink {
-            LibraryView()
+          UploadedView(clip: clip).navigationBarBackButtonHidden(true)
         } label: {
-            Text("Add Clip")
+          Text("Add Clip")
         }
-      } // back button shows up because it has the history of the previous screens
-      // somehow clear history of previous screens
-      // either hide the back button
-      // or navigate programmatically/use sooyoung links
+      }
     }
   }
 
@@ -58,18 +54,5 @@ struct NewClipView: View {
     if song.isEmpty { return false }
     return true
   }
-
-  private func clearFields() {
-    name = ""
-    event = ""
-    user = ""
-    section = ""
-    song = ""
-    likes = 0
-  }
   
-  private func addClip() {
-    let clip = Clip(name: name, event: event, user: user, section: section, song: song, likes: likes, downloadURL: downloadURL)
-    clipsManagerViewModel.add(clip)
-  }
 }

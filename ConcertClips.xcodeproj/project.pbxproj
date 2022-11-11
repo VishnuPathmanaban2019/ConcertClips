@@ -31,6 +31,9 @@
 		35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C60E2915E8850019D623 /* EventRepository.swift */; };
 		35E0C6122915E9950019D623 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C6112915E9950019D623 /* Event.swift */; };
 		35E0C6152915EB300019D623 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C6142915EB300019D623 /* EventViewModel.swift */; };
+		BAB04BE7291DFFCE005B42DE /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB04BE6291DFFCE005B42DE /* FeedViewModel.swift */; };
+		BAB04BE9291E002A005B42DE /* FeedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB04BE8291E002A005B42DE /* FeedViewCell.swift */; };
+		BAB04BEB291E0CDE005B42DE /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB04BEA291E0CDE005B42DE /* FeedView.swift */; };
 		BABED9E22915D145003BB814 /* ConcertClipsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABED9E12915D145003BB814 /* ConcertClipsApp.swift */; };
 		BABED9E42915D145003BB814 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABED9E32915D145003BB814 /* ContentView.swift */; };
 		BABED9E62915D146003BB814 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BABED9E52915D146003BB814 /* Assets.xcassets */; };
@@ -61,6 +64,9 @@
 		35E0C60E2915E8850019D623 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		35E0C6112915E9950019D623 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		35E0C6142915EB300019D623 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		BAB04BE6291DFFCE005B42DE /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		BAB04BE8291E002A005B42DE /* FeedViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewCell.swift; sourceTree = "<group>"; };
+		BAB04BEA291E0CDE005B42DE /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		BABED9DE2915D145003BB814 /* ConcertClips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcertClips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BABED9E12915D145003BB814 /* ConcertClipsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertClipsApp.swift; sourceTree = "<group>"; };
 		BABED9E32915D145003BB814 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +100,8 @@
 				35519C5B2916C09F00B63497 /* NewClipView.swift */,
 				35519C6429186ECC00B63497 /* ClipSelectView.swift */,
 				35519C8D291DD04C00B63497 /* UploadedView.swift */,
+				BAB04BE8291E002A005B42DE /* FeedViewCell.swift */,
+				BAB04BEA291E0CDE005B42DE /* FeedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -129,6 +137,7 @@
 				35519C572916BF6C00B63497 /* ClipViewModel.swift */,
 				35519C592916BFF000B63497 /* ClipsManagerViewModel.swift */,
 				35519C6629186F2600B63497 /* ClipSelectViewModel.swift */,
+				BAB04BE6291DFFCE005B42DE /* FeedViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -253,6 +262,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAB04BE7291DFFCE005B42DE /* FeedViewModel.swift in Sources */,
+				BAB04BEB291E0CDE005B42DE /* FeedView.swift in Sources */,
 				35519C6729186F2600B63497 /* ClipSelectViewModel.swift in Sources */,
 				BABED9EB2915D146003BB814 /* Persistence.swift in Sources */,
 				35519C502916BA0400B63497 /* UsersManagerViewModel.swift in Sources */,
@@ -262,6 +273,7 @@
 				35519C562916BDD500B63497 /* ClipRepository.swift in Sources */,
 				35519C4C2916B95400B63497 /* UserRepository.swift in Sources */,
 				35519C6529186ECC00B63497 /* ClipSelectView.swift in Sources */,
+				BAB04BE9291E002A005B42DE /* FeedViewCell.swift in Sources */,
 				BABED9EE2915D146003BB814 /* ConcertClips.xcdatamodeld in Sources */,
 				35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */,
 				35519C422916AA0C00B63497 /* NewEventView.swift in Sources */,

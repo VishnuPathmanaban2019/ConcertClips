@@ -12,10 +12,10 @@ struct ContentView: View {
   var body: some View {
     
     TabView {
-      NewEventView()
+      FeedView()
       .tabItem {
-          Image(systemName: "rectangle.stack.badge.plus")
-          Text("New Event")
+          Image(systemName: "books.vertical")
+          Text("Feed")
       }
       
       LibraryView()

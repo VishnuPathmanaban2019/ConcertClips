@@ -37,10 +37,10 @@ class ViewController: UIViewController {
         let clipViewModels = clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
         for clipViewModel in clipViewModels {
           let model = VideoModel(caption: clipViewModel.clip.name,
-                                 videoURL: clipViewModel.clip.song,
-                                 event: clipViewModel.clip.downloadURL,
+                                 videoURL: clipViewModel.clip.downloadURL,
+                                 event: clipViewModel.clip.event,
                                  section: clipViewModel.clip.section,
-                                 audioTrackName: clipViewModel.clip.event,
+                                 audioTrackName: clipViewModel.clip.song,
                                  detailsButtonTappedCount: 0)
           data.append(model)
         }

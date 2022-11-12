@@ -7,6 +7,8 @@
 // Adapted from: https://github.com/dks333/Tiktok-Clone
 
 import UIKit
+import SwiftUI
+
 
 struct VideoModel {
     let caption: String
@@ -20,10 +22,24 @@ struct VideoModel {
     let detailsButtonTappedCount: Int
 }
 
-class ViewController: UIViewController {
-  
-    var clipsManagerViewModel = ClipsManagerViewModel()
 
+
+class ViewController: UIViewController {
+    
+    @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
+    
+    // sarun
+    private var sarunLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.text = "hello, roshan!"
+        label.textAlignment = .center
+        
+        return label
+    }()
+    // sarun
+  
     private var collectionView: UICollectionView?
 
     private var data = [VideoModel]()
@@ -33,39 +49,71 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
       
         super.viewDidLoad()
-      
-        let clipViewModels = clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
-        for clipViewModel in clipViewModels {
-          let model = VideoModel(caption: clipViewModel.clip.name,
-                                 videoURL: clipViewModel.clip.downloadURL,
-                                 event: clipViewModel.clip.event,
-                                 section: clipViewModel.clip.section,
-                                 audioTrackName: clipViewModel.clip.song,
-                                 detailsButtonTappedCount: 0)
-          data.append(model)
+        
+        // old (good) code below
+//        let clipViewModels = clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
+
+        
+        let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
+        {
+            (varTimer) in
+            let clipViewModels = self.clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
+            print("viewdidLoad (feedViewModel): \(clipViewModels)")
+            
+            
+            //        for clipViewModel in clipViewModels {
+            clipViewModels.forEach { clipViewModel in
+                let model = VideoModel(caption: clipViewModel.clip.name,
+                                       videoURL: clipViewModel.clip.downloadURL,
+                                       event: clipViewModel.clip.event,
+                                       section: clipViewModel.clip.section,
+                                       audioTrackName: clipViewModel.clip.song,
+                                       detailsButtonTappedCount: 0)
+                print(model.videoURL)
+                self.data.append(model)
+
+                
+            }
+            
+            // SARUN
+//            var sarunLabel: UILabel = {
+//                let label = UILabel()
+//                label.translatesAutoresizingMaskIntoConstraints = false
+//                label.font = UIFont.preferredFont(forTextStyle: .title1)
+////                label.text = "hello, roshan!"
+////                                label.text = model.caption
+//                label.textAlignment = .center
+//
+//                return label
+//            }()
+//
+//            self.view.backgroundColor = .systemPink
+            
+                        // 3
+//            self.view.addSubview(sarunLabel)
+//                        NSLayoutConstraint.activate([
+//                            sarunLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+//                            sarunLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+//                            sarunLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
+//                            sarunLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20),
+//                        ])
+                        // SARUN
+                    
+                    
+                    
+            //
+                    let layout = UICollectionViewFlowLayout() // possible issue
+                    layout.scrollDirection = .vertical
+            layout.itemSize = CGSize(width: self.view.frame.size.width,
+                                     height: self.view.frame.size.height)
+                    layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            self.collectionView?.register(FeedViewCell.self,
+                                             forCellWithReuseIdentifier: FeedViewCell.identifier)
+            self.collectionView?.isPagingEnabled = true
+            self.collectionView?.dataSource = self
+            self.view.addSubview(self.collectionView!)
         }
-
-//        let model = VideoModel(caption: "Caption: You just cannot tell me nothing!",
-//                               audioTrackName: "Song: Can't Tell Me Nothing",
-//                               videoFileName: "kanye_video1",
-//                               videoFileFormat: "mp4",
-//                               artist: "Artist: Kanye West",
-//                               section: "Section: 4",
-//                               event: "Event: Rolling Loud LA 2021",
-//                               detailsButtonTappedCount: 0)
-//        data.append(model)
-
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: view.frame.size.width,
-                                 height: view.frame.size.height)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView?.register(FeedViewCell.self,
-                                 forCellWithReuseIdentifier: FeedViewCell.identifier)
-        collectionView?.isPagingEnabled = true
-        collectionView?.dataSource = self
-        view.addSubview(collectionView!)
     }
 
     override func viewDidLayoutSubviews() {

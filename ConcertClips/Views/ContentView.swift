@@ -12,7 +12,7 @@ struct ContentView: View {
   var body: some View {
     
     TabView {
-      FeedView()
+        FeedView().ignoresSafeArea()
       .tabItem {
           Image(systemName: "books.vertical")
           Text("Feed")

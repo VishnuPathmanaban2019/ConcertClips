@@ -148,7 +148,12 @@ class FeedViewCell: UICollectionViewCell {
 //                                            print("Failed to find video")
 //                                            return
 //        }
-        player = AVPlayer(url: URL(string: model.videoURL)!)
+
+        
+        let videoURL = NSURL(string: model.videoURL)!
+//
+        player = AVPlayer(url: videoURL as URL)
+//        player = AVPlayer(url: URL(string: model.videoURL)!)
 
         let playerView = AVPlayerLayer()
         playerView.player = player

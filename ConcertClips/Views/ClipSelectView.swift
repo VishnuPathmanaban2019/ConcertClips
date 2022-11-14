@@ -28,8 +28,10 @@ struct ClipSelectView: View {
           NewClipView(downloadURL: downloadURL)
         } else {
           let _ = confirmText = "Upload clip"
+          let _ = print("Clip Select Outside Task \(data.url)")
           Button(action: {
             Task {
+              print("Clip Select \(data.url)")
               downloadURL = try await clipSelectViewModel.upload(file: data.url)
               showNewClipView = true
             }

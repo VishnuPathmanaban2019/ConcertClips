@@ -17,7 +17,6 @@ struct FeedViewRepresentable: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> ViewController {
         // Return MyViewController instance
-        print("makeUIViewController: \(clipsManagerViewModel.clipViewModels)")
         let vc = ViewController()
         return vc
     }

@@ -16,7 +16,7 @@ struct LibraryView: View {
     NavigationView {
       List{
         let clipViewModels = clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
-        let _ = print("LibraryView: \(clipViewModels)")
+//        let _ = print("LibraryView: \(clipViewModels)")
           
         ForEach(clipViewModels) { clipViewModel in
           VStack {

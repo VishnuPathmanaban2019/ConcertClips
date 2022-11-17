@@ -58,7 +58,7 @@ class ViewController: UIViewController {
         {
             (varTimer) in
             let clipViewModels = self.clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
-            print("viewdidLoad (feedViewModel): \(clipViewModels)")
+//            print("viewdidLoad (feedViewModel): \(clipViewModels)")
             
             
             //        for clipViewModel in clipViewModels {
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
                                        section: clipViewModel.clip.section,
                                        audioTrackName: clipViewModel.clip.song,
                                        detailsButtonTappedCount: 0)
-                print(model.videoURL)
+//                print("viewmodel \(model.videoURL)")
                 self.data.append(model)
 
                 

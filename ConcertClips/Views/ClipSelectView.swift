@@ -12,27 +12,25 @@ import AVKit
 
 struct ClipSelectView: View {
   @State var selectedVideos: [PhotosPickerItem] = []
-  @State var data: Movie?
   @State var showNewClipView: Bool = false
   @State var downloadURL: String = ""
   @State var confirmText: String = "Upload clip"
+  @Binding var tabSelection: Int
   
   @ObservedObject var clipSelectViewModel = ClipSelectViewModel()
   
   var body: some View {
     VStack {
-      if let data = data {
+      if let data = clipSelectViewModel.data {
         let player = AVPlayer(url: data.url)
         VideoPlayer(player: player)
         if showNewClipView {
-          NewClipView(downloadURL: downloadURL)
+          NewClipView(downloadURL: downloadURL, isShowingNewClipView: $showNewClipView, tabSelection: $tabSelection)
         } else {
           let _ = confirmText = "Upload clip"
-          let _ = print("Clip Select Outside Task \(data.url)")
           Button(action: {
             Task {
-              print("Clip Select \(data.url)")
-              downloadURL = try await clipSelectViewModel.upload(file: data.url)
+              downloadURL = try await clipSelectViewModel.upload()
               showNewClipView = true
             }
             confirmText = "Click again to confirm"
@@ -48,6 +46,7 @@ struct ClipSelectView: View {
           matching: .videos
         ) {
           Text("Pick Clip to Upload")
+          let _ = self.tabSelection = 3
         }
         .onChange(of: selectedVideos) { newVideo in
           guard let item = selectedVideos.first else {
@@ -57,7 +56,8 @@ struct ClipSelectView: View {
             switch result {
             case .success(let data):
               if let data = data {
-                self.data = data
+                self.clipSelectViewModel.data = data
+                self.tabSelection = 3
               } else {
                 print("Error with nil data")
               }

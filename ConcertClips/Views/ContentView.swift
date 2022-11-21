@@ -9,9 +9,11 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+  @State private var tabSelection = 1
+  
   var body: some View {
     
-    TabView {
+    TabView(selection: $tabSelection) {
         FeedView().ignoresSafeArea()
       .tabItem {
           Image(systemName: "books.vertical")
@@ -24,13 +26,7 @@ struct ContentView: View {
           Text("Library of Content")
       }
 
-      NewUserView()
-      .tabItem {
-          Image(systemName: "rectangle.stack.badge.plus")
-          Text("New User")
-      }
-
-      ClipSelectView()
+      ClipSelectView(tabSelection: $tabSelection)
       .tabItem {
           Image(systemName: "rectangle.stack.badge.plus")
           Text("New Clip")

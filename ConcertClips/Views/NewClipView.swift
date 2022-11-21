@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct NewClipView: View {
-  @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
-  @State private var downloadURL: String
+  @StateObject var clipsManagerViewModel = ClipsManagerViewModel()
+  var downloadURL: String
+  @Binding var isShowingNewClipView: Bool
+  @Binding var tabSelection: Int
   
-  init(downloadURL: String) {
-    self.downloadURL = downloadURL
-  }
+//  init(downloadURL: String, isShowingNewClipView: Bool) {
+//    self.downloadURL = downloadURL
+//    self.isShowingNewClipView = isShowingNewClipView
+//  }
 
   @State private var name = ""
   @State private var event = ""
@@ -36,9 +39,11 @@ struct NewClipView: View {
         TextField("Song", text: $song)
       }
       if self.isValidClip() {
+        let _ = print("Trying to add clip")
         let clip = Clip(name: name, event: event, user: user, section: section, song: song, likes: likes, downloadURL: downloadURL)
         NavigationLink {
-          UploadedView(clip: clip).navigationBarBackButtonHidden(true)
+          UploadedView(clip: clip, isShowingNewClipView: $isShowingNewClipView, tabSelection: $tabSelection).navigationBarBackButtonHidden(true)
+          let _ = clearFields()
         } label: {
           Text("Add Clip")
         }
@@ -53,6 +58,14 @@ struct NewClipView: View {
     if section.isEmpty { return false }
     if song.isEmpty { return false }
     return true
+  }
+  
+  private func clearFields() {
+    name = ""
+    event = ""
+    user = ""
+    section = ""
+    song = ""
   }
   
 }

@@ -21,10 +21,11 @@ struct UploadedView: View {
   var body: some View {
     Text("Clip Uploaded!").onAppear() {
       clipsManagerViewModel.add(clip)
-    }
-    Button {
       data = nil
       self.tabSelection = 0
+    }
+    NavigationLink {
+      ContentView().navigationBarBackButtonHidden(true)
     } label: {
       Text("Go to Home")
     }

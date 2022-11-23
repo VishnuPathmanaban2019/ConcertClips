@@ -9,30 +9,27 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-  @State private var tabSelection = 1
+  @State private var tabSelection = 0
   
   var body: some View {
-    
     TabView(selection: $tabSelection) {
         FeedView().ignoresSafeArea()
       .tabItem {
           Image(systemName: "books.vertical")
           Text("Feed")
-      }
+      }.tag(0)
       
       LibraryView()
       .tabItem {
           Image(systemName: "books.vertical")
           Text("Library of Content")
-      }
+      }.tag(1)
 
       ClipSelectView(tabSelection: $tabSelection)
       .tabItem {
           Image(systemName: "rectangle.stack.badge.plus")
           Text("New Clip")
-      }
+      }.tag(2)
     }
-  // But since I am using Firebase, do I really need this anymore?
-  //    .environmentObject(libraryViewModel)
   }
 }

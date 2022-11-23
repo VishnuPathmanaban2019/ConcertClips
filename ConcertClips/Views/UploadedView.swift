@@ -10,8 +10,8 @@ import SwiftUI
 struct UploadedView: View {
   @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
   var clip: Clip
-  @Binding var isShowingNewClipView: Bool
   @Binding var tabSelection: Int
+  @Binding var data: Movie?
   
 //  init(clip: Clip, isShowingNewClipView: Bool) {
 //    self.clip = clip
@@ -23,9 +23,8 @@ struct UploadedView: View {
       clipsManagerViewModel.add(clip)
     }
     Button {
-//      ContentView().navigationBarBackButtonHidden(true)
-      let _ = isShowingNewClipView = false
-      self.tabSelection = 1
+      data = nil
+      self.tabSelection = 0
     } label: {
       Text("Go to Home")
     }

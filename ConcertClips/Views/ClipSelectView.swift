@@ -16,21 +16,22 @@ struct ClipSelectView: View {
   @State var downloadURL: String = ""
   @State var confirmText: String = "Upload clip"
   @Binding var tabSelection: Int
+  @State var data: Movie?
   
   @ObservedObject var clipSelectViewModel = ClipSelectViewModel()
   
   var body: some View {
     VStack {
-      if let data = clipSelectViewModel.data {
+      if let data = data {
         let player = AVPlayer(url: data.url)
         VideoPlayer(player: player)
         if showNewClipView {
-          NewClipView(downloadURL: downloadURL, isShowingNewClipView: $showNewClipView, tabSelection: $tabSelection)
+          NewClipView(downloadURL: downloadURL, tabSelection: $tabSelection, data: $data)
         } else {
           let _ = confirmText = "Upload clip"
           Button(action: {
             Task {
-              downloadURL = try await clipSelectViewModel.upload()
+              downloadURL = try await clipSelectViewModel.upload(file: data.url)
               showNewClipView = true
             }
             confirmText = "Click again to confirm"
@@ -46,7 +47,6 @@ struct ClipSelectView: View {
           matching: .videos
         ) {
           Text("Pick Clip to Upload")
-          let _ = self.tabSelection = 3
         }
         .onChange(of: selectedVideos) { newVideo in
           guard let item = selectedVideos.first else {
@@ -56,8 +56,7 @@ struct ClipSelectView: View {
             switch result {
             case .success(let data):
               if let data = data {
-                self.clipSelectViewModel.data = data
-                self.tabSelection = 3
+                self.data = data
               } else {
                 print("Error with nil data")
               }

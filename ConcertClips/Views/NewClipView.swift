@@ -10,8 +10,8 @@ import SwiftUI
 struct NewClipView: View {
   @StateObject var clipsManagerViewModel = ClipsManagerViewModel()
   var downloadURL: String
-  @Binding var isShowingNewClipView: Bool
   @Binding var tabSelection: Int
+  @Binding var data: Movie?
   
 //  init(downloadURL: String, isShowingNewClipView: Bool) {
 //    self.downloadURL = downloadURL
@@ -42,7 +42,7 @@ struct NewClipView: View {
         let _ = print("Trying to add clip")
         let clip = Clip(name: name, event: event, user: user, section: section, song: song, likes: likes, downloadURL: downloadURL)
         NavigationLink {
-          UploadedView(clip: clip, isShowingNewClipView: $isShowingNewClipView, tabSelection: $tabSelection).navigationBarBackButtonHidden(true)
+          UploadedView(clip: clip, tabSelection: $tabSelection, data: $data).navigationBarBackButtonHidden(true)
           let _ = clearFields()
         } label: {
           Text("Add Clip")

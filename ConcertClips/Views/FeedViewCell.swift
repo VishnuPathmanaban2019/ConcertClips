@@ -152,16 +152,53 @@ class FeedViewCell: UICollectionViewCell {
         
         let videoURL = NSURL(string: model.videoURL)!
 //
-        player = AVPlayer(url: videoURL as URL)
-//        player = AVPlayer(url: URL(string: model.videoURL)!)
+        //        player = AVPlayer(url: URL(string: model.videoURL)!) // OLD old
+        
+        
+        // old working code
+//        player = AVPlayer(url: videoURL as URL)
+//        let playerView = AVPlayerLayer()
+//        playerView.player = player
+//        playerView.frame = contentView.bounds
+//        playerView.videoGravity = .resizeAspectFill
+//        videoContainer.layer.addSublayer(playerView)
+//        player?.volume = 0
+        // end old working code
+        
+        
+        // new code rram to fix replay issue v2
+        
+        let playerItem = AVPlayerItem(url: videoURL as URL)
+        let player = AVQueuePlayer(playerItem: playerItem)
+        let playerLayer = AVPlayerLayer(player: player)
 
-        let playerView = AVPlayerLayer()
-        playerView.player = player
-        playerView.frame = contentView.bounds
-        playerView.videoGravity = .resizeAspectFill
-        videoContainer.layer.addSublayer(playerView)
-        player?.volume = 0
-        player?.play()
+        let playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
+
+        playerLayer.frame = contentView.bounds
+        playerLayer.videoGravity = .resizeAspectFill
+        videoContainer.layer.addSublayer(playerLayer)
+
+        // Add the playerLayer to a UIView.layer
+
+        player.play()
+        // end
+        
+        // new code rram to fix replay issue
+//        player = AVQueuePlayer()
+//        let playerLayer = AVPlayerLayer(player: player)
+//
+//        playerLayer.player = player
+//        playerLayer.frame = contentView.bounds
+//        playerLayer.videoGravity = .resizeAspectFill
+//        videoContainer.layer.addSublayer(playerLayer)
+//        player?.volume = 0
+//
+//        let playerItem = AVPlayerItem(url: videoURL as URL)
+//        let playerLooper = AVPlayerLooper(player: player as! AVQueuePlayer, templateItem: playerItem)
+//        player?.play()
+        // new code rram to fix replay issue
+        
+//        player?.play()
     }
 
     required init?(coder: NSCoder) {

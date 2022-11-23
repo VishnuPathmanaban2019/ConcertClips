@@ -12,10 +12,11 @@ import AVKit
 
 struct ClipSelectView: View {
   @State var selectedVideos: [PhotosPickerItem] = []
-  @State var data: Movie?
   @State var showNewClipView: Bool = false
   @State var downloadURL: String = ""
   @State var confirmText: String = "Upload clip"
+  @Binding var tabSelection: Int
+  @State var data: Movie?
   
   @ObservedObject var clipSelectViewModel = ClipSelectViewModel()
   
@@ -25,13 +26,11 @@ struct ClipSelectView: View {
         let player = AVPlayer(url: data.url)
         VideoPlayer(player: player)
         if showNewClipView {
-          NewClipView(downloadURL: downloadURL)
+          NewClipView(downloadURL: downloadURL, tabSelection: $tabSelection, data: $data)
         } else {
           let _ = confirmText = "Upload clip"
-          let _ = print("Clip Select Outside Task \(data.url)")
           Button(action: {
             Task {
-              print("Clip Select \(data.url)")
               downloadURL = try await clipSelectViewModel.upload(file: data.url)
               showNewClipView = true
             }

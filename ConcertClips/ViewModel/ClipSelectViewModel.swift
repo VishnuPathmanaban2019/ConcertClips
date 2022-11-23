@@ -24,7 +24,6 @@ class ClipSelectViewModel: ObservableObject {
       }
     }
     let downloadURL = try await videoRef.downloadURL()
-    print("upload \(downloadURL.absoluteString)")
     return downloadURL.absoluteString
   }
 }

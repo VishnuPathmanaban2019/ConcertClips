@@ -9,15 +9,20 @@ import SwiftUI
 
 struct UploadedView: View {
   @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
-  @State var clip: Clip
+  var clip: Clip
+  @Binding var tabSelection: Int
+  @Binding var data: Movie?
   
-  init(clip: Clip) {
-    self.clip = clip
-  }
+//  init(clip: Clip, isShowingNewClipView: Bool) {
+//    self.clip = clip
+//    self.isShowingNewClipView = isShowingNewClipView
+//  }
   
   var body: some View {
     Text("Clip Uploaded!").onAppear() {
       clipsManagerViewModel.add(clip)
+      data = nil
+      self.tabSelection = 0
     }
     NavigationLink {
       ContentView().navigationBarBackButtonHidden(true)

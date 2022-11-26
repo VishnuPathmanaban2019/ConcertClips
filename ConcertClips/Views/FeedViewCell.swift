@@ -138,45 +138,87 @@ class FeedViewCell: UICollectionViewCell {
         sectionLabel.text = model.section
         eventLabel.text = model.event
     }
+    
+    func loopVideo(_ videoPlayer: AVPlayer) {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+//                if(!videoPlayer.isStopped){
+
+            videoPlayer.seek(to: CMTime.zero)
+            videoPlayer.play()
+
+//                }
+        }
+    }
 
     private func configureVideo() {
         guard let model = model else {
             return
         }
-//        guard let path = Bundle.main.path(forResource: model.videoFileName,
-//                                          ofType: model.videoFileFormat) else {
-//                                            print("Failed to find video")
-//                                            return
-//        }
-
+        //        guard let path = Bundle.main.path(forResource: model.videoFileName,
+        //                                          ofType: model.videoFileFormat) else {
+        //                                            print("Failed to find video")
+        //                                            return
+        //        }
+        
         
         let videoURL = NSURL(string: model.videoURL)!
-////
-//        player = AVPlayer(url: videoURL as URL)
-////        player = AVPlayer(url: URL(string: model.videoURL)!)
-//
-//        let playerView = AVPlayerLayer()
-//        playerView.player = player
-//        playerView.frame = contentView.bounds
-//        playerView.videoGravity = .resizeAspectFill
-//        videoContainer.layer.addSublayer(playerView)
-//        player?.volume = 0
-//        player?.play()
+        ////
+        //        player = AVPlayer(url: videoURL as URL)
+        ////        player = AVPlayer(url: URL(string: model.videoURL)!)
+        //
+        //        let playerView = AVPlayerLayer()
+        //        playerView.player = player
+        //        playerView.frame = contentView.bounds
+        //        playerView.videoGravity = .resizeAspectFill
+        //        videoContainer.layer.addSublayer(playerView)
+        //        player?.volume = 0
+        //        player?.play()
         
         // new code rram to fix replay issue v2
         
-        let playerItem = AVPlayerItem(url: videoURL as URL)
-        let player = AVQueuePlayer(playerItem: playerItem)
-        let playerLayer = AVPlayerLayer(player: player)
-
-        let playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
-
-        playerLayer.frame = contentView.bounds
-        playerLayer.videoGravity = .resizeAspectFill
-        videoContainer.layer.addSublayer(playerLayer)
-
-        player.play()
+        //        let playerItem = AVPlayerItem(url: videoURL as URL)
+        //        let player = AVQueuePlayer(playerItem: playerItem)
+        //        let playerLayer = AVPlayerLayer(player: player)
+        //
+        //        let playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
+        //
+        //        playerLayer.frame = contentView.bounds
+        //        playerLayer.videoGravity = .resizeAspectFill
+        //        videoContainer.layer.addSublayer(playerLayer)
+        //
+        //        player.play()
+        
         // end
+        
+        //        // Create the video player item
+        //        let item = AVPlayerItem(url: videoURL as URL)
+        //
+        //        // Assign an array of 1 item to AVQueuePlayer
+        //        let videoPlayer = AVQueuePlayer(items: [item])
+        //
+        //        // Loop the video
+        //        let playerLooper = AVPlayerLooper(player: videoPlayer as AVQueuePlayer, templateItem: item)
+        //
+        //        // Create the layer
+        //        let videoPlayerLayer = AVPlayerLayer(player: videoPlayer)
+        //
+        //        // Adjust the size and frame
+        //        videoPlayerLayer.frame = contentView.bounds
+        //        videoPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        ////        videoContainer.layer.addSublayer(playerLooper)
+        //
+        //        // Add it to the view and play it
+        //        videoPlayer.play()
+        //
+        // Use a new player looper with the queue player and template item
+        let playerItem = AVPlayerItem(url: videoURL as URL)
+        let player = AVQueuePlayer(items: [playerItem])
+        let playerLayer = AVPlayerLayer(player: player)
+        let playerLooper = AVPlayerLooper(player: player as AVQueuePlayer, templateItem: playerItem)
+        videoContainer.layer.addSublayer(playerLayer)
+        playerLayer.frame = contentView.bounds
+        player.play()
+        loopVideo(player)
     }
 
     required init?(coder: NSCoder) {

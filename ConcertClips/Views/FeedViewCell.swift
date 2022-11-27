@@ -11,7 +11,7 @@ protocol FeedViewCellDelegate: AnyObject {
     
     func didTapDetailsButton(with model: VideoModel)
     
-    func didTapPauseButton(with model: VideoModel)
+    func didTapVolumeButton(with model: VideoModel)
 }
 
 class FeedViewCell: UICollectionViewCell {
@@ -58,9 +58,9 @@ class FeedViewCell: UICollectionViewCell {
         return button
     }()
     
-    private let pauseButton: UIButton = {
+    private let volumeButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "playpause"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "speaker"), for: .normal)
         return button
     }()
 
@@ -87,13 +87,13 @@ class FeedViewCell: UICollectionViewCell {
         contentView.addSubview(videoContainer)
         contentView.addSubview(likeButton)
         contentView.addSubview(detailsButton)
-        contentView.addSubview(pauseButton)
+        contentView.addSubview(volumeButton)
         
 
         // Add actions
         likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchDown)
         detailsButton.addTarget(self, action: #selector(didTapDetailsButton), for: .touchDown)
-        pauseButton.addTarget(self, action: #selector(didTapPauseButton), for: .touchDown)
+        volumeButton.addTarget(self, action: #selector(didTapVolumeButton), for: .touchDown)
 
         videoContainer.clipsToBounds = true
 
@@ -110,19 +110,26 @@ class FeedViewCell: UICollectionViewCell {
         delegate?.didTapDetailsButton(with: model)
     }
     
-    @objc private func didTapPauseButton() {
-        if model?.pauseButtonTappedCount == 0 {
-            player?.pause()
-            player?.volume = 0
-            model?.pauseButtonTappedCount = 1
+    // all videos will be playing initially
+    // sound on all videos will be off initially
+    
+    // IDEA:
+    // create a hitbox in the middle of the screen
+    // to be able to turn volume off w hen users swipe up
+    
+    // also be able to get rid of details with this swiping 😈
+    @objc private func didTapVolumeButton() {
+        if model?.volumeButtonTappedCount == 0 {
+            player?.volume = 5
+            model?.volumeButtonTappedCount = 1
         }
         else {
-            model?.pauseButtonTappedCount = 0
-            player?.play()
-            player?.volume = 10
+            model?.volumeButtonTappedCount = 0
+            player?.volume = 0
         }
         guard let model = model else { return }
-        delegate?.didTapPauseButton(with: model)
+        delegate?.didTapVolumeButton(with: model)
+        
     }
 
     override func layoutSubviews() {
@@ -139,7 +146,7 @@ class FeedViewCell: UICollectionViewCell {
         
         detailsButton.frame = CGRect(x: width-size, y: height-(size*4)-10, width: size, height: size)
 
-        pauseButton.frame = CGRect(x: width-size, y: height-(size*3)-10, width: size, height: size)
+        volumeButton.frame = CGRect(x: width-size, y: height-(size*7)-10, width: size, height: size)
         // Labels
         captionLabel.frame = CGRect(x: 5, y: height-30, width: width-size-10, height: 50)
         eventLabel.frame = CGRect(x: 5, y: height-80, width: width-size-10, height: 50)
@@ -206,6 +213,8 @@ class FeedViewCell: UICollectionViewCell {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
             videoPlayer.seek(to: CMTime.zero)
                 videoPlayer.play()
+                videoPlayer.volume = 0 // set volume to 0 once video loops
+                self.model?.volumeButtonTappedCount = 0
         }
     }
 

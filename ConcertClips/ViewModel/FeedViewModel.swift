@@ -20,6 +20,8 @@ struct VideoModel {
     let audioTrackName: String
       
     let detailsButtonTappedCount: Int
+    
+    var volumeButtonTappedCount: Int
 }
 
 
@@ -68,7 +70,8 @@ class ViewController: UIViewController {
                                        event: clipViewModel.clip.event,
                                        section: clipViewModel.clip.section,
                                        audioTrackName: clipViewModel.clip.song,
-                                       detailsButtonTappedCount: 0)
+                                       detailsButtonTappedCount: 0,
+                                       volumeButtonTappedCount: 0)
 //                print("viewmodel \(model.videoURL)")
                 self.data.append(model)
 
@@ -135,14 +138,27 @@ extension ViewController: UICollectionViewDataSource {
                                                       for: indexPath) as! FeedViewCell
         cell.configure(with: model)
         cell.delegate = self
+        cell.player?.play()
         return cell
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        (cell as? FeedViewCell)?.player?.play()
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        (cell as? FeedViewCell)?.player?.pause()
+//    }
 }
 
 extension ViewController: FeedViewCellDelegate {
     
     func didTapLikeButton(with model: VideoModel) {
         print("like button tapped")
+    }
+    
+    func didTapVolumeButton(with model: VideoModel) {
+        print("volume button tapped")
     }
     
     func didTapDetailsButton(with model: VideoModel) {

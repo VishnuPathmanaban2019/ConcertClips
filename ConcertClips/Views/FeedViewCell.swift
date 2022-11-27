@@ -10,6 +10,8 @@ protocol FeedViewCellDelegate: AnyObject {
     func didTapLikeButton(with model: VideoModel)
     
     func didTapDetailsButton(with model: VideoModel)
+    
+    func didTapPauseButton(with model: VideoModel)
 }
 
 class FeedViewCell: UICollectionViewCell {
@@ -55,6 +57,12 @@ class FeedViewCell: UICollectionViewCell {
         button.setBackgroundImage(UIImage(systemName: "list.bullet"), for: .normal)
         return button
     }()
+    
+    private let pauseButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(systemName: "playpause"), for: .normal)
+        return button
+    }()
 
     private let videoContainer = UIView()
 
@@ -62,9 +70,11 @@ class FeedViewCell: UICollectionViewCell {
     weak var delegate: FeedViewCellDelegate?
 
     // Subviews
+//    var player: AVPlayer?
     var player: AVPlayer?
+    var playerView: AVPlayerLayer?
 
-    private var model: VideoModel?
+    var model: VideoModel?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,11 +87,13 @@ class FeedViewCell: UICollectionViewCell {
         contentView.addSubview(videoContainer)
         contentView.addSubview(likeButton)
         contentView.addSubview(detailsButton)
+        contentView.addSubview(pauseButton)
         
 
         // Add actions
         likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchDown)
         detailsButton.addTarget(self, action: #selector(didTapDetailsButton), for: .touchDown)
+        pauseButton.addTarget(self, action: #selector(didTapPauseButton), for: .touchDown)
 
         videoContainer.clipsToBounds = true
 
@@ -96,6 +108,21 @@ class FeedViewCell: UICollectionViewCell {
     @objc private func didTapDetailsButton() {
         guard let model = model else { return }
         delegate?.didTapDetailsButton(with: model)
+    }
+    
+    @objc private func didTapPauseButton() {
+        if model?.pauseButtonTappedCount == 0 {
+            player?.pause()
+            player?.volume = 0
+            model?.pauseButtonTappedCount = 1
+        }
+        else {
+            model?.pauseButtonTappedCount = 0
+            player?.play()
+            player?.volume = 10
+        }
+        guard let model = model else { return }
+        delegate?.didTapPauseButton(with: model)
     }
 
     override func layoutSubviews() {
@@ -112,6 +139,7 @@ class FeedViewCell: UICollectionViewCell {
         
         detailsButton.frame = CGRect(x: width-size, y: height-(size*4)-10, width: size, height: size)
 
+        pauseButton.frame = CGRect(x: width-size, y: height-(size*3)-10, width: size, height: size)
         // Labels
         captionLabel.frame = CGRect(x: 5, y: height-30, width: width-size-10, height: 50)
         eventLabel.frame = CGRect(x: 5, y: height-80, width: width-size-10, height: 50)
@@ -126,8 +154,17 @@ class FeedViewCell: UICollectionViewCell {
         audioLabel.text = nil
         sectionLabel.text = nil
         eventLabel.text = nil
+        playerView?.removeFromSuperlayer()
     }
 
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        (cell as? FeedViewCell)?.player?.play()
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        (cell as? FeedViewCell)?.player?.pause()
+//    }
+    
     public func configure(with model: VideoModel) {
         self.model = model
         configureVideo()
@@ -162,6 +199,14 @@ class FeedViewCell: UICollectionViewCell {
         videoContainer.layer.addSublayer(playerView)
         player?.volume = 0
         player?.play()
+        loopVideo(player!)
+    }
+    
+    func loopVideo(_ videoPlayer: AVPlayer) {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            videoPlayer.seek(to: CMTime.zero)
+                videoPlayer.play()
+        }
     }
 
     required init?(coder: NSCoder) {

@@ -160,6 +160,10 @@ extension ViewController: FeedViewCellDelegate {
     func didTapVolumeButton(with model: VideoModel) {
         print("volume button tapped")
     }
+  
+    func didTapClipButton(with model: VideoModel) {
+        print("mobile")
+    }
     
     func didTapDetailsButton(with model: VideoModel) {
         print("details button tapped")

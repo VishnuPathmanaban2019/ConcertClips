@@ -12,6 +12,8 @@ protocol FeedViewCellDelegate: AnyObject {
     func didTapDetailsButton(with model: VideoModel)
     
     func didTapVolumeButton(with model: VideoModel)
+  
+    func didTapClipButton(with model: VideoModel)
 }
 
 class FeedViewCell: UICollectionViewCell {
@@ -63,6 +65,11 @@ class FeedViewCell: UICollectionViewCell {
         button.setBackgroundImage(UIImage(systemName: "speaker"), for: .normal)
         return button
     }()
+  
+    private let clipButton: UIButton = {
+      let button = UIButton()
+      return button
+    }()
 
     private let videoContainer = UIView()
 
@@ -88,12 +95,14 @@ class FeedViewCell: UICollectionViewCell {
         contentView.addSubview(likeButton)
         contentView.addSubview(detailsButton)
         contentView.addSubview(volumeButton)
+        contentView.addSubview(clipButton)
         
 
         // Add actions
         likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchDown)
         detailsButton.addTarget(self, action: #selector(didTapDetailsButton), for: .touchDown)
         volumeButton.addTarget(self, action: #selector(didTapVolumeButton), for: .touchDown)
+        clipButton.addTarget(self, action: #selector(didTapClipButton), for: .allTouchEvents)
 
         videoContainer.clipsToBounds = true
 
@@ -131,6 +140,11 @@ class FeedViewCell: UICollectionViewCell {
         delegate?.didTapVolumeButton(with: model)
         
     }
+  
+    @objc private func didTapClipButton() {
+        guard let model = model else { return }
+        delegate?.didTapClipButton(with: model)
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -147,6 +161,7 @@ class FeedViewCell: UICollectionViewCell {
         detailsButton.frame = CGRect(x: width-size, y: height-(size*4)-10, width: size, height: size)
 
         volumeButton.frame = CGRect(x: width-size, y: height-(size*7)-10, width: size, height: size)
+        clipButton.frame = CGRect(x: 0, y: 0, width: width-size, height: height)
         // Labels
         captionLabel.frame = CGRect(x: 5, y: height-30, width: width-size-10, height: 50)
         eventLabel.frame = CGRect(x: 5, y: height-80, width: width-size-10, height: 50)

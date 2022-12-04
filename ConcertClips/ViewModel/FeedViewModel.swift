@@ -172,10 +172,6 @@ extension ViewController: UICollectionViewDataSource {
         
         // prev cell
         
-        // #TODO: ask sid to suck mE!
-        // ^twice!
-        
-        
         print("indexPathy is \(indexPath)")
         print("indexPath.row is \(indexPath.row)")
         print("new indexPath.row is \(IndexPath(row: indexPath.row, section: indexPath.section))")

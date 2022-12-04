@@ -52,6 +52,7 @@ class ViewController: UIViewController {
       
         super.viewDidLoad()
         
+        
         // old (good) code below
 //        let clipViewModels = clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
 
@@ -116,6 +117,20 @@ class ViewController: UIViewController {
             self.collectionView?.isPagingEnabled = true
             self.collectionView?.dataSource = self
             self.view.addSubview(self.collectionView!)
+            
+            
+            // swipes
+            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+            swipeRight.direction = .right
+            self.view.addGestureRecognizer(swipeRight)
+
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+            swipeDown.direction = .down
+            self.view.addGestureRecognizer(swipeDown)
+            
+            let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+            swipeDown.direction = .up
+            self.view.addGestureRecognizer(swipeUp)
         }
     }
 
@@ -125,6 +140,27 @@ class ViewController: UIViewController {
     }
     
     var shouldCreateSubviews = true
+    
+    
+    // swipes
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+
+            switch swipeGesture.direction {
+            case .right:
+                print("Swiped right")
+            case .down:
+                print("Swiped down")
+            case .left:
+                print("Swiped left")
+            case .up:
+                print("Swiped up")
+            default:
+                break
+            }
+        }
+    }
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -133,12 +169,61 @@ extension ViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        // prev cell
+        
+        // #TODO: ask sid to suck mE!
+        // ^twice!
+        
+        
+        print("indexPathy is \(indexPath)")
+        print("indexPath.row is \(indexPath.row)")
+        print("new indexPath.row is \(IndexPath(row: indexPath.row, section: indexPath.section))")
+        
+//        IndexPath(row: rowIndex, section: sectionIndex)
+        
+        
+        if indexPath.row != 0 {
+            let prev = data[indexPath.row - 1]
+            let prev_cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedViewCell.identifier,
+                                                               for: IndexPath(row: indexPath.row - 1,
+                                                                              section: indexPath.section)) as! FeedViewCell
+            prev_cell.configure(with: prev)
+            prev_cell.player?.volume = 0
+            
+            print("prev_cell is \(prev_cell)") // #todo: sid!!
+        }
+        
+        
+        // next cell
+        
+        if indexPath.row != data.count - 1 {
+            let next = data[indexPath.row + 1]
+            let next_cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedViewCell.identifier,
+                                                               for: IndexPath(row: indexPath.row + 1,
+                                                                              section: indexPath.section)) as! FeedViewCell
+            next_cell.configure(with: next)
+            
+            next_cell.player?.volume = 0
+            
+            print("next_cell is \(next_cell)") // #todo: sid!!
+        }
+        
+        
+        
+
+        
+        
+        // current cell
         let model = data[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedViewCell.identifier,
                                                       for: indexPath) as! FeedViewCell
         cell.configure(with: model)
         cell.delegate = self
+        cell.player?.volume = 1
         cell.player?.play()
+        
+        print("curr cell is \(cell)")
         return cell
     }
     
@@ -152,6 +237,10 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: FeedViewCellDelegate {
+    func didSwipe(with model: VideoModel) {
+        print("sidnu")
+    }
+    
     
     func didTapLikeButton(with model: VideoModel) {
         print("like button tapped")
@@ -162,7 +251,7 @@ extension ViewController: FeedViewCellDelegate {
     }
   
     func didTapClipButton(with model: VideoModel) {
-        print("mobile")
+//        print("mobile")
     }
     
     func didTapDetailsButton(with model: VideoModel) {

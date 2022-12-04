@@ -14,6 +14,8 @@ protocol FeedViewCellDelegate: AnyObject {
     func didTapVolumeButton(with model: VideoModel)
   
     func didTapClipButton(with model: VideoModel)
+    
+    func didSwipe(with model: VideoModel)
 }
 
 class FeedViewCell: UICollectionViewCell {
@@ -129,7 +131,7 @@ class FeedViewCell: UICollectionViewCell {
     // also be able to get rid of details with this swiping 😈
     @objc private func didTapVolumeButton() {
         if model?.volumeButtonTappedCount == 0 {
-            player?.volume = 5
+            player?.volume = 1
             model?.volumeButtonTappedCount = 1
         }
         else {
@@ -228,7 +230,7 @@ class FeedViewCell: UICollectionViewCell {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
             videoPlayer.seek(to: CMTime.zero)
                 videoPlayer.play()
-                videoPlayer.volume = 0 // set volume to 0 once video loops
+//                videoPlayer.volume = 0 // set volume to 0 once video loops
                 self.model?.volumeButtonTappedCount = 0
         }
     }

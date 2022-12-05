@@ -26,8 +26,10 @@ struct NewClipView: View {
   @State private var likes = 0
   @State private var isActive = false
   @State private var popupTagsPresented = false
+  @ObservedObject var eventsManagerViewModel = EventsManagerViewModel()
 
   var body: some View {
+    let events = eventsManagerViewModel.eventViewModels.sorted(by: { $0.event.name < $1.event.name }).map { $0.event }
     VStack {
       Text("New Clip")
         .font(.title)
@@ -45,7 +47,7 @@ struct NewClipView: View {
           }
         })
         if (popupTagsPresented) {
-          let filteredMatches = ["some stuff", "somethingElse"] //TODO - actually filter from overall event repo
+          let filteredMatches = events.filter { $0.name.hasPrefix(event) }.map { $0.name }
           Menu {
             ForEach(filteredMatches, id: \.self) { suggestion in
               Button{

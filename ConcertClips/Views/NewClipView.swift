@@ -25,6 +25,7 @@ struct NewClipView: View {
   @State private var song = ""
   @State private var likes = 0
   @State private var isActive = false
+  @State private var popupTagsPresented = false
 
   var body: some View {
     VStack {
@@ -33,7 +34,34 @@ struct NewClipView: View {
         .fontWeight(.bold)
       Form {
         TextField("Name", text: $name)
+        
         TextField("Event", text: $event)
+        .onChange(of: event, perform: { newTag in
+          if (event != "") {
+            popupTagsPresented = true
+          }
+          else {
+            popupTagsPresented = false
+          }
+        })
+        if (popupTagsPresented) {
+          let filteredMatches = ["some stuff", "somethingElse"] //TODO - actually filter from overall event repo
+          Menu {
+            ForEach(filteredMatches, id: \.self) { suggestion in
+              Button{
+                event = suggestion
+                // reset textfield to nil?
+              } label: {
+                Label(suggestion, systemImage: "someIcon")
+              }
+              .buttonStyle(.borderless)
+            }
+          } label: {
+               Text("Select an Event")
+//               Image(systemName: "tag.circle")
+          }
+        }
+        
         TextField("User", text: $user)
         TextField("Section", text: $section)
         TextField("Song", text: $song)
@@ -50,6 +78,7 @@ struct NewClipView: View {
       }
     }
   }
+  
 
   private func isValidClip() -> Bool {
     if name.isEmpty { return false }

@@ -19,12 +19,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct ConcertClipsApp: App {
+    
+  @StateObject var viewModel = AuthenticationViewModel() // login authentication
+    
   // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
   var body: some Scene {
     WindowGroup {
       NavigationView {
         ContentView()
+              .environmentObject(viewModel) // login authentication view
       }
     }
   }

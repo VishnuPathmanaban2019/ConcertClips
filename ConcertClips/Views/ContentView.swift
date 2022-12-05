@@ -10,26 +10,14 @@ import CoreData
 
 struct ContentView: View {
   @State private var tabSelection = 0
+  @EnvironmentObject var viewModel: AuthenticationViewModel
   
   var body: some View {
-    TabView(selection: $tabSelection) {
-        FeedView().ignoresSafeArea()
-      .tabItem {
-          Image(systemName: "books.vertical")
-          Text("Feed")
-      }.tag(0)
       
-      LibraryView()
-      .tabItem {
-          Image(systemName: "books.vertical")
-          Text("Library of Content")
-      }.tag(1)
+      switch viewModel.state {
+        case .signedIn: HomeView()
+        case .signedOut: LoginView()
 
-      ClipSelectView(tabSelection: $tabSelection)
-      .tabItem {
-          Image(systemName: "rectangle.stack.badge.plus")
-          Text("New Clip")
-      }.tag(2)
     }
   }
 }

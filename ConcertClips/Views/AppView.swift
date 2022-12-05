@@ -1,0 +1,44 @@
+//
+//  AppView.swift
+//  ConcertClips
+//
+//  Created by Roshan Ram on 12/4/22.
+//
+
+import SwiftUI
+import CoreData
+import GoogleSignIn
+
+
+struct AppView: View {
+  @State private var tabSelection = 0
+  @EnvironmentObject var viewModel: AuthenticationViewModel
+    
+  private let user = GIDSignIn.sharedInstance.currentUser
+
+  
+  var body: some View {
+      
+          TabView(selection: $tabSelection) {
+              FeedView().ignoresSafeArea()
+            .tabItem {
+                Image(systemName: "books.vertical")
+                Text("Feed")
+//                Text(user?.profile?.name ?? "")
+            }.tag(0)
+            
+            LibraryView()
+            .tabItem {
+                Image(systemName: "books.vertical")
+                Text("Library of Content")
+            }.tag(1)
+
+            ClipSelectView(tabSelection: $tabSelection)
+            .tabItem {
+                Image(systemName: "rectangle.stack.badge.plus")
+                Text("New Clip")
+            }.tag(2)
+
+    }
+  }
+}

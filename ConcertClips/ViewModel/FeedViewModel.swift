@@ -202,7 +202,7 @@ extension ViewController: UICollectionViewDataSource {
             
             next_cell.player?.volume = 0
             
-            print("next_cell is \(next_cell)")
+            print("next_cell is \(next_cell)") // #todo: sid!!
         }
         
         

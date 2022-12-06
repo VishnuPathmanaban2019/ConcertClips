@@ -9,8 +9,11 @@ import Foundation
 import Firebase
 import GoogleSignIn
 
+
 class AuthenticationViewModel: ObservableObject {
 
+  var usersManagerViewModel = UsersManagerViewModel()
+    
   enum SignInState {
     case signedIn
     case signedOut
@@ -61,9 +64,39 @@ class AuthenticationViewModel: ObservableObject {
           print(error.localizedDescription)
         } else {
           self.state = .signedIn
+//          addUser()
+
+              let username = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+              let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("users", arrayContains: username)
+            
+//            userQuery.get().addSnapshotListener { querySnapshot, error in
+//                if let error = error {
+//                  print("Error getting events: \(error.localizedDescription)")
+//                  return
+//                }
+//
+//            if querySnapshot.size != 0 {
+//                        let user = User(username: username) // rram add user to db
+//                        usersManagerViewModel.add(user)
+//                    }
+//
+//                  })
+            
+//            if (userQuery.count == (any BinaryInteger)(0) as! NSObject) {
+                let user = User(username: username) // rram add user to db
+                usersManagerViewModel.add(user)
+//            }
+            
+            
         }
       }
     }
+    
+    
+//    func addUser() {
+//      let user = User(username: username)
+//      usersManagerViewModel.add(user)
+//    }
     
     func signOut() {
       // 1

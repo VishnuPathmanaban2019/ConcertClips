@@ -11,8 +11,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class UserRepository: ObservableObject {
-  private let path: String = "users"
-  private let store = Firestore.firestore()
+  let path: String = "users" // changed from private to public
+  let store = Firestore.firestore() // changed from private to public
 
   @Published var users: [User] = []
   private var cancellables: Set<AnyCancellable> = []

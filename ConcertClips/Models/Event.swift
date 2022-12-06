@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct Event: Identifiable, Comparable, Codable {
+struct Event: Identifiable, Comparable, Codable, Hashable {
     
   // MARK: Fields
   @DocumentID var id: String?

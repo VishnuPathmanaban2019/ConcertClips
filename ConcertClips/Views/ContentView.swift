@@ -22,7 +22,7 @@ struct ContentView: View {
       LibraryView()
       .tabItem {
           Image(systemName: "books.vertical")
-          Text("Library of Content")
+          Text("Library")
       }.tag(1)
 
       ClipSelectView(tabSelection: $tabSelection)
@@ -30,6 +30,12 @@ struct ContentView: View {
           Image(systemName: "rectangle.stack.badge.plus")
           Text("New Clip")
       }.tag(2)
+      
+      SearchView()
+        .tabItem {
+            Image(systemName: "magnifyingglass")
+            Text("Search")
+        }.tag(3)
     }
   }
 }

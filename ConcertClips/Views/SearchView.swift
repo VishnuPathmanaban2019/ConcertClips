@@ -18,7 +18,7 @@ struct SearchView: View {
     let events = eventsManagerViewModel.eventViewModels.sorted(by: { $0.event.name < $1.event.name }).map { $0.event }
     VStack{
       HStack {
-        TextField("Search ...", text: $searchText)
+        TextField("Search for an event...", text: $searchText)
           .padding(7)
           .padding(.horizontal, 25)
           .background(Color(.systemGray6))

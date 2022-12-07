@@ -72,41 +72,13 @@ class EventViewController: UIViewController {
                                      videoURL: clipViewModel.clip.downloadURL,
                                      event: clipViewModel.clip.event,
                                      section: clipViewModel.clip.section,
-                                     audioTrackName: clipViewModel.clip.song,
                                      detailsButtonTappedCount: 0,
                                      volumeButtonTappedCount: 0)
               //                print("viewmodel \(model.videoURL)")
               self.data.append(model)
             }
           }
-            
-            // SARUN
-//            var sarunLabel: UILabel = {
-//                let label = UILabel()
-//                label.translatesAutoresizingMaskIntoConstraints = false
-//                label.font = UIFont.preferredFont(forTextStyle: .title1)
-////                label.text = "hello, roshan!"
-////                                label.text = model.caption
-//                label.textAlignment = .center
-//
-//                return label
-//            }()
-//
-//            self.view.backgroundColor = .systemPink
-            
-                        // 3
-//            self.view.addSubview(sarunLabel)
-//                        NSLayoutConstraint.activate([
-//                            sarunLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-//                            sarunLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-//                            sarunLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
-//                            sarunLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20),
-//                        ])
-                        // SARUN
-                    
-                    
-                    
-            //
+
                     let layout = UICollectionViewFlowLayout() // possible issue
                     layout.scrollDirection = .vertical
             layout.itemSize = CGSize(width: self.view.frame.size.width,
@@ -203,18 +175,10 @@ extension EventViewController: FeedViewCellDelegate {
         sectionLabel.frame = CGRect(x: 0, y: 660, width: self.view.frame.width, height: 20)
         sectionLabel.text = model.section
         
-        let audioLabel = UILabel()
-        audioLabel.textAlignment = .left
-        audioLabel.textColor = .white
-        
-        audioLabel.frame = CGRect(x: 0, y: 680, width: self.view.frame.width, height: 20)
-        audioLabel.text = model.audioTrackName
-        
         view.addSubview(rectangleView)
         view.addSubview(captionLabel)
         view.addSubview(eventLabel)
         view.addSubview(sectionLabel)
-        view.addSubview(audioLabel)
 
         if shouldCreateSubviews == false {
             

@@ -46,7 +46,7 @@ struct ClipSelectView: View {
           maxSelectionCount: 1,
           matching: .videos
         ) {
-          Text("Pick Clip to Upload")
+          Text("Pick a clip to upload")
         }
         .onChange(of: selectedVideos) { newVideo in
           guard let item = selectedVideos.first else {

@@ -17,7 +17,6 @@ struct VideoModel {
     
     let event: String
     let section: String
-    let audioTrackName: String
       
     let detailsButtonTappedCount: Int
     
@@ -69,7 +68,6 @@ class ViewController: UIViewController {
                                        videoURL: clipViewModel.clip.downloadURL,
                                        event: clipViewModel.clip.event,
                                        section: clipViewModel.clip.section,
-                                       audioTrackName: clipViewModel.clip.song,
                                        detailsButtonTappedCount: 0,
                                        volumeButtonTappedCount: 0)
 //                print("viewmodel \(model.videoURL)")
@@ -201,18 +199,10 @@ extension ViewController: FeedViewCellDelegate {
         sectionLabel.frame = CGRect(x: 0, y: 660, width: self.view.frame.width, height: 20)
         sectionLabel.text = model.section
         
-        let audioLabel = UILabel()
-        audioLabel.textAlignment = .left
-        audioLabel.textColor = .white
-        
-        audioLabel.frame = CGRect(x: 0, y: 680, width: self.view.frame.width, height: 20)
-        audioLabel.text = model.audioTrackName
-        
         view.addSubview(rectangleView)
         view.addSubview(captionLabel)
         view.addSubview(eventLabel)
         view.addSubview(sectionLabel)
-        view.addSubview(audioLabel)
 
         if shouldCreateSubviews == false {
             

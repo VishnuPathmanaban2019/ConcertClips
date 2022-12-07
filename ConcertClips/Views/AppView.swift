@@ -17,7 +17,7 @@ struct AppView: View {
     
     
 //  @State viewModel.state = .signedInFull
-//  @Published var state: SignInState = .signedIn
+//  @Published var state = .signedInFull
 //    viewModel.state = .signedInFull
         
   private let user = GIDSignIn.sharedInstance.currentUser
@@ -32,19 +32,19 @@ struct AppView: View {
                 Image(systemName: "books.vertical")
                 Text("Feed")
 //                Text(user?.profile?.name ?? "")
-            }.tag(1)
+            }.tag(0)
             
             LibraryView()
             .tabItem {
                 Image(systemName: "books.vertical")
                 Text("Library of Content")
-            }.tag(2)
+            }.tag(1)
 
             ClipSelectView(tabSelection: $tabSelection)
             .tabItem {
                 Image(systemName: "rectangle.stack.badge.plus")
                 Text("New Clip")
-            }.tag(3)
+            }.tag(2)
 
     }
   }

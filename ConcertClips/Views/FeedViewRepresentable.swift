@@ -25,26 +25,3 @@ struct FeedViewRepresentable: UIViewControllerRepresentable {
         // Updates the state of the specified view controller with new information from SwiftUI.
     }
 }
-
-// Sarun's
-//struct FeedViewRepresentable: UIViewControllerRepresentable {
-//    typealias UIViewControllerType = SarunViewController
-//
-//
-////    class Coordinator {
-////        var parentObserver: NSKeyValueObservation?
-////    }
-//
-//    func makeUIViewController(context: Context) -> SarunViewController {
-//        // Return MyViewController instance
-//        print("bananas")
-//        let vc = SarunViewController()
-//        return vc
-//    }
-//
-//    func updateUIViewController(_ uiViewController: SarunViewController, context: Context) {
-//        // Updates the state of the specified view controller with new information from SwiftUI.
-//    }
-//
-////    func makeCoordinator() -> Self.Coordinator { Coordinator() }
-//}

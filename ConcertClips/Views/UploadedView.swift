@@ -12,7 +12,6 @@ struct UploadedView: View {
   var clip: Clip
   @Binding var tabSelection: Int
   @Binding var data: Movie?
-//  @Published var state: SignInState = .signedIn
   
 //  init(clip: Clip, isShowingNewClipView: Bool) {
 //    self.clip = clip
@@ -23,10 +22,9 @@ struct UploadedView: View {
     Text("Clip Uploaded!").onAppear() {
       clipsManagerViewModel.add(clip)
       data = nil
-      self.tabSelection = 1
+      self.tabSelection = 0
     }
     NavigationLink {
-//        self.state =  // rram
       ContentView().navigationBarBackButtonHidden(true)
     } label: {
       Text("Go to Home")

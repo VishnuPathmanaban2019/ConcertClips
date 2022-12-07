@@ -65,17 +65,13 @@ class AuthenticationViewModel: ObservableObject {
           print(error.localizedDescription)
         } else {
           self.state = .signedIn
-//          addUser()
 
               let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
             
             print(usersManagerViewModel.userRepository.path)
             let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-  
-//            print(userQuery.size)
             
             
-            print("start")
             
                 userQuery.getDocuments() { (querySnapshot, err) in
                     if let err = err {
@@ -83,46 +79,14 @@ class AuthenticationViewModel: ObservableObject {
                     } else {
                         print(querySnapshot?.count)
                         if querySnapshot?.count == 0 {
-                            let user = User(username: userID) // rram add user to db
+                            let user = User(username: userID) // add user to db
                             usersManagerViewModel.add(user)
                         }
-//                        print("made it")
-//                        for document in querySnapshot!.documents {
-//                            print("\(document.documentID) => \(document.data())")
-//                        }
                     }
             }
-            
-            print("end")
-            
-//            userQuery.get().addSnapshotListener { querySnapshot, error in
-//                if let error = error {
-//                  print("Error getting events: \(error.localizedDescription)")
-//                  return
-//                }
-
-//            if querySnapshot.size != 0 {
-//                        let user = User(username: username) // rram add user to db
-//                        usersManagerViewModel.add(user)
-//                    }
-//
-//                  })
-            
-//            if (userQuery.count == (any BinaryInteger)(0) as! NSObject) {
-//                let user = User(username: userID) // rram add user to db
-//                usersManagerViewModel.add(user)
-//            }
-            
-            
         }
       }
     }
-    
-    
-//    func addUser() {
-//      let user = User(username: username)
-//      usersManagerViewModel.add(user)
-//    }
     
     func signOut() {
       // 1

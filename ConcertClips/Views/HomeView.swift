@@ -52,9 +52,11 @@ struct HomeView: View {
           
           NavigationLink {
               
-              AppView().navigationBarBackButtonHidden(true)
+              AppView().navigationBarBackButtonHidden(true).environmentObject(viewModel)
           } label: {
               Text("Go to Feed").font(.system(size: 42))
+          }.onAppear() {
+              viewModel.state = .signedInFull
           }
           
         Spacer()

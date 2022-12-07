@@ -32,7 +32,6 @@
 		35E0C6122915E9950019D623 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C6112915E9950019D623 /* Event.swift */; };
 		35E0C6152915EB300019D623 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C6142915EB300019D623 /* EventViewModel.swift */; };
 		4938783B2920388F00706587 /* FeedViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938783A2920388F00706587 /* FeedViewRepresentable.swift */; };
-		4938783D29203CBE00706587 /* SarunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938783C29203CBE00706587 /* SarunViewController.swift */; };
 		498AE9F6293D8F9B00E71E4B /* LoginAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498AE9F5293D8F9B00E71E4B /* LoginAuthManager.swift */; };
 		498AE9F9293D9B0E00E71E4B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 498AE9F8293D9B0E00E71E4B /* FirebaseAuth */; };
 		498AE9FD293D9F2D00E71E4B /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498AE9FC293D9F2D00E71E4B /* GoogleSignInButton.swift */; };
@@ -76,7 +75,6 @@
 		35E0C6112915E9950019D623 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		35E0C6142915EB300019D623 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		4938783A2920388F00706587 /* FeedViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewRepresentable.swift; sourceTree = "<group>"; };
-		4938783C29203CBE00706587 /* SarunViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SarunViewController.swift; sourceTree = "<group>"; };
 		498AE9F5293D8F9B00E71E4B /* LoginAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthManager.swift; sourceTree = "<group>"; };
 		498AE9FA293D9C5A00E71E4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		498AE9FC293D9F2D00E71E4B /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 				BAB04BE8291E002A005B42DE /* FeedViewCell.swift */,
 				BAB04BEA291E0CDE005B42DE /* FeedView.swift */,
 				4938783A2920388F00706587 /* FeedViewRepresentable.swift */,
-				4938783C29203CBE00706587 /* SarunViewController.swift */,
 				498AE9FC293D9F2D00E71E4B /* GoogleSignInButton.swift */,
 				498AEA06293DA1DD00E71E4B /* LoginView.swift */,
 				498AEA08293DA1FE00E71E4B /* HomeView.swift */,
@@ -315,7 +312,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAB04BE7291DFFCE005B42DE /* FeedViewModel.swift in Sources */,
-				4938783D29203CBE00706587 /* SarunViewController.swift in Sources */,
 				BAB04BEB291E0CDE005B42DE /* FeedView.swift in Sources */,
 				498AEA0B293DAAB800E71E4B /* AppView.swift in Sources */,
 				35519C6729186F2600B63497 /* ClipSelectViewModel.swift in Sources */,

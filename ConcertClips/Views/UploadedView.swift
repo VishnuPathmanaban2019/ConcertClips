@@ -25,7 +25,7 @@ struct UploadedView: View {
       self.tabSelection = 0
     }
     NavigationLink {
-      ContentView().navigationBarBackButtonHidden(true)
+      AppView().navigationBarBackButtonHidden(true)
     } label: {
       Text("Go to Home")
     }

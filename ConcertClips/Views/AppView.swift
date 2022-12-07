@@ -11,7 +11,7 @@ import GoogleSignIn
 
 
 struct AppView: View {
-  @State private var tabSelection = 1
+  @State private var tabSelection = 0
   @EnvironmentObject var viewModel: AuthenticationViewModel
     
     

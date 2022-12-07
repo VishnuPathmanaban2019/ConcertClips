@@ -51,6 +51,7 @@ struct HomeView: View {
         Spacer()
           
           NavigationLink {
+              
               AppView().navigationBarBackButtonHidden(true)
           } label: {
               Text("Go to Feed").font(.system(size: 42))

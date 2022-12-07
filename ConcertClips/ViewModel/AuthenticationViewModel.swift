@@ -17,6 +17,7 @@ class AuthenticationViewModel: ObservableObject {
   enum SignInState {
     case signedIn
     case signedOut
+    case signedInFull
   }
 
   @Published var state: SignInState = .signedOut
@@ -66,15 +67,40 @@ class AuthenticationViewModel: ObservableObject {
           self.state = .signedIn
 //          addUser()
 
-              let username = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
-              let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("users", arrayContains: username)
+              let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+            
+            print(usersManagerViewModel.userRepository.path)
+            let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+  
+//            print(userQuery.size)
+            
+            
+            print("start")
+            
+                userQuery.getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        print(querySnapshot?.count)
+                        if querySnapshot?.count == 0 {
+                            let user = User(username: userID) // rram add user to db
+                            usersManagerViewModel.add(user)
+                        }
+//                        print("made it")
+//                        for document in querySnapshot!.documents {
+//                            print("\(document.documentID) => \(document.data())")
+//                        }
+                    }
+            }
+            
+            print("end")
             
 //            userQuery.get().addSnapshotListener { querySnapshot, error in
 //                if let error = error {
 //                  print("Error getting events: \(error.localizedDescription)")
 //                  return
 //                }
-//
+
 //            if querySnapshot.size != 0 {
 //                        let user = User(username: username) // rram add user to db
 //                        usersManagerViewModel.add(user)
@@ -83,8 +109,8 @@ class AuthenticationViewModel: ObservableObject {
 //                  })
             
 //            if (userQuery.count == (any BinaryInteger)(0) as! NSObject) {
-                let user = User(username: username) // rram add user to db
-                usersManagerViewModel.add(user)
+//                let user = User(username: userID) // rram add user to db
+//                usersManagerViewModel.add(user)
 //            }
             
             

@@ -9,15 +9,15 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-  @State private var tabSelection = 0
   @EnvironmentObject var viewModel: AuthenticationViewModel
   
   var body: some View {
       
+      
       switch viewModel.state {
         case .signedIn: HomeView()
+        case .signedInFull: AppView()
         case .signedOut: LoginView()
-
     }
   }
 }

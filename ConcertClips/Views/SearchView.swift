@@ -12,12 +12,6 @@ struct SearchView: View {
   
   @State private var isEditing = false
   
-  private var todoItems: [String] = ["Meet Eddie for lunch",
-                            "Buy toilet paper",
-                            "Write a new tutorial",
-                            "Buy two bottles of wine",
-                            "Prepare the presentation deck"
-                          ]
   @ObservedObject var eventsManagerViewModel = EventsManagerViewModel()
   
   var body: some View {
@@ -64,7 +58,7 @@ struct SearchView: View {
       if searchText.count > 0 {
         List(events.filter({ searchText.isEmpty ? true : $0.name.hasPrefix(searchText) }), id: \.self) { item in
           NavigationLink {
-            FeedView()
+            EventFeedView(eventName: item.name)
           } label: {
             Text(item.name)
           }

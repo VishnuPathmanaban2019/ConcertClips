@@ -52,7 +52,8 @@ struct NewClipView: View {
             ForEach(filteredMatches, id: \.self) { suggestion in
               Button{
                 event = suggestion
-                // reset textfield to nil?
+                popupTagsPresented = false
+                print(popupTagsPresented)
               } label: {
                 Label(suggestion, systemImage: "someIcon")
               }

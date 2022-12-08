@@ -49,6 +49,7 @@ class FeedViewCell: UICollectionViewCell {
     private let likeButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .selected)
         return button
     }()
     
@@ -101,6 +102,32 @@ class FeedViewCell: UICollectionViewCell {
     }
 
     @objc private func didTapLikeButton() {
+//        if button.selected {
+//            // set deselected
+//            button.selected = false
+//        } else {
+//            // set selected
+//            button.selected = true
+//        }
+        
+        print("like button tapped")
+        
+        if likeButton.isSelected {
+            likeButton.isSelected = false
+        }
+        else {
+            likeButton.isSelected = true
+        }
+        
+        print("isSelected: \(likeButton.isSelected)")
+        
+//        if model?.likeButtonTappedCount == 0 {
+//            model?.likeButtonTappedCount = 1
+//        }
+//        else {
+//            model?.likeButtonTappedCount = 0
+//        }
+        
         guard let model = model else { return }
         delegate?.didTapLikeButton(with: model)
     }

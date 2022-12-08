@@ -54,7 +54,8 @@ class SavedViewController: UIViewController {
                                      event: fields[3],
                                      section: fields[2],
                                      detailsButtonTappedCount: 0,
-                                     volumeButtonTappedCount: 0)
+                                     volumeButtonTappedCount: 0,
+                                     likeButtonTappedCount: 0)
               //                print("viewmodel \(model.videoURL)")
               self.data.append(model)
             }

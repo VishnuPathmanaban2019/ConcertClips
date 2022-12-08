@@ -22,6 +22,8 @@ struct VideoModel {
     let detailsButtonTappedCount: Int
     
     var volumeButtonTappedCount: Int
+    
+    var likeButtonTappedCount: Int
 }
 
 
@@ -71,7 +73,8 @@ class ViewController: UIViewController {
                                        event: clipViewModel.clip.event,
                                        section: clipViewModel.clip.section,
                                        detailsButtonTappedCount: 0,
-                                       volumeButtonTappedCount: 0)
+                                       volumeButtonTappedCount: 0,
+                                       likeButtonTappedCount: 0)
 //                print("viewmodel \(model.videoURL)")
                 self.data.append(model)
 
@@ -124,11 +127,14 @@ extension ViewController: FeedViewCellDelegate {
       
       let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
       
+        
       userQuery.getDocuments() { (querySnapshot, err) in
         if let err = err {
           print("Error getting documents: \(err)")
         } else {
           let document = querySnapshot?.documents.first
+            
+//          document?.reference.where("myClips", serialized)
           document?.reference.updateData([
             "myClips": FieldValue.arrayUnion([serialized])
           ])

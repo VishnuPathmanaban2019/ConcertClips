@@ -12,7 +12,7 @@ import GoogleSignIn
 
 struct UserView: View {
   // 1
-  @StateObject var viewModel = AuthenticationViewModel()
+  @EnvironmentObject var viewModel: AuthenticationViewModel
   
   // 2
   private let user = GIDSignIn.sharedInstance.currentUser
@@ -45,7 +45,7 @@ struct UserView: View {
         .padding()
 
         Button(action: viewModel.signOut) {
-          Text("Sign out")
+          Text("Sign Out")
             .foregroundColor(.white)
             .padding()
             .frame(maxWidth: .infinity)

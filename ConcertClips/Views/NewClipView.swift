@@ -24,6 +24,8 @@ struct NewClipView: View {
   @State private var isActive = false
   @State private var popupTagsPresented = false
   @ObservedObject var eventsManagerViewModel = EventsManagerViewModel()
+  
+  @EnvironmentObject var viewModel: AuthenticationViewModel
 
   var body: some View {
     let events = eventsManagerViewModel.eventViewModels.sorted(by: { $0.event.name < $1.event.name }).map { $0.event }
@@ -69,7 +71,7 @@ struct NewClipView: View {
         let _ = print("Trying to add clip")
         let clip = Clip(name: name, event: event, section: section, downloadURL: downloadURL)
         NavigationLink {
-          UploadedView(clip: clip, tabSelection: $tabSelection, data: $data).navigationBarBackButtonHidden(true)
+          UploadedView(clip: clip, tabSelection: $tabSelection, data: $data).environmentObject(viewModel).navigationBarBackButtonHidden(true)
           let _ = clearFields()
         } label: {
           Text("Add Clip")

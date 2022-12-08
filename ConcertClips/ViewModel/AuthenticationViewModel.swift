@@ -67,8 +67,6 @@ class AuthenticationViewModel: ObservableObject {
                 self.state = .signedIn
                 
                 let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
-                
-                print(usersManagerViewModel.userRepository.path)
                 let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
                 
                 
@@ -77,7 +75,6 @@ class AuthenticationViewModel: ObservableObject {
                     if let err = err {
                         print("Error getting documents: \(err)")
                     } else {
-                        print(querySnapshot?.count)
                         if querySnapshot?.count == 0 {
                             let user = User(username: userID) // add user to db
                             usersManagerViewModel.add(user)

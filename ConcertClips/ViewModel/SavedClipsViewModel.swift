@@ -53,15 +53,12 @@ class SavedViewController: UIViewController {
                                            volumeButtonTappedCount: 0)
                     self.data.append(model)
                 }
-                print("inside \(self.data)")
             }
         }
         
         let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
         {
             (varTimer) in
-            
-            print("outside \(self.data)")
             
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
@@ -122,12 +119,9 @@ extension SavedViewController: FeedViewCellDelegate {
     }
     
     func didTapVolumeButton(with model: VideoModel) {
-        print("volume button tapped")
     }
     
     func didTapDetailsButton(with model: VideoModel) {
-        print("details button tapped")
-        
         if self.detailsButtonTappedCount == 0 {
             self.detailsButtonTappedCount = 1
             shouldCreateSubviews = true

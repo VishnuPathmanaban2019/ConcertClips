@@ -117,12 +117,9 @@ extension ViewController: FeedViewCellDelegate {
     }
     
     func didTapVolumeButton(with model: VideoModel) {
-        print("volume button tapped")
     }
     
     func didTapDetailsButton(with model: VideoModel) {
-        print("details button tapped")
-        
         if self.detailsButtonTappedCount == 0 {
             self.detailsButtonTappedCount = 1
             shouldCreateSubviews = true

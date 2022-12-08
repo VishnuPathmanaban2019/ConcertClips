@@ -19,7 +19,6 @@ struct EventFeedViewRepresentable: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> EventViewController {
         // Return MyViewController instance
-        print("eventName in representable \(self.eventName)")
         let vc = EventViewController(eventName: eventName)
         return vc
     }

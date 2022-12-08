@@ -43,7 +43,6 @@ class EventViewController: UIViewController {
             (varTimer) in
             let clipViewModels = self.clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
             
-            print("eventName in vm \(self.eventName)")
             clipViewModels.forEach { clipViewModel in
                 if (clipViewModel.clip.event == self.eventName) {
                     let model = VideoModel(caption: clipViewModel.clip.name,
@@ -115,12 +114,9 @@ extension EventViewController: FeedViewCellDelegate {
     }
     
     func didTapVolumeButton(with model: VideoModel) {
-        print("volume button tapped")
     }
     
     func didTapDetailsButton(with model: VideoModel) {
-        print("details button tapped")
-        
         if self.detailsButtonTappedCount == 0 {
             self.detailsButtonTappedCount = 1
             shouldCreateSubviews = true

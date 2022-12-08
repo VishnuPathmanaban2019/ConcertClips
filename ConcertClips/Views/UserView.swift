@@ -43,6 +43,16 @@ struct UserView: View {
         .background(Color(.secondarySystemBackground))
         .cornerRadius(12)
         .padding()
+        
+        Spacer()
+
+        NavigationLink {
+          SavedClipsView()
+        } label: {
+          Text("My Saved Clips")
+        }
+
+        Spacer()
 
         Button(action: viewModel.signOut) {
           Text("Sign Out")

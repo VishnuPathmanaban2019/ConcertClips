@@ -8,18 +8,15 @@
 
 import UIKit
 import SwiftUI
-
-
+import GoogleSignIn
+import FirebaseFirestore
 
 class EventViewController: UIViewController {
   
   @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
+  var usersManagerViewModel = UsersManagerViewModel()
   
   @State var eventName: String
-  
-//  convenience init() {
-//      self.init(nibName:nil, bundle:nil)
-//  }
 
   init(eventName: String) {
     self.eventName = eventName
@@ -30,18 +27,6 @@ class EventViewController: UIViewController {
   required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented") // or see Roman Sausarnes's answer
   }
-  
-    // sarun
-    private var sarunLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
-        label.text = "hello, roshan!"
-        label.textAlignment = .center
-        
-        return label
-    }()
-    // sarun
   
     private var collectionView: UICollectionView?
 
@@ -115,20 +100,26 @@ extension EventViewController: UICollectionViewDataSource {
         cell.player?.play()
         return cell
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        (cell as? FeedViewCell)?.player?.play()
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        (cell as? FeedViewCell)?.player?.pause()
-//    }
 }
 
 extension EventViewController: FeedViewCellDelegate {
     
     func didTapLikeButton(with model: VideoModel) {
-        print("like button tapped")
+      let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+      let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+
+      let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+
+      userQuery.getDocuments() { (querySnapshot, err) in
+        if let err = err {
+          print("Error getting documents: \(err)")
+        } else {
+          let document = querySnapshot?.documents.first
+          document?.reference.updateData([
+            "myClips": FieldValue.arrayUnion([serialized])
+          ])
+        }
+      }
     }
     
     func didTapVolumeButton(with model: VideoModel) {

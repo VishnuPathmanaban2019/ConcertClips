@@ -8,7 +8,8 @@
 
 import UIKit
 import SwiftUI
-
+import GoogleSignIn
+import FirebaseFirestore
 
 struct VideoModel {
     let caption: String
@@ -28,18 +29,7 @@ struct VideoModel {
 class ViewController: UIViewController {
     
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
-    
-    // sarun
-    private var sarunLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
-        label.text = "hello, roshan!"
-        label.textAlignment = .center
-        
-        return label
-    }()
-    // sarun
+    var usersManagerViewModel = UsersManagerViewModel()
   
     private var collectionView: UICollectionView?
 
@@ -50,10 +40,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
       
         super.viewDidLoad()
-        
-        // old (good) code below
-//        let clipViewModels = clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
-
         
         let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
         {
@@ -75,36 +61,9 @@ class ViewController: UIViewController {
 
                 
             }
-            
-            // SARUN
-//            var sarunLabel: UILabel = {
-//                let label = UILabel()
-//                label.translatesAutoresizingMaskIntoConstraints = false
-//                label.font = UIFont.preferredFont(forTextStyle: .title1)
-////                label.text = "hello, roshan!"
-////                                label.text = model.caption
-//                label.textAlignment = .center
-//
-//                return label
-//            }()
-//
-//            self.view.backgroundColor = .systemPink
-            
-                        // 3
-//            self.view.addSubview(sarunLabel)
-//                        NSLayoutConstraint.activate([
-//                            sarunLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-//                            sarunLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-//                            sarunLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
-//                            sarunLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20),
-//                        ])
-                        // SARUN
-                    
-                    
-                    
-            //
-                    let layout = UICollectionViewFlowLayout() // possible issue
-                    layout.scrollDirection = .vertical
+
+            let layout = UICollectionViewFlowLayout() // possible issue
+            layout.scrollDirection = .vertical
             layout.itemSize = CGSize(width: self.view.frame.size.width,
                                      height: self.view.frame.size.height)
                     layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -139,20 +98,26 @@ extension ViewController: UICollectionViewDataSource {
         cell.player?.play()
         return cell
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        (cell as? FeedViewCell)?.player?.play()
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        (cell as? FeedViewCell)?.player?.pause()
-//    }
 }
 
 extension ViewController: FeedViewCellDelegate {
     
     func didTapLikeButton(with model: VideoModel) {
-        print("like button tapped")
+      let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+            let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+
+            let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+
+            userQuery.getDocuments() { (querySnapshot, err) in
+              if let err = err {
+                print("Error getting documents: \(err)")
+              } else {
+                let document = querySnapshot?.documents.first
+                document?.reference.updateData([
+                  "myClips": FieldValue.arrayUnion([serialized])
+                ])
+              }
+            }
     }
     
     func didTapVolumeButton(with model: VideoModel) {

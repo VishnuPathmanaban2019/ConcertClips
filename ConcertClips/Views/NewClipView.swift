@@ -68,8 +68,7 @@ struct NewClipView: View {
         }
         
       }
-      if self.isValidClip() {
-        let _ = print("Trying to add clip")
+      if self.isValidClip() && events.map({ $0.name }).contains(event) {
         let clip = Clip(name: name, event: event, section: section, downloadURL: downloadURL)
         NavigationLink {
           UploadedView(clip: clip, tabSelection: $tabSelection, data: $data).environmentObject(viewModel).navigationBarBackButtonHidden(true)

@@ -30,10 +30,10 @@
     {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/firebase/firebase-ios-sdk",
+      "location" : "https://github.com/firebase/firebase-ios-sdk.git",
       "state" : {
         "branch" : "master",
-        "revision" : "c66588d9487ebb186e36d501f3f441425c74f9dd"
+        "revision" : "67ae9555da3f5ff9f432485c1fc09e2dcd0b58da"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleUtilities.git",
       "state" : {
-        "revision" : "68ea347bdb1a69e2d2ae2e25cd085b6ef92f64cb",
-        "version" : "7.9.0"
+        "revision" : "6db6edb48bdd9943426562c7f042a5492de5ba3d",
+        "version" : "7.10.0"
       }
     },
     {
@@ -131,8 +131,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
       "state" : {
-        "revision" : "88c7d15e1242fdb6ecbafbc7926426a19be1e98a",
-        "version" : "1.20.2"
+        "revision" : "ab3a58b7209a17d781c0d1dbb3e1ff3da306bae8",
+        "version" : "1.20.3"
       }
     }
   ],

@@ -20,29 +20,58 @@ struct NewClipView: View {
 
   @State private var name = ""
   @State private var event = ""
-  @State private var user = ""
   @State private var section = ""
-  @State private var song = ""
-  @State private var likes = 0
   @State private var isActive = false
+  @State private var popupTagsPresented = false
+  @ObservedObject var eventsManagerViewModel = EventsManagerViewModel()
+  
+  @EnvironmentObject var viewModel: AuthenticationViewModel
 
   var body: some View {
+    let events = eventsManagerViewModel.eventViewModels.sorted(by: { $0.event.name < $1.event.name }).map { $0.event }
     VStack {
       Text("New Clip")
         .font(.title)
         .fontWeight(.bold)
       Form {
         TextField("Name", text: $name)
-        TextField("Event", text: $event)
-        TextField("User", text: $user)
+        
         TextField("Section", text: $section)
-        TextField("Song", text: $song)
+        
+        TextField("Event", text: $event)
+        .onChange(of: event, perform: { newTag in
+          if (event != "") {
+            popupTagsPresented = true
+          }
+          else {
+            popupTagsPresented = false
+          }
+        })
+        if (popupTagsPresented) {
+          let filteredMatches = events.filter { $0.name.hasPrefix(event) }.map { $0.name }
+          Menu {
+            ForEach(filteredMatches, id: \.self) { suggestion in
+              Button{
+                event = suggestion
+                popupTagsPresented = false
+                print(popupTagsPresented)
+              } label: {
+                Label(suggestion, systemImage: "someIcon")
+              }
+              .buttonStyle(.borderless)
+            }
+          } label: {
+               Text("Select an Event")
+//               Image(systemName: "tag.circle")
+          }
+        }
+        
       }
       if self.isValidClip() {
         let _ = print("Trying to add clip")
-        let clip = Clip(name: name, event: event, user: user, section: section, song: song, likes: likes, downloadURL: downloadURL)
+        let clip = Clip(name: name, event: event, section: section, downloadURL: downloadURL)
         NavigationLink {
-          UploadedView(clip: clip, tabSelection: $tabSelection, data: $data).navigationBarBackButtonHidden(true)
+          UploadedView(clip: clip, tabSelection: $tabSelection, data: $data).environmentObject(viewModel).navigationBarBackButtonHidden(true)
           let _ = clearFields()
         } label: {
           Text("Add Clip")
@@ -50,22 +79,19 @@ struct NewClipView: View {
       }
     }
   }
+  
 
   private func isValidClip() -> Bool {
     if name.isEmpty { return false }
     if event.isEmpty { return false }
-    if user.isEmpty { return false }
     if section.isEmpty { return false }
-    if song.isEmpty { return false }
     return true
   }
   
   private func clearFields() {
     name = ""
     event = ""
-    user = ""
     section = ""
-    song = ""
   }
   
 }

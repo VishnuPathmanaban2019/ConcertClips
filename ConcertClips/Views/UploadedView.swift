@@ -12,6 +12,7 @@ struct UploadedView: View {
   var clip: Clip
   @Binding var tabSelection: Int
   @Binding var data: Movie?
+  @EnvironmentObject var viewModel: AuthenticationViewModel
   
 //  init(clip: Clip, isShowingNewClipView: Bool) {
 //    self.clip = clip
@@ -25,9 +26,9 @@ struct UploadedView: View {
       self.tabSelection = 0
     }
     NavigationLink {
-      ContentView().navigationBarBackButtonHidden(true)
+      ContentView().environmentObject(viewModel).navigationBarBackButtonHidden(true)
     } label: {
-      Text("Go to Home")
+      Text("Go to Feed")
     }
   }
 }

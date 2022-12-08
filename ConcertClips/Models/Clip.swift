@@ -14,10 +14,7 @@ struct Clip: Identifiable, Comparable, Codable {
   @DocumentID var id: String?
   var name: String
   var event: String
-  var user: String
   var section: String
-  var song: String
-  var likes: Int
   var downloadURL: String
   
   // MARK: Codable
@@ -25,10 +22,7 @@ struct Clip: Identifiable, Comparable, Codable {
     case id
     case name
     case event
-    case user
     case section
-    case song
-    case likes
     case downloadURL
   }
   

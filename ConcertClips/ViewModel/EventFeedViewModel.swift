@@ -10,25 +10,27 @@ import UIKit
 import SwiftUI
 
 
-struct VideoModel {
-    let caption: String
-   
-    let videoURL: String
-    
-    let event: String
-    let section: String
-      
-    let detailsButtonTappedCount: Int
-    
-    var volumeButtonTappedCount: Int
-}
 
+class EventViewController: UIViewController {
+  
+  @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
+  
+  @State var eventName: String
+  
+//  convenience init() {
+//      self.init(nibName:nil, bundle:nil)
+//  }
 
+  init(eventName: String) {
+    self.eventName = eventName
+    super.init(nibName: nil, bundle: nil)
+  }
 
-class ViewController: UIViewController {
-    
-    @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
-    
+  // This is also necessary when extending the superclass.
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented") // or see Roman Sausarnes's answer
+  }
+  
     // sarun
     private var sarunLabel: UILabel = {
         let label = UILabel()
@@ -63,46 +65,20 @@ class ViewController: UIViewController {
             
             
             //        for clipViewModel in clipViewModels {
-            clipViewModels.forEach { clipViewModel in
-                let model = VideoModel(caption: clipViewModel.clip.name,
-                                       videoURL: clipViewModel.clip.downloadURL,
-                                       event: clipViewModel.clip.event,
-                                       section: clipViewModel.clip.section,
-                                       detailsButtonTappedCount: 0,
-                                       volumeButtonTappedCount: 0)
-//                print("viewmodel \(model.videoURL)")
-                self.data.append(model)
-
-                
+          print("eventName in vm \(self.eventName)")
+          clipViewModels.forEach { clipViewModel in
+            if (clipViewModel.clip.event == self.eventName) {
+              let model = VideoModel(caption: clipViewModel.clip.name,
+                                     videoURL: clipViewModel.clip.downloadURL,
+                                     event: clipViewModel.clip.event,
+                                     section: clipViewModel.clip.section,
+                                     detailsButtonTappedCount: 0,
+                                     volumeButtonTappedCount: 0)
+              //                print("viewmodel \(model.videoURL)")
+              self.data.append(model)
             }
-            
-            // SARUN
-//            var sarunLabel: UILabel = {
-//                let label = UILabel()
-//                label.translatesAutoresizingMaskIntoConstraints = false
-//                label.font = UIFont.preferredFont(forTextStyle: .title1)
-////                label.text = "hello, roshan!"
-////                                label.text = model.caption
-//                label.textAlignment = .center
-//
-//                return label
-//            }()
-//
-//            self.view.backgroundColor = .systemPink
-            
-                        // 3
-//            self.view.addSubview(sarunLabel)
-//                        NSLayoutConstraint.activate([
-//                            sarunLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-//                            sarunLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-//                            sarunLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
-//                            sarunLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20),
-//                        ])
-                        // SARUN
-                    
-                    
-                    
-            //
+          }
+
                     let layout = UICollectionViewFlowLayout() // possible issue
                     layout.scrollDirection = .vertical
             layout.itemSize = CGSize(width: self.view.frame.size.width,
@@ -125,7 +101,7 @@ class ViewController: UIViewController {
     var shouldCreateSubviews = true
 }
 
-extension ViewController: UICollectionViewDataSource {
+extension EventViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
     }
@@ -149,7 +125,7 @@ extension ViewController: UICollectionViewDataSource {
 //    }
 }
 
-extension ViewController: FeedViewCellDelegate {
+extension EventViewController: FeedViewCellDelegate {
     
     func didTapLikeButton(with model: VideoModel) {
         print("like button tapped")

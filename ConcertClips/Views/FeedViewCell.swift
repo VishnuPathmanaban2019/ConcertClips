@@ -78,7 +78,7 @@ class FeedViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .red
+        contentView.backgroundColor = .black
         contentView.clipsToBounds = true
         addSubviews()
     }
@@ -178,7 +178,6 @@ class FeedViewCell: UICollectionViewCell {
 
         // labels
         captionLabel.text = model.caption
-        audioLabel.text = model.audioTrackName
         sectionLabel.text = model.section
         eventLabel.text = model.event
     }

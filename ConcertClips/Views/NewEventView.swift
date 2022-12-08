@@ -11,7 +11,6 @@ struct NewEventView: View {
   @ObservedObject var eventsManagerViewModel = EventsManagerViewModel()
 
   @State private var name = ""
-  @State private var date = ""
 
   var body: some View {
     VStack {
@@ -20,7 +19,6 @@ struct NewEventView: View {
         .fontWeight(.bold)
       Form {
         TextField("Name", text: $name)
-        TextField("Date", text: $date)
 
         if self.isValidEvent() {
           Button("Add Event") {
@@ -34,17 +32,15 @@ struct NewEventView: View {
 
   private func isValidEvent() -> Bool {
     if name.isEmpty { return false }
-    if date.isEmpty { return false }
     return true
   }
 
   private func clearFields() {
     name = ""
-    date = ""
   }
   
   private func addEvent() {
-    let event = Event(name: name, date: date)
+    let event = Event(name: name)
     eventsManagerViewModel.add(event)
   }
 }

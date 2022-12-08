@@ -48,7 +48,7 @@ class FeedViewCell: UICollectionViewCell {
 
     private let likeButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
         return button
     }()
     

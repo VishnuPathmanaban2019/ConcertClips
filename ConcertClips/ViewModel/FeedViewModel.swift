@@ -8,8 +8,7 @@
 
 import UIKit
 import SwiftUI
-import GoogleSignIn
-import FirebaseFirestore
+
 
 struct VideoModel {
     let caption: String
@@ -29,7 +28,6 @@ struct VideoModel {
 class ViewController: UIViewController {
     
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
-    var usersManagerViewModel = UsersManagerViewModel()
     
     // sarun
     private var sarunLabel: UILabel = {
@@ -77,7 +75,34 @@ class ViewController: UIViewController {
 
                 
             }
-
+            
+            // SARUN
+//            var sarunLabel: UILabel = {
+//                let label = UILabel()
+//                label.translatesAutoresizingMaskIntoConstraints = false
+//                label.font = UIFont.preferredFont(forTextStyle: .title1)
+////                label.text = "hello, roshan!"
+////                                label.text = model.caption
+//                label.textAlignment = .center
+//
+//                return label
+//            }()
+//
+//            self.view.backgroundColor = .systemPink
+            
+                        // 3
+//            self.view.addSubview(sarunLabel)
+//                        NSLayoutConstraint.activate([
+//                            sarunLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+//                            sarunLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+//                            sarunLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
+//                            sarunLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20),
+//                        ])
+                        // SARUN
+                    
+                    
+                    
+            //
                     let layout = UICollectionViewFlowLayout() // possible issue
                     layout.scrollDirection = .vertical
             layout.itemSize = CGSize(width: self.view.frame.size.width,
@@ -114,26 +139,20 @@ extension ViewController: UICollectionViewDataSource {
         cell.player?.play()
         return cell
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        (cell as? FeedViewCell)?.player?.play()
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        (cell as? FeedViewCell)?.player?.pause()
+//    }
 }
 
 extension ViewController: FeedViewCellDelegate {
     
     func didTapLikeButton(with model: VideoModel) {
-      let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
-      let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-      
-      let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
-      
-      userQuery.getDocuments() { (querySnapshot, err) in
-        if let err = err {
-          print("Error getting documents: \(err)")
-        } else {
-          let document = querySnapshot?.documents.first
-          document?.reference.updateData([
-            "myClips": FieldValue.arrayUnion([serialized])
-          ])
-        }
-      }
+        print("like button tapped")
     }
     
     func didTapVolumeButton(with model: VideoModel) {

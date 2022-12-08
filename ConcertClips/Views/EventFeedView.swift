@@ -5,8 +5,6 @@ import SwiftUI
 struct EventFeedView: View {
   @State var eventName: String
   
-  @State var isPresented = false
-  
   var body: some View {
     VStack {
       Text(eventName)

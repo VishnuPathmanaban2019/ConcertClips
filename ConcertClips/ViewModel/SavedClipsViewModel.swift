@@ -1,10 +1,9 @@
 //
-//  ViewController.swift
+//  SavedClipsViewModel.swift
 //  ConcertClips
 //
-
-// Citations:
-// Adapted from: https://github.com/dks333/Tiktok-Clone
+//  Created by Vishnu Pathmanaban on 12/7/22.
+//
 
 import UIKit
 import SwiftUI
@@ -12,19 +11,12 @@ import GoogleSignIn
 import FirebaseFirestore
 
 
-class EventViewController: UIViewController {
+class SavedViewController: UIViewController {
   
   @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
   var usersManagerViewModel = UsersManagerViewModel()
-  
-  @State var eventName: String
-  
-//  convenience init() {
-//      self.init(nibName:nil, bundle:nil)
-//  }
 
-  init(eventName: String) {
-    self.eventName = eventName
+  init() {
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -45,32 +37,39 @@ class EventViewController: UIViewController {
         
         // old (good) code below
 //        let clipViewModels = clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
-
+        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+        let userQuery = self.usersManagerViewModel.userRepository.store.collection(self.usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
         
-        let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
-        {
-            (varTimer) in
-            let clipViewModels = self.clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
-//            print("viewdidLoad (feedViewModel): \(clipViewModels)")
-            
-            
-            //        for clipViewModel in clipViewModels {
-          print("eventName in vm \(self.eventName)")
-          clipViewModels.forEach { clipViewModel in
-            if (clipViewModel.clip.event == self.eventName) {
-              let model = VideoModel(caption: clipViewModel.clip.name,
-                                     videoURL: clipViewModel.clip.downloadURL,
-                                     event: clipViewModel.clip.event,
-                                     section: clipViewModel.clip.section,
+        userQuery.getDocuments() { (querySnapshot, err) in
+          if let err = err {
+            print("Error getting documents: \(err)")
+          } else {
+            let document = querySnapshot?.documents.first
+            let docData = document?.data()
+            let savedClips = docData!["myClips"] as! [String]
+            savedClips.forEach { savedClip in
+              let fields = savedClip.components(separatedBy: "`")
+              let model = VideoModel(caption: fields[1],
+                                     videoURL: fields[0],
+                                     event: fields[3],
+                                     section: fields[2],
                                      detailsButtonTappedCount: 0,
                                      volumeButtonTappedCount: 0)
               //                print("viewmodel \(model.videoURL)")
               self.data.append(model)
             }
+            print("inside \(self.data)")
           }
+        }
+        
+        let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
+        {
+            (varTimer) in
+          
+          print("outside \(self.data)")
 
-                    let layout = UICollectionViewFlowLayout() // possible issue
-                    layout.scrollDirection = .vertical
+            let layout = UICollectionViewFlowLayout() // possible issue
+            layout.scrollDirection = .vertical
             layout.itemSize = CGSize(width: self.view.frame.size.width,
                                      height: self.view.frame.size.height)
                     layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -91,7 +90,7 @@ class EventViewController: UIViewController {
     var shouldCreateSubviews = true
 }
 
-extension EventViewController: UICollectionViewDataSource {
+extension SavedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
     }
@@ -115,7 +114,7 @@ extension EventViewController: UICollectionViewDataSource {
 //    }
 }
 
-extension EventViewController: FeedViewCellDelegate {
+extension SavedViewController: FeedViewCellDelegate {
     
     func didTapLikeButton(with model: VideoModel) {
       let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
@@ -129,7 +128,7 @@ extension EventViewController: FeedViewCellDelegate {
         } else {
           let document = querySnapshot?.documents.first
           document?.reference.updateData([
-            "myClips": FieldValue.arrayUnion([serialized])
+            "myClips": FieldValue.arrayRemove([serialized])
           ])
         }
       }
@@ -198,3 +197,4 @@ extension EventViewController: FeedViewCellDelegate {
         }
     }
 }
+

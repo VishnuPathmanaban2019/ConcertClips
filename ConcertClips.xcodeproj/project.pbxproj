@@ -45,6 +45,9 @@
 		BA970B1C2941368F0082A687 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA970B1B2941368F0082A687 /* AppView.swift */; };
 		BA970B1E2941375B0082A687 /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA970B1D2941375B0082A687 /* LoggedInView.swift */; };
 		BA970B2529414F850082A687 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA970B2429414F850082A687 /* UserView.swift */; };
+		BA99CB1829419A8E0024358E /* SavedClipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA99CB1729419A8E0024358E /* SavedClipsView.swift */; };
+		BA99CB1A29419B070024358E /* SavedClipsViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA99CB1929419B070024358E /* SavedClipsViewRepresentable.swift */; };
+		BA99CB2029419BE60024358E /* SavedClipsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA99CB1F29419BE60024358E /* SavedClipsViewModel.swift */; };
 		BAB04BE7291DFFCE005B42DE /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB04BE6291DFFCE005B42DE /* FeedViewModel.swift */; };
 		BAB04BE9291E002A005B42DE /* FeedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB04BE8291E002A005B42DE /* FeedViewCell.swift */; };
 		BAB04BEB291E0CDE005B42DE /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB04BEA291E0CDE005B42DE /* FeedView.swift */; };
@@ -90,6 +93,9 @@
 		BA970B1D2941375B0082A687 /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
 		BA970B2329413C300082A687 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BA970B2429414F850082A687 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		BA99CB1729419A8E0024358E /* SavedClipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedClipsView.swift; sourceTree = "<group>"; };
+		BA99CB1929419B070024358E /* SavedClipsViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedClipsViewRepresentable.swift; sourceTree = "<group>"; };
+		BA99CB1F29419BE60024358E /* SavedClipsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedClipsViewModel.swift; sourceTree = "<group>"; };
 		BAB04BE6291DFFCE005B42DE /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		BAB04BE8291E002A005B42DE /* FeedViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewCell.swift; sourceTree = "<group>"; };
 		BAB04BEA291E0CDE005B42DE /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -140,6 +146,8 @@
 				BA970B1B2941368F0082A687 /* AppView.swift */,
 				BA970B1D2941375B0082A687 /* LoggedInView.swift */,
 				BA970B2429414F850082A687 /* UserView.swift */,
+				BA99CB1729419A8E0024358E /* SavedClipsView.swift */,
+				BA99CB1929419B070024358E /* SavedClipsViewRepresentable.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -178,6 +186,7 @@
 				BAB04BE6291DFFCE005B42DE /* FeedViewModel.swift */,
 				35AB940629403741007EA56D /* EventFeedViewModel.swift */,
 				BA970B07294131430082A687 /* AuthenticationViewModel.swift */,
+				BA99CB1F29419BE60024358E /* SavedClipsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -324,6 +333,7 @@
 				BABED9E42915D145003BB814 /* ContentView.swift in Sources */,
 				35519C5A2916BFF000B63497 /* ClipsManagerViewModel.swift in Sources */,
 				35AB93FF293EE5B8007EA56D /* SearchView.swift in Sources */,
+				BA99CB1829419A8E0024358E /* SavedClipsView.swift in Sources */,
 				35519C562916BDD500B63497 /* ClipRepository.swift in Sources */,
 				35519C4C2916B95400B63497 /* UserRepository.swift in Sources */,
 				35519C6529186ECC00B63497 /* ClipSelectView.swift in Sources */,
@@ -335,12 +345,14 @@
 				35519C422916AA0C00B63497 /* NewEventView.swift in Sources */,
 				35519C522916BA5700B63497 /* NewUserView.swift in Sources */,
 				35E0C6122915E9950019D623 /* Event.swift in Sources */,
+				BA99CB2029419BE60024358E /* SavedClipsViewModel.swift in Sources */,
 				35E0C6152915EB300019D623 /* EventViewModel.swift in Sources */,
 				35519C452916AB7E00B63497 /* EventsManagerViewModel.swift in Sources */,
 				35519C4E2916B9C400B63497 /* UserViewModel.swift in Sources */,
 				35519C582916BF6C00B63497 /* ClipViewModel.swift in Sources */,
 				35519C542916BCDB00B63497 /* Clip.swift in Sources */,
 				35519C5C2916C09F00B63497 /* NewClipView.swift in Sources */,
+				BA99CB1A29419B070024358E /* SavedClipsViewRepresentable.swift in Sources */,
 				35AB940729403741007EA56D /* EventFeedViewModel.swift in Sources */,
 				BABED9E22915D145003BB814 /* ConcertClipsApp.swift in Sources */,
 				35519C8E291DD04C00B63497 /* UploadedView.swift in Sources */,

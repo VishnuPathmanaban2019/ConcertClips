@@ -9,21 +9,21 @@ import Foundation
 import Combine
 
 class UsersManagerViewModel: ObservableObject {
-  @Published var userViewModels: [UserViewModel] = []
-  private var cancellables: Set<AnyCancellable> = []
-
-  @Published var userRepository = UserRepository()
-  @Published var manager: [User] = []
-  
-  init() {
-    userRepository.$users.map { users in
-      users.map(UserViewModel.init)
+    @Published var userViewModels: [UserViewModel] = []
+    private var cancellables: Set<AnyCancellable> = []
+    
+    @Published var userRepository = UserRepository()
+    @Published var manager: [User] = []
+    
+    init() {
+        userRepository.$users.map { users in
+            users.map(UserViewModel.init)
+        }
+        .assign(to: \.userViewModels, on: self)
+        .store(in: &cancellables)
     }
-    .assign(to: \.userViewModels, on: self)
-    .store(in: &cancellables)
-  }
-
-  func add(_ user: User) {
-    userRepository.add(user)
-  }
+    
+    func add(_ user: User) {
+        userRepository.add(user)
+    }
 }

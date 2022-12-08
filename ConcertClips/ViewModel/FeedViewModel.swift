@@ -13,12 +13,12 @@ import FirebaseFirestore
 
 struct VideoModel {
     let caption: String
-   
+    
     let videoURL: String
     
     let event: String
     let section: String
-      
+    
     let detailsButtonTappedCount: Int
     
     var volumeButtonTappedCount: Int
@@ -30,25 +30,22 @@ class ViewController: UIViewController {
     
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
     var usersManagerViewModel = UsersManagerViewModel()
-  
+    
     private var collectionView: UICollectionView?
-
+    
     private var data = [VideoModel]()
     
     private var detailsButtonTappedCount = 0
-
+    
     override func viewDidLoad() {
-      
+        
         super.viewDidLoad()
         
         let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
         {
             (varTimer) in
             let clipViewModels = self.clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
-//            print("viewdidLoad (feedViewModel): \(clipViewModels)")
             
-            
-            //        for clipViewModel in clipViewModels {
             clipViewModels.forEach { clipViewModel in
                 let model = VideoModel(caption: clipViewModel.clip.name,
                                        videoURL: clipViewModel.clip.downloadURL,
@@ -56,26 +53,25 @@ class ViewController: UIViewController {
                                        section: clipViewModel.clip.section,
                                        detailsButtonTappedCount: 0,
                                        volumeButtonTappedCount: 0)
-//                print("viewmodel \(model.videoURL)")
                 self.data.append(model)
-
+                
                 
             }
-
-            let layout = UICollectionViewFlowLayout() // possible issue
+            
+            let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
             layout.itemSize = CGSize(width: self.view.frame.size.width,
                                      height: self.view.frame.size.height)
-                    layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             self.collectionView?.register(FeedViewCell.self,
-                                             forCellWithReuseIdentifier: FeedViewCell.identifier)
+                                          forCellWithReuseIdentifier: FeedViewCell.identifier)
             self.collectionView?.isPagingEnabled = true
             self.collectionView?.dataSource = self
             self.view.addSubview(self.collectionView!)
         }
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView?.frame = view.bounds
@@ -88,7 +84,7 @@ extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let model = data[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedViewCell.identifier,
@@ -103,21 +99,21 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: FeedViewCellDelegate {
     
     func didTapLikeButton(with model: VideoModel) {
-      let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
-            let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-
-            let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
-
-            userQuery.getDocuments() { (querySnapshot, err) in
-              if let err = err {
+        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+        let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+        
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+        
+        userQuery.getDocuments() { (querySnapshot, err) in
+            if let err = err {
                 print("Error getting documents: \(err)")
-              } else {
+            } else {
                 let document = querySnapshot?.documents.first
                 document?.reference.updateData([
-                  "myClips": FieldValue.arrayUnion([serialized])
+                    "myClips": FieldValue.arrayUnion([serialized])
                 ])
-              }
             }
+        }
     }
     
     func didTapVolumeButton(with model: VideoModel) {
@@ -149,7 +145,7 @@ extension ViewController: FeedViewCellDelegate {
         
         captionLabel.frame = CGRect(x: 0, y: 620, width: self.view.frame.width, height: 20)
         captionLabel.text = model.caption
-      
+        
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
         eventLabel.textColor = .white
@@ -168,7 +164,7 @@ extension ViewController: FeedViewCellDelegate {
         view.addSubview(captionLabel)
         view.addSubview(eventLabel)
         view.addSubview(sectionLabel)
-
+        
         if shouldCreateSubviews == false {
             
             for subview in view.subviews {

@@ -13,15 +13,15 @@ struct EventSectionFeedViewRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = EventSectionViewController
     
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
-  
+    
     @State var eventName: String
     @State var section: String
     
     
     func makeUIViewController(context: Context) -> EventSectionViewController {
         // Return MyViewController instance
-      print("eventName in representable \(self.eventName)")
-      let vc = EventSectionViewController(eventName: eventName, section: section)
+        print("eventName in representable \(self.eventName)")
+        let vc = EventSectionViewController(eventName: eventName, section: section)
         return vc
     }
     

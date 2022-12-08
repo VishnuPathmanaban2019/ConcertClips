@@ -10,14 +10,14 @@ import SwiftUI
 
 struct SavedClipsViewRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = SavedViewController
-
+    
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
-
+    
     func makeUIViewController(context: Context) -> SavedViewController {
-      let vc = SavedViewController()
-      return vc
+        let vc = SavedViewController()
+        return vc
     }
-
+    
     func updateUIViewController(_ uiViewController: SavedViewController, context: Context) {
         // Updates the state of the specified view controller with new information from SwiftUI.
     }

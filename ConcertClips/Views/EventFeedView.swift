@@ -4,12 +4,18 @@ import SwiftUI
 
 struct EventFeedView: View {
   @State var eventName: String
-  
-  @State var isPresented = false
+  @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
   
   var body: some View {
     VStack {
-      Text(eventName)
+      HStack {
+        Text(eventName)
+        NavigationLink {
+          EventSectionView(eventName: eventName, clips: clipsManagerViewModel.clipViewModels)
+        } label: {
+          Text("Sections")
+        }
+      }
       EventFeedViewRepresentable(eventName: eventName).ignoresSafeArea()
     }
   }

@@ -39,6 +39,8 @@
 		35E0C6152915EB300019D623 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E0C6142915EB300019D623 /* EventViewModel.swift */; };
 		35EF6DD82941946E00274957 /* EventSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EF6DD72941946E00274957 /* EventSectionView.swift */; };
 		35EF6DDA2941971800274957 /* EventSectionFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EF6DD92941971800274957 /* EventSectionFeedView.swift */; };
+		35EF6DDC2941A67300274957 /* EventSectionFeedViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EF6DDB2941A67300274957 /* EventSectionFeedViewRepresentable.swift */; };
+		35EF6DDE2941A68900274957 /* EventSectionFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EF6DDD2941A68900274957 /* EventSectionFeedViewModel.swift */; };
 		4938783B2920388F00706587 /* FeedViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938783A2920388F00706587 /* FeedViewRepresentable.swift */; };
 		4938783D29203CBE00706587 /* SarunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938783C29203CBE00706587 /* SarunViewController.swift */; };
 		BA970B08294131430082A687 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA970B07294131430082A687 /* AuthenticationViewModel.swift */; };
@@ -85,6 +87,8 @@
 		35E0C6142915EB300019D623 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		35EF6DD72941946E00274957 /* EventSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSectionView.swift; sourceTree = "<group>"; };
 		35EF6DD92941971800274957 /* EventSectionFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSectionFeedView.swift; sourceTree = "<group>"; };
+		35EF6DDB2941A67300274957 /* EventSectionFeedViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSectionFeedViewRepresentable.swift; sourceTree = "<group>"; };
+		35EF6DDD2941A68900274957 /* EventSectionFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSectionFeedViewModel.swift; sourceTree = "<group>"; };
 		4938783A2920388F00706587 /* FeedViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewRepresentable.swift; sourceTree = "<group>"; };
 		4938783C29203CBE00706587 /* SarunViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SarunViewController.swift; sourceTree = "<group>"; };
 		BA970B07294131430082A687 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 				BA970B2429414F850082A687 /* UserView.swift */,
 				35EF6DD72941946E00274957 /* EventSectionView.swift */,
 				35EF6DD92941971800274957 /* EventSectionFeedView.swift */,
+				35EF6DDB2941A67300274957 /* EventSectionFeedViewRepresentable.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 				BAB04BE6291DFFCE005B42DE /* FeedViewModel.swift */,
 				35AB940629403741007EA56D /* EventFeedViewModel.swift */,
 				BA970B07294131430082A687 /* AuthenticationViewModel.swift */,
+				35EF6DDD2941A68900274957 /* EventSectionFeedViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -322,6 +328,7 @@
 				35519C6729186F2600B63497 /* ClipSelectViewModel.swift in Sources */,
 				35AB9403293F94B9007EA56D /* EventFeedView.swift in Sources */,
 				35EF6DD82941946E00274957 /* EventSectionView.swift in Sources */,
+				35EF6DDE2941A68900274957 /* EventSectionFeedViewModel.swift in Sources */,
 				BABED9EB2915D146003BB814 /* Persistence.swift in Sources */,
 				35519C502916BA0400B63497 /* UsersManagerViewModel.swift in Sources */,
 				BA970B18294135C90082A687 /* LoginView.swift in Sources */,
@@ -341,6 +348,7 @@
 				BABED9EE2915D146003BB814 /* ConcertClips.xcdatamodeld in Sources */,
 				35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */,
 				35519C422916AA0C00B63497 /* NewEventView.swift in Sources */,
+				35EF6DDC2941A67300274957 /* EventSectionFeedViewRepresentable.swift in Sources */,
 				35519C522916BA5700B63497 /* NewUserView.swift in Sources */,
 				35E0C6122915E9950019D623 /* Event.swift in Sources */,
 				35E0C6152915EB300019D623 /* EventViewModel.swift in Sources */,

@@ -11,8 +11,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class EventRepository: ObservableObject {
-    private let path: String = "events"
-    private let store = Firestore.firestore()
+    let path: String = "events"
+    let store = Firestore.firestore()
     
     @Published var events: [Event] = []
     private var cancellables: Set<AnyCancellable> = []

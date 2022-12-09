@@ -138,21 +138,21 @@ extension EventSectionViewController: FeedViewCellDelegate {
         captionLabel.textColor = .white
         
         captionLabel.frame = CGRect(x: 0, y: 620, width: self.view.frame.width, height: 20)
-        captionLabel.text = model.caption
+        captionLabel.text = "Caption: " + model.caption
         
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
         eventLabel.textColor = .white
         
         eventLabel.frame = CGRect(x: 0, y: 640, width: self.view.frame.width, height: 20)
-        eventLabel.text = model.event
+        eventLabel.text = "Event: " + model.event
         
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left
         sectionLabel.textColor = .white
         
         sectionLabel.frame = CGRect(x: 0, y: 660, width: self.view.frame.width, height: 20)
-        sectionLabel.text = model.section
+        sectionLabel.text = "Section: " + model.section
         
         view.addSubview(rectangleView)
         view.addSubview(captionLabel)

@@ -112,9 +112,67 @@ extension SavedViewController: FeedViewCellDelegate {
                 print("Error getting documents: \(err)")
             } else {
                 let document = querySnapshot?.documents.first
-                document?.reference.updateData([
-                    "myClips": FieldValue.arrayRemove([serialized])
-                ])
+                let docData = document?.data()
+                let savedClips = docData!["myClips"] as! [String]
+                let likeButtonSelected = docData!["likeButtonSelected"] as! [String]
+                
+                print("savedClips (from scvm): \(savedClips)")
+                
+             
+                // remove clip if we press like, and clip is already in this user's savedClips
+                if savedClips.contains(serialized) {
+                    document?.reference.updateData([
+                        "myClips": FieldValue.arrayRemove([serialized])
+                    ])
+                    
+                    
+                    // update boolean
+                    if likeButtonSelected == ["true"]
+                    {
+                        document?.reference.updateData([
+                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
+                        ])
+                        
+                        document?.reference.updateData([
+                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
+                        ]) // using array for now, will change to boolean once figured out
+                    }
+                    else {
+                        document?.reference.updateData([
+                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
+                        ])
+                        
+                        document?.reference.updateData([
+                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
+                        ]) // using array for now, will change to boolean once figured out
+                    }
+                }
+                else { // add clip if we press like, and clip is NOT already in this user's savedClips
+                    document?.reference.updateData([
+                        "myClips": FieldValue.arrayUnion([serialized])
+                    ])
+                    
+                    // update boolean
+                    if likeButtonSelected == ["true"]
+                    {
+                        document?.reference.updateData([
+                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
+                        ])
+                        
+                        document?.reference.updateData([
+                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
+                        ]) // using array for now, will change to boolean once figured out
+                    }
+                    else {
+                        document?.reference.updateData([
+                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
+                        ])
+                        
+                        document?.reference.updateData([
+                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
+                        ]) // using array for now, will change to boolean once figured out
+                    }
+                }
             }
         }
     }
@@ -144,21 +202,21 @@ extension SavedViewController: FeedViewCellDelegate {
         captionLabel.textColor = .white
         
         captionLabel.frame = CGRect(x: 0, y: 620, width: self.view.frame.width, height: 20)
-        captionLabel.text = model.caption
+        captionLabel.text = "Caption: " + model.caption
         
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
         eventLabel.textColor = .white
         
         eventLabel.frame = CGRect(x: 0, y: 640, width: self.view.frame.width, height: 20)
-        eventLabel.text = model.event
+        eventLabel.text = "Event: " + model.event
         
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left
         sectionLabel.textColor = .white
         
         sectionLabel.frame = CGRect(x: 0, y: 660, width: self.view.frame.width, height: 20)
-        sectionLabel.text = model.section
+        sectionLabel.text = "Section: " + model.section
         
         view.addSubview(rectangleView)
         view.addSubview(captionLabel)

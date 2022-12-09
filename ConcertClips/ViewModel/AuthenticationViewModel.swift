@@ -79,7 +79,7 @@ class AuthenticationViewModel: ObservableObject {
                         print("Error getting documents: \(err)")
                     } else {
                         if querySnapshot?.count == 0 {
-                            let SGURL: NSURL = NSURL(string: "https://api.seatgeek.com/2/events?type=music_festival&per_page=100&client_id=Mjk5NTI2NTh8MTY2NjkyMzQ0Mi4xNTcxNjg0")!
+                            let SGURL: NSURL = NSURL(string: "https://api.seatgeek.com/2/events?type=music_festival&per_page=18&client_id=Mjk5NTI2NTh8MTY2NjkyMzQ0Mi4xNTcxNjg0")!
         
                             let data = NSData(contentsOf: SGURL as URL)!
         

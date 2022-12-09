@@ -9,7 +9,8 @@ struct EventFeedView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("\(eventName) |")
+                Text("\(eventName)")
+                Text("|")
                 NavigationLink {
                   EventSectionView(eventName: eventName, clips: clipsManagerViewModel.clipViewModels.map({ $0.clip }))
                 } label: {

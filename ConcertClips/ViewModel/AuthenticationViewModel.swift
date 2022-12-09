@@ -94,7 +94,7 @@ class AuthenticationViewModel: ObservableObject {
                             }
                           
                             for event in eventSet {
-                              eventsManagerViewModel.add(event)
+                                eventsManagerViewModel.add(event)
                             }
                         }
                     }

@@ -11,20 +11,19 @@ import PhotosUI
 import FirebaseStorage
 
 class ClipSelectViewModel: ObservableObject {
-  
-  func upload (file: URL) async throws -> String {
-    let storageRef = Storage.storage().reference()
-    let videoRef = storageRef.child(file.relativeString)
-    // Upload file and metadata to the object 'images/mountains.jpg'
-    let _ = videoRef.putFile(from: file, metadata: nil) { (metadata, error) in
-      guard let _ = metadata else {
-        // Uh-oh, an error occurred!
-        print("error 1")
-        return
-      }
+    
+    func upload (file: URL) async throws -> String {
+        let storageRef = Storage.storage().reference()
+        let videoRef = storageRef.child(file.relativeString)
+        let _ = videoRef.putFile(from: file, metadata: nil) { (metadata, error) in
+            guard let _ = metadata else {
+                // Uh-oh, an error occurred!
+                print("error 1")
+                return
+            }
+        }
+        let downloadURL = try await videoRef.downloadURL()
+        return downloadURL.absoluteString
     }
-    let downloadURL = try await videoRef.downloadURL()
-    return downloadURL.absoluteString
-  }
 }
 

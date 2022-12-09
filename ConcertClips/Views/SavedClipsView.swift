@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct SavedClipsView: View {
-  var body: some View {
-    VStack {
-      SavedClipsViewRepresentable().ignoresSafeArea()
+    var body: some View {
+        SavedClipsViewRepresentable().ignoresSafeArea()
     }
-  }
 }

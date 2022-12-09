@@ -6,21 +6,18 @@
 //
 
 import Foundation
-
 import SwiftUI
 
 struct EventFeedViewRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = EventViewController
     
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
-  
-    @State var eventName: String
     
+    @State var eventName: String
     
     func makeUIViewController(context: Context) -> EventViewController {
         // Return MyViewController instance
-      print("eventName in representable \(self.eventName)")
-      let vc = EventViewController(eventName: eventName)
+        let vc = EventViewController(eventName: eventName)
         return vc
     }
     

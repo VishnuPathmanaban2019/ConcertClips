@@ -6,14 +6,12 @@
 //
 
 import Foundation
-
 import SwiftUI
 
 struct FeedViewRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = ViewController
     
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
-    
     
     func makeUIViewController(context: Context) -> ViewController {
         // Return MyViewController instance

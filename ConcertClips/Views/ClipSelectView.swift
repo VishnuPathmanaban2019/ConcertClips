@@ -4,7 +4,7 @@
 //
 //  Created by Siddharth Paratkar on 11/6/22.
 //
-// Adapted from https://www.youtube.com/watch?v=crULPMS7Uxs
+//  Adapted from https://www.youtube.com/watch?v=crULPMS7Uxs
 
 import SwiftUI
 import PhotosUI

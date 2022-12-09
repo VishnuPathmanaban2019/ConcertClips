@@ -6,17 +6,12 @@
 //
 
 import Foundation
-
 import SwiftUI
 import GoogleSignIn
 
 struct UserView: View {
-    // 1
     @EnvironmentObject var viewModel: AuthenticationViewModel
-    
-    // 2
     private let user = GIDSignIn.sharedInstance.currentUser
-    
     
     var body: some View {
         
@@ -70,7 +65,6 @@ struct UserView: View {
     }
 }
 
-/// A generic view that shows images from the network.
 struct NetworkImage: View {
     let url: URL?
     

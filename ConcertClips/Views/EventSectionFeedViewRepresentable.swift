@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import SwiftUI
 
 struct EventSectionFeedViewRepresentable: UIViewControllerRepresentable {
@@ -16,7 +15,6 @@ struct EventSectionFeedViewRepresentable: UIViewControllerRepresentable {
     
     @State var eventName: String
     @State var section: String
-    
     
     func makeUIViewController(context: Context) -> EventSectionViewController {
         // Return MyViewController instance

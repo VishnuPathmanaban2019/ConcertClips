@@ -44,13 +44,11 @@ struct NewClipView: View {
                     })
                 if (popupTagsPresented) {
                     let filteredMatches = events.filter { $0.name.hasPrefix(event) }.map { $0.name }
-                    let _ = print(filteredMatches)
                     Menu {
                         ForEach(filteredMatches, id: \.self) { suggestion in
                             Button{
                                 event = suggestion
                                 popupTagsPresented = false
-                                print(popupTagsPresented)
                             } label: {
                                 Label(suggestion, systemImage: "someIcon")
                             }

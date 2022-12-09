@@ -9,19 +9,13 @@ import SwiftUI
 
 struct EventSectionView: View {
     @State var eventName: String
-    @State var clips: [ClipViewModel]
-    @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
+    @State var clips: [Clip]
     
     var body: some View {
-        let _ = clips = clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip.name < $1.clip.name }).filter ({ $0.clip.name == eventName })
-        
         var allSections = Set<String>()
         let _ = clips.forEach { clip in
-            allSections.insert(clip.clip.section)
-        }
-        VStack {
-            ForEach(clips) {clip in
-                let _ = allSections.insert(clip.clip.section)
+            if (clip.event == eventName) {
+               allSections.insert(clip.section)
             }
         }
         

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import SwiftUI
 
 struct EventFeedViewRepresentable: UIViewControllerRepresentable {
@@ -15,7 +14,6 @@ struct EventFeedViewRepresentable: UIViewControllerRepresentable {
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
     
     @State var eventName: String
-    
     
     func makeUIViewController(context: Context) -> EventViewController {
         // Return MyViewController instance

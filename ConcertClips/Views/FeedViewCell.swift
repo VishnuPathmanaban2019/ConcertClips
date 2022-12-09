@@ -111,7 +111,7 @@ class FeedViewCell: UICollectionViewCell {
     
     @objc private func didTapVolumeButton() {
         if model?.volumeButtonTappedCount == 0 {
-            player?.volume = 5
+            player?.volume = 1
             model?.volumeButtonTappedCount = 1
         }
         else {

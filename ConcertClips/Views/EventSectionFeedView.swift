@@ -13,7 +13,7 @@ struct EventSectionFeedView: View {
     
     var body: some View {
         VStack {
-            Text("\(eventName): Section \(section)")
+            Text("\(eventName) | Section: \(section)")
             EventSectionFeedViewRepresentable(eventName: eventName, section: section).ignoresSafeArea()
         }
     }

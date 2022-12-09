@@ -4,6 +4,7 @@
 //
 //  Created by Vishnu Pathmanaban on 12/7/22.
 //
+
 import UIKit
 import SwiftUI
 import GoogleSignIn
@@ -20,7 +21,7 @@ class SavedViewController: UIViewController {
     
     // This is also necessary when extending the superclass.
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented") // or see Roman Sausarnes's answer
+        fatalError("init(coder:) has not been implemented")
     }
     
     private var collectionView: UICollectionView?

@@ -2,7 +2,6 @@
 //  ViewController.swift
 //  ConcertClips
 //
-
 // Citations:
 // Adapted from: https://github.com/dks333/Tiktok-Clone
 
@@ -13,18 +12,12 @@ import FirebaseFirestore
 
 struct VideoModel {
     let caption: String
-    
     let videoURL: String
-    
     let event: String
     let section: String
-    
     let detailsButtonTappedCount: Int
-    
     var volumeButtonTappedCount: Int
 }
-
-
 
 class ViewController: UIViewController {
     

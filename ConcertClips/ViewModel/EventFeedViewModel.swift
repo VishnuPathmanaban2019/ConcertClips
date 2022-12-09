@@ -2,7 +2,6 @@
 //  ViewController.swift
 //  ConcertClips
 //
-
 // Citations:
 // Adapted from: https://github.com/dks333/Tiktok-Clone
 
@@ -25,7 +24,7 @@ class EventViewController: UIViewController {
     
     // This is also necessary when extending the superclass.
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented") // or see Roman Sausarnes's answer
+        fatalError("init(coder:) has not been implemented")
     }
     
     private var collectionView: UICollectionView?

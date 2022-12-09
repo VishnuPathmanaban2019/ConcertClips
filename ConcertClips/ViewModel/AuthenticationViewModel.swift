@@ -82,13 +82,19 @@ class AuthenticationViewModel: ObservableObject {
                             let SGURL: NSURL = NSURL(string: "https://api.seatgeek.com/2/events?type=music_festival&per_page=18&client_id=Mjk5NTI2NTh8MTY2NjkyMzQ0Mi4xNTcxNjg0")!
         
                             let data = NSData(contentsOf: SGURL as URL)!
+                          
+                            var eventSet = Set<Event>()
         
                             let json = try! JSONSerialization.jsonObject(with: data as Data, options: .allowFragments) as! [String:AnyObject]
                             if let events = json["events"] as? [NSDictionary] {
                                 for event in events {
                                     let event = Event(name: event["title"] as! String)
-                                    eventsManagerViewModel.add(event)
+                                    eventSet.insert(event)
                                 }
+                            }
+                          
+                            for event in eventSet {
+                              eventsManagerViewModel.add(event)
                             }
                         }
                     }

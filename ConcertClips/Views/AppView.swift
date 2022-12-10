@@ -23,7 +23,7 @@ struct AppView: View {
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                     Text("Search")
-                } //.background(Image("concert_view_of_event").resizable()).tag(1)
+                } //.background(Image("concert_background_blue").resizable()).tag(1)
             
             ClipSelectView(tabSelection: $tabSelection)
                 .tabItem {
@@ -36,6 +36,8 @@ struct AppView: View {
                     Image(systemName: "person")
                     Text("User")
                 }.tag(3)
+        }.onAppear() {
+            UITabBar.appearance().barTintColor = .white
         }
     }
 }

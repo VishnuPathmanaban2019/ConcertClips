@@ -7,7 +7,7 @@ struct FeedView: View {
     
     var body: some View {
         VStack {
-            FeedViewRepresentable().ignoresSafeArea()
-        }.background(Image("no_video_yet"))
+            FeedViewRepresentable() //.ignoresSafeArea()
+        }.background(Image("concert_background_blue").resizable())
     }
 }

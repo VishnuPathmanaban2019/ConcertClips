@@ -64,6 +64,6 @@ struct SearchView: View {
                     }
                 }
             }
-        }.background(Color.black.edgesIgnoringSafeArea(.all))
+        }.background(Image("concert_background_blue"))
     }
 }

@@ -17,7 +17,7 @@ struct UserView: View {
     
     private var concertImageBackground: some View {
         GeometryReader { geometry in
-            Image("concert_image_2")
+            Image("concert_background_blue")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
@@ -25,7 +25,7 @@ struct UserView: View {
         }
     }
     
-//        .background(Image("concert_view_of_event").resizable())
+//        .background(Image("concert_background_blue").resizable())
     
     var body: some View {
         
@@ -76,7 +76,7 @@ struct UserView: View {
                             .foregroundColor(.white)
                             .padding()
 //                            .frame(maxWidth: .infinity)
-                            .background(Color(.black))
+                            .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
                             .cornerRadius(12)
                             .padding()
                     }
@@ -98,7 +98,7 @@ struct UserView: View {
                             .foregroundColor(.white)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color(.systemIndigo))
+                            .background(Color("443Blue1"))
                             .cornerRadius(12)
                             .padding()
                     }

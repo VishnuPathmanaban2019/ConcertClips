@@ -37,7 +37,9 @@ struct AppView: View {
                 .tabItem {
                     Image(systemName: "person")
                     Text("User")
-                }.tag(3)
+                }.background(.black)
+                .background(Image("concert_background_blue"))
+                .tag(3)
         }
         .onAppear() {
             UITabBar.appearance().barTintColor = .black

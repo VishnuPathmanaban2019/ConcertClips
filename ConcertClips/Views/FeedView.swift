@@ -8,9 +8,9 @@ struct FeedView: View {
     var body: some View {
         VStack {
             FeedViewRepresentable() //.ignoresSafeArea()
-        }.background(Image("no_clips_yet1")
+        }.background(Image("no_clips_yet_v1")
             .resizable()
-            .aspectRatio(contentMode: .fit)
+//            .aspectRatio(contentMode: .fit)
 //            .frame(width: 100, height: 100, alignment: .center)
             .cornerRadius(8))
     }

@@ -48,7 +48,7 @@ struct ClipSelectView: View {
                         matching: .videos
                     ) {
                         Text("Pick a clip to upload")
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .padding()
 //                            .frame(maxWidth: )
                             .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))

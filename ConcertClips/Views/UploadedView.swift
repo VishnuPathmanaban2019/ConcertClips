@@ -16,7 +16,7 @@ struct UploadedView: View {
     @EnvironmentObject var viewModel: AuthenticationViewModel
     
     var body: some View {
-        Text("Clip Uploaded!").onAppear() {
+        Text("Clip Uploaded!").foregroundColor(.black).background(Color(.black)).onAppear() {
             clipsManagerViewModel.add(clip)
             data = nil
             self.tabSelection = 0
@@ -36,10 +36,10 @@ struct UploadedView: View {
             
         }) {
             Text("Go to Feed")
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .padding()
 //                            .frame(maxWidth: .infinity)
-                .background(Color(.black))
+                .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
                 .cornerRadius(12)
                 .padding()
         }

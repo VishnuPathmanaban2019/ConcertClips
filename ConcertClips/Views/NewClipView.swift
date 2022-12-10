@@ -63,7 +63,7 @@ struct NewClipView: View {
             if self.isValidClip() && events.map({ $0.name }).contains(event) {
                 let clip = Clip(name: name, event: event, section: section, downloadURL: downloadURL)
                 NavigationLink {
-                    UploadedView(moveToFeedView: false, clip: clip, tabSelection: $tabSelection, data: $data).environmentObject(viewModel).navigationBarBackButtonHidden(true)
+                    UploadedView(moveToFeedView: false, clip: clip, tabSelection: $tabSelection, data: $data).background(Image("concert_background_blue")).environmentObject(viewModel).navigationBarBackButtonHidden(true)
                     let _ = clearFields()
                 } label: {
                     Text("Add Clip")

@@ -54,13 +54,13 @@ struct UserView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: SavedClipsView(), isActive: $moveToSavedClipsView) { EmptyView() }
+                    NavigationLink(destination: SavedClipsView().background(.black), isActive: $moveToSavedClipsView) { EmptyView() }
                     Button(action: {
                         self.moveToSavedClipsView = true
                         
                     }) {
                         Text("My Saved Clips")
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .padding()
 //                            .frame(maxWidth: .infinity)
                             .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
@@ -72,7 +72,7 @@ struct UserView: View {
                     
                     Button(action: viewModel.signOut) {
                         Text("Sign Out")
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(Color("443Blue1"))
@@ -80,7 +80,7 @@ struct UserView: View {
                             .padding()
                     }
                     Spacer()
-                }.background(Color(.black))
+                } //.background(Color(.black))
             )
         }
         .navigationViewStyle(StackNavigationViewStyle())

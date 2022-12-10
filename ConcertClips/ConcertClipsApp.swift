@@ -27,7 +27,7 @@ struct ConcertClipsApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView().background(Image("concert_background_blue").resizable()).environmentObject(viewModel)
+                ContentView().background(Image("concert_background_blue")).environmentObject(viewModel)
             }
         }
     }

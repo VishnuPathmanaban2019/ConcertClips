@@ -30,6 +30,19 @@ class SavedViewController: UIViewController {
     
     private var detailsButtonTappedCount = 0
     
+    
+// rram -- UI follow up & work on bookmark persistence Issue:
+//- First click seems to not do anything to the bookmark UI
+//- Unbookmarked clip in savedClips does not go away (even after moving away and coming back to tab)
+//    - leads:
+//        - How often is viewDidLoad called?
+//            - Will I need to remove from self.data?
+//        - Is querySnapshot saved? How often is it refreshed?
+//            - Can I use snapshotListener instead? To get realtime data?
+//                - https://firebase.google.com/docs/firestore/query-data/listen
+//
+//
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -37,13 +50,14 @@ class SavedViewController: UIViewController {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = self.usersManagerViewModel.userRepository.store.collection(self.usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
         
-        userQuery.getDocuments() { (querySnapshot, err) in
+        userQuery.addSnapshotListener(includeMetadataChanges: true) { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 let document = querySnapshot?.documents.first
                 let docData = document?.data()
                 let savedClips = docData!["myClips"] as! [String]
+//                print(savedClips)
                 savedClips.forEach { savedClip in
                     let fields = savedClip.components(separatedBy: "`")
                     let model = VideoModel(caption: fields[1],

@@ -23,7 +23,7 @@ struct AppView: View {
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                     Text("Search")
-                }.tag(1)
+                } //.background(Image("concert_view_of_event").resizable()).tag(1)
             
             ClipSelectView(tabSelection: $tabSelection)
                 .tabItem {
@@ -31,7 +31,7 @@ struct AppView: View {
                     Text("Upload")
                 }.tag(2)
             
-            UserView()
+            UserView(moveToSavedClipsView: false)
                 .tabItem {
                     Image(systemName: "person")
                     Text("User")

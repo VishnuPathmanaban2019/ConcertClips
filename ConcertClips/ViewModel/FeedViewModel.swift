@@ -32,6 +32,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         
+//        self.view.backgroundColor = UIColor(patternImage: UIImage(named:"bg")!)
+        
         super.viewDidLoad()
         
         let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
@@ -109,7 +111,7 @@ extension ViewController: FeedViewCellDelegate {
                 let savedClips = docData!["myClips"] as! [String]
                 let likeButtonSelected = docData!["likeButtonSelected"] as! [String]
 
-                print(savedClips)
+                print("savedClipsBefore: \(savedClips)")
                 
                     
 //                if likeButtonSelected == ["false"] {
@@ -185,8 +187,12 @@ extension ViewController: FeedViewCellDelegate {
                             "likeButtonSelected": FieldValue.arrayUnion(["true"]),
                         ]) // using array for now, will change to boolean once figured out
                     }
+                    
                 }
+                
+                print("savedClipsAfter: \(document?.data())")
             }
+            
         }
     }
     

@@ -86,6 +86,13 @@ class FeedViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.backgroundColor = .black
         contentView.clipsToBounds = true
+        
+//        let lb = UILabel()
+//        lb.textAlignment = .center
+//        lb.numberOfLines = 0
+//        lb.text = "No Clips Yet!"
+//        contentView.addSubview(lb)
+        
         addSubviews()
     }
     

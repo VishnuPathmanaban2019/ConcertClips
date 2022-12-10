@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UploadedView: View {
+    @State var moveToFeedView : Bool
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
     var clip: Clip
     @Binding var tabSelection: Int
@@ -20,10 +21,27 @@ struct UploadedView: View {
             data = nil
             self.tabSelection = 0
         }
-        NavigationLink {
-            ContentView().environmentObject(viewModel).navigationBarBackButtonHidden(true)
-        } label: {
+//        NavigationLink {
+//            ContentView().environmentObject(viewModel).navigationBarBackButtonHidden(true)
+//        } label: {
+//            Text("Go to Feed")
+//        }
+        
+
+        //
+        NavigationLink(destination:  ContentView().environmentObject(viewModel).navigationBarBackButtonHidden(true), isActive: $moveToFeedView) { EmptyView() }
+
+        Button(action: {
+            self.moveToFeedView = true
+            
+        }) {
             Text("Go to Feed")
+                .foregroundColor(.white)
+                .padding()
+//                            .frame(maxWidth: .infinity)
+                .background(Color(.black))
+                .cornerRadius(12)
+                .padding()
         }
     }
 }

@@ -19,12 +19,12 @@ struct EventFeedView: View {
         concertImageBackground.overlay(
             VStack {
                 HStack {
-                    Text("\(eventName)").fontWeight(.bold).foregroundColor(.white)
-                    Text("|").foregroundColor(.white)
+                    Text("\(eventName)").fontWeight(.bold).foregroundColor(.white).padding(.top)
+                    Text("|").foregroundColor(.white).padding(.top)
                     NavigationLink {
                       EventSectionView(eventName: eventName, clips: clipsManagerViewModel.clipViewModels.map({ $0.clip }))
                     } label: {
-                        Text("Sections")
+                        Text("Sections").padding(.top)
                         
                     }
                 }

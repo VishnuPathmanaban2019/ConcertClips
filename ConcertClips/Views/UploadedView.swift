@@ -15,33 +15,43 @@ struct UploadedView: View {
     @Binding var data: Movie?
     @EnvironmentObject var viewModel: AuthenticationViewModel
     
+    
+    private var concertImageBackground: some View {
+        GeometryReader { geometry in
+            Image("concert_background_blue")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: geometry.size.width)
+        }.background(.black)
+    }
+    
     var body: some View {
-        Text("Clip Uploaded!").foregroundColor(.black).background(Color(.black)).onAppear() {
-            clipsManagerViewModel.add(clip)
-            data = nil
-            self.tabSelection = 0
-        }
-//        NavigationLink {
-//            ContentView().environmentObject(viewModel).navigationBarBackButtonHidden(true)
-//        } label: {
-//            Text("Go to Feed")
-//        }
         
+        concertImageBackground.overlay(
+            VStack {
+                        NavigationLink(destination:  ContentView().environmentObject(viewModel).navigationBarBackButtonHidden(true), isActive: $moveToFeedView) {
+                            EmptyView()
+                        }
 
-        //
-        NavigationLink(destination:  ContentView().environmentObject(viewModel).navigationBarBackButtonHidden(true), isActive: $moveToFeedView) { EmptyView() }
-
-        Button(action: {
-            self.moveToFeedView = true
-            
-        }) {
-            Text("Go to Feed")
-                .foregroundColor(.black)
-                .padding()
-//                            .frame(maxWidth: .infinity)
-                .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
-                .cornerRadius(12)
-                .padding()
-        }
+                        Text("Clip Uploaded!").foregroundColor(.white).onAppear() {
+                            clipsManagerViewModel.add(clip)
+                            data = nil
+                            self.tabSelection = 0
+                        }
+                
+                        Button(action: {
+                            self.moveToFeedView = true
+                
+                        }) {
+                            Text("Go to Feed")
+                                .foregroundColor(.black)
+                                .padding()
+                //                            .frame(maxWidth: .infinity)
+                                .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
+                                .cornerRadius(12)
+                                .padding()
+                        }
+            }
+        )
     }
 }

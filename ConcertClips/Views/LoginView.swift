@@ -28,6 +28,7 @@ struct LoginView: View {
             
             Text("Login with Google")
                 .fontWeight(.light)
+                .foregroundColor(Color(.white))
                 .multilineTextAlignment(.center)
                 .padding()
             

@@ -21,7 +21,7 @@ struct EventSectionView: View {
         
         List(Array(allSections.sorted()), id: \.self) { section in
             NavigationLink {
-                EventSectionFeedView(eventName: eventName, section: section)
+                EventSectionFeedView(eventName: eventName, section: section).background(.black)
             } label: {
                 Text(section)
             }

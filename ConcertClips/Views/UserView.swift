@@ -20,7 +20,6 @@ struct UserView: View {
             Image("concert_background_blue")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .edgesIgnoringSafeArea(.all)
                 .frame(width: geometry.size.width)
         }
     }
@@ -28,7 +27,6 @@ struct UserView: View {
 //        .background(Image("concert_background_blue").resizable())
     
     var body: some View {
-        
         NavigationView {
             concertImageBackground.overlay(
                 VStack {
@@ -56,23 +54,12 @@ struct UserView: View {
                     
                     Spacer()
                     
-                    //                    NavigationLink(destination: SavedClipsView(), label: {
-                    //                        Button(action: {}, label: {
-                    //                            Text("My Saved Clips")
-                    //                        })
-                    //                    })
-                    
                     NavigationLink(destination: SavedClipsView(), isActive: $moveToSavedClipsView) { EmptyView() }
-                    
-                    
-
                     Button(action: {
                         self.moveToSavedClipsView = true
                         
                     }) {
                         Text("My Saved Clips")
-//                            .font(.largeTitle)
-//                            .fontWeight(.ultraLight)
                             .foregroundColor(.white)
                             .padding()
 //                            .frame(maxWidth: .infinity)
@@ -80,16 +67,6 @@ struct UserView: View {
                             .cornerRadius(12)
                             .padding()
                     }
-                    
-
-                    
-//                    NavigationLink(destination: SavedClipsView()) {
-//                    }
-//                    } label: {
-//                        Text("My Saved Clips")
-//                    }
-                    //.buttonStyle(PlainButtonStyle())
-                    //.buttonStyle(ButtonStyle3D(background: Color.black))
                     
                     Spacer()
                     
@@ -103,7 +80,7 @@ struct UserView: View {
                             .padding()
                     }
                     Spacer()
-                }
+                }.background(Color(.black))
             )
         }
         .navigationViewStyle(StackNavigationViewStyle())

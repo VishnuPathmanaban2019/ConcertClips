@@ -22,7 +22,7 @@ struct ClipSelectView: View {
     
     var body: some View {
         ZStack { // rram
-            Image("concert_background_blue")
+//            Image("concert_background_blue").scaledToFit()
             VStack {
                 if let data = data {
                     let player = AVPlayer(url: data.url)
@@ -52,13 +52,12 @@ struct ClipSelectView: View {
                             .padding()
 //                            .frame(maxWidth: )
                             .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
-                            .cornerRadius(12)
+                            .cornerRadius(20)
 //                            .overlay(
 //                                RoundedRectangle(cornerRadius: 20)
 //                                    .inset(by: 5) // inset value should be same as lineWidth in .stroke
 ////                                    .stroke(.blue, lineWidth: 5)
 //                            )
-                            .padding()
                     }
                     .onChange(of: selectedVideos) { newVideo in
                         guard let item = selectedVideos.first else {

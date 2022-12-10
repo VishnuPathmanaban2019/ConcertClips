@@ -9,15 +9,16 @@ struct EventFeedView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("\(eventName)")
-                Text("|")
+                Text("\(eventName)").foregroundColor(.white)
+                Text("|").foregroundColor(.white)
                 NavigationLink {
                   EventSectionView(eventName: eventName, clips: clipsManagerViewModel.clipViewModels.map({ $0.clip }))
                 } label: {
                     Text("Sections")
+                    
                 }
             }
             EventFeedViewRepresentable(eventName: eventName).ignoresSafeArea()
-        }.background(Image("concert_background_blue").resizable())
+        }.background(.black)
     }
 }

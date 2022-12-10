@@ -85,6 +85,29 @@ extension ViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedViewCell.identifier,
                                                       for: indexPath) as! FeedViewCell
         cell.configure(with: model)
+        
+        
+        //  idea for details:
+        // IF details enabled (if detailsTappedCount == 1)
+        // remove previous details subview
+        // add new details subview by manually called didTapDetailsButton
+        if model.detailsButtonTappedCount == 0 {
+            for subview in view.subviews {
+                if subview is UILabel {
+                    subview.removeFromSuperview()
+                }
+                
+                if subview.backgroundColor == .black {
+                    subview.removeFromSuperview()
+                }
+            }
+//            didTapDetailsButton(with: model)
+        }
+        
+        // if details NOT enabled (if detailsTappedCount == 0)
+        // do nothing
+        
+        
         cell.delegate = self
         cell.player?.play()
         return cell

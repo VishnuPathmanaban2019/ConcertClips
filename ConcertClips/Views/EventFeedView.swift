@@ -18,6 +18,6 @@ struct EventFeedView: View {
                 }
             }
             EventFeedViewRepresentable(eventName: eventName).ignoresSafeArea()
-        }
+        }.background(Image("concert").resizable())
     }
 }

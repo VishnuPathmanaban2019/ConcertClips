@@ -64,6 +64,6 @@ struct SearchView: View {
                     }
                 }
             }
-        }
+        }.background(Color.black.edgesIgnoringSafeArea(.all))
     }
 }

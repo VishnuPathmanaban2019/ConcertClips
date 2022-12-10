@@ -8,6 +8,6 @@ struct FeedView: View {
     var body: some View {
         VStack {
             FeedViewRepresentable().ignoresSafeArea()
-        }.background(Image("concert_view_of_event").resizable())
+        }.background(Image("no_video_yet"))
     }
 }

@@ -46,6 +46,12 @@ struct ClipSelectView: View {
                     matching: .videos
                 ) {
                     Text("Pick a clip to upload")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color(.systemIndigo))
+                        .cornerRadius(12)
+                        .padding()
                 }
                 .onChange(of: selectedVideos) { newVideo in
                     guard let item = selectedVideos.first else {
@@ -66,5 +72,9 @@ struct ClipSelectView: View {
                 }
             }
         }
+//        .frame(width: 800, height: 800)
+//        .background(.black)
+//        .background(Image("concert_view_of_event"))
+//        .edgesIgnoringSafeArea(.all)
     }
 }

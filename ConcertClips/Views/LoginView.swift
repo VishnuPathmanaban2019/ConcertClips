@@ -22,7 +22,7 @@ struct LoginView: View {
             
             Text("ConcertClips")
                 .fontWeight(.black)
-                .foregroundColor(Color(.black))
+                .foregroundColor(Color(.white))
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
             
@@ -39,6 +39,6 @@ struct LoginView: View {
             
             Spacer()
             
-        }
+        }//sear.background(Color.gray.edgesIgnoringSafeArea(.all))
     }
 }

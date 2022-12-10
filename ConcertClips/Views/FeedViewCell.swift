@@ -233,10 +233,14 @@ class FeedViewCell: UICollectionViewCell {
     
     func loopVideo(_ videoPlayer: AVPlayer) {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            if self.model?.volumeButtonTappedCount == 1 {
+                self.didTapVolumeButton()
+            }
             videoPlayer.seek(to: CMTime.zero)
             videoPlayer.play()
-            videoPlayer.volume = 0 // set volume to 0 once video loops
-            self.model?.volumeButtonTappedCount = 0
+// the below two lines are commented out because calling self.didTapVolumeButton() cleverly takes care of them
+//            videoPlayer.volume = 0 // set volume to 0 once video loops
+//            self.model?.volumeButtonTappedCount = 0
         }
     }
     

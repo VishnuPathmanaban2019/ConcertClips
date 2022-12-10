@@ -91,6 +91,7 @@ extension ViewController: UICollectionViewDataSource {
         // IF details enabled (if detailsTappedCount == 1)
         // remove previous details subview
         // add new details subview by manually called didTapDetailsButton
+        
         if model.detailsButtonTappedCount == 0 {
             for subview in view.subviews {
                 if subview is UILabel {

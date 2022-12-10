@@ -68,6 +68,8 @@ class FeedViewCell: UICollectionViewCell {
     private let volumeButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "speaker"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "speaker.fill"), for: .selected)
+
         return button
     }()
     
@@ -156,10 +158,12 @@ class FeedViewCell: UICollectionViewCell {
         if model?.volumeButtonTappedCount == 0 {
             player?.volume = 1
             model?.volumeButtonTappedCount = 1
+            self.volumeButton.isSelected = true
         }
         else {
             model?.volumeButtonTappedCount = 0
             player?.volume = 0
+            self.volumeButton.isSelected = false
         }
         guard let model = model else { return }
         delegate?.didTapVolumeButton(with: model)

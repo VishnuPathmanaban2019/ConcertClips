@@ -8,13 +8,26 @@ import SwiftUI
 
 
 struct SavedClipsView: View {
+    
+    private var concertImageBackground: some View {
+        GeometryReader { geometry in
+            Image("no_clips_yet_v1")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: geometry.size.width)
+        }
+    }
+    
     var body: some View {
-        VStack {
-            HStack {
-                Text("Saved Clips").foregroundColor(.white)
-            }
-            SavedClipsViewRepresentable().ignoresSafeArea()
-        }.background(.black)
+        
+        concertImageBackground.overlay(
+            VStack {
+                HStack {
+                    Text("Saved Clips").fontWeight(.bold).foregroundColor(.white)
+                }
+                SavedClipsViewRepresentable() //.ignoresSafeArea()
+            } //.background(.black)
+        )
     }
 }
 

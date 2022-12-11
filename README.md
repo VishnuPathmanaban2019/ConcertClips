@@ -2,6 +2,7 @@
 
 ## Required Packages on Xcode
 firebase-ios-sdk
+
 GoogleSignIn
 
 ## ConcertClipsFirebase Previous Commits

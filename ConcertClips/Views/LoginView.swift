@@ -22,12 +22,13 @@ struct LoginView: View {
             
             Text("ConcertClips")
                 .fontWeight(.black)
-                .foregroundColor(Color(.black))
+                .foregroundColor(Color(.white))
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
             
             Text("Login with Google")
-                .fontWeight(.light)
+                .fontWeight(.bold)
+                .foregroundColor(Color(.white))
                 .multilineTextAlignment(.center)
                 .padding()
             
@@ -39,6 +40,6 @@ struct LoginView: View {
             
             Spacer()
             
-        }
+        }//sear.background(Color.gray.edgesIgnoringSafeArea(.all))
     }
 }

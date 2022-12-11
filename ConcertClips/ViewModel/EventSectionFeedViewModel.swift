@@ -106,9 +106,20 @@ extension EventSectionViewController: FeedViewCellDelegate {
                 print("Error getting documents: \(err)")
             } else {
                 let document = querySnapshot?.documents.first
-                document?.reference.updateData([
-                    "myClips": FieldValue.arrayUnion([serialized])
-                ])
+                let docData = document?.data()
+                let savedClips = docData!["myClips"] as! [String]
+                
+                // remove clip if clip is already in this user's savedClips
+                if savedClips.contains(serialized) {
+                    document?.reference.updateData([
+                        "myClips": FieldValue.arrayRemove([serialized])
+                    ])
+                }
+                else { // add clip if clip is NOT already in this user's savedClips
+                    document?.reference.updateData([
+                        "myClips": FieldValue.arrayUnion([serialized])
+                    ])
+                }
             }
         }
     }
@@ -133,30 +144,64 @@ extension EventSectionViewController: FeedViewCellDelegate {
         let rectangleView = UIView(frame: CGRect(x: 0, y: 600, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
         rectangleView.backgroundColor = UIColor.black
         
+        // rram
+        let captionLabelHeader = UILabel()
+        captionLabelHeader.textAlignment = .left
+        captionLabelHeader.textColor = .white
+        captionLabelHeader.frame = CGRect(x: 0, y: 610, width: self.view.frame.width, height: 20)
+//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
+        captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        captionLabelHeader.text = "      Caption: "
+        // rram
+        
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
         captionLabel.textColor = .white
         
-        captionLabel.frame = CGRect(x: 0, y: 620, width: self.view.frame.width, height: 20)
-        captionLabel.text = model.caption
+        captionLabel.frame = CGRect(x: 0, y: 610, width: self.view.frame.width, height: 20)
+        captionLabel.text = "                      " + model.caption
+        
+        
+        // rram
+        let eventLabelHeader = UILabel()
+        eventLabelHeader.textAlignment = .left
+        eventLabelHeader.textColor = .white
+        eventLabelHeader.frame = CGRect(x: 0, y: 630, width: self.view.frame.width, height: 20)
+//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
+        eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        eventLabelHeader.text = "      Event: "
+        // rram
         
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
         eventLabel.textColor = .white
         
-        eventLabel.frame = CGRect(x: 0, y: 640, width: self.view.frame.width, height: 20)
-        eventLabel.text = model.event
+        eventLabel.frame = CGRect(x: 0, y: 630, width: self.view.frame.width, height: 20)
+        eventLabel.text = "                      " + model.event
+
+        // rram
+        let sectionLabelHeader = UILabel()
+        sectionLabelHeader.textAlignment = .left
+        sectionLabelHeader.textColor = .white
+        sectionLabelHeader.frame = CGRect(x: 0, y: 650, width: self.view.frame.width, height: 20)
+//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
+        sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        sectionLabelHeader.text = "      Section: "
+        // rram
         
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left
         sectionLabel.textColor = .white
         
-        sectionLabel.frame = CGRect(x: 0, y: 660, width: self.view.frame.width, height: 20)
-        sectionLabel.text = model.section
+        sectionLabel.frame = CGRect(x: 0, y: 650, width: self.view.frame.width, height: 20)
+        sectionLabel.text = "                      " + model.section
         
         view.addSubview(rectangleView)
+        view.addSubview(captionLabelHeader)
         view.addSubview(captionLabel)
+        view.addSubview(eventLabelHeader)
         view.addSubview(eventLabel)
+        view.addSubview(sectionLabelHeader)
         view.addSubview(sectionLabel)
         
         if shouldCreateSubviews == false {

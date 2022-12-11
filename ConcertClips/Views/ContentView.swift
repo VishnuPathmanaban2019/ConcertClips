@@ -12,10 +12,14 @@ struct ContentView: View {
     @EnvironmentObject var viewModel: AuthenticationViewModel
     
     var body: some View {
-        switch viewModel.state {
-        case .signedIn: LoggedInView()
-        case .signedInFull: AppView()
-        case .signedOut: LoginView()
-        }
+        
+        VStack {
+            switch viewModel.state {
+            case .signedIn: LoggedInView()
+            case .signedInFull: AppView()
+            case .signedOut: LoginView()
+            }
+        }.background(Image("concert_background_blue"))
+         .ignoresSafeArea(.all)
     }
 }

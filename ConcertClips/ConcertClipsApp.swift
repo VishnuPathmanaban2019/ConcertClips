@@ -23,10 +23,11 @@ struct ConcertClipsApp: App {
     
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView().environmentObject(viewModel)
+                ContentView().background(Image("concert_background_blue")).environmentObject(viewModel)
             }
         }
     }

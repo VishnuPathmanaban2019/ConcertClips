@@ -5,6 +5,9 @@
 
 import UIKit
 import AVFoundation
+import GoogleSignIn
+import SwiftUI
+import FirebaseFirestore
 
 protocol FeedViewCellDelegate: AnyObject {
     func didTapLikeButton(with model: VideoModel)
@@ -15,6 +18,9 @@ protocol FeedViewCellDelegate: AnyObject {
 }
 
 class FeedViewCell: UICollectionViewCell {
+    
+    @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
+    var usersManagerViewModel = UsersManagerViewModel()
     
     static let identifier = "FeedViewCell"
     
@@ -49,6 +55,7 @@ class FeedViewCell: UICollectionViewCell {
     private let likeButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .selected)
         return button
     }()
     
@@ -61,6 +68,8 @@ class FeedViewCell: UICollectionViewCell {
     private let volumeButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "speaker"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "speaker.fill"), for: .selected)
+
         return button
     }()
     
@@ -79,6 +88,13 @@ class FeedViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.backgroundColor = .black
         contentView.clipsToBounds = true
+        
+//        let lb = UILabel()
+//        lb.textAlignment = .center
+//        lb.numberOfLines = 0
+//        lb.text = "No Clips Yet!"
+//        contentView.addSubview(lb)
+        
         addSubviews()
     }
     
@@ -102,6 +118,35 @@ class FeedViewCell: UICollectionViewCell {
     @objc private func didTapLikeButton() {
         guard let model = model else { return }
         delegate?.didTapLikeButton(with: model)
+        
+        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+        let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+        
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+        
+        userQuery.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                let document = querySnapshot?.documents.first
+//                print(document?.data()["myClips"])
+                let docData = document?.data()
+//                var selected = docData!["likeButtonSelected"] as! [String]
+                
+                
+//                if selected == ["true"] {
+//                    self.likeButton.isSelected = false
+//                }
+//                else {
+//                    self.likeButton.isSelected = true
+//                }
+                
+//                print("selected (from DB): \(selected)")
+//                print("like button selected (local): \(self.likeButton.isSelected)")
+                
+
+            }
+        }
     }
     
     @objc private func didTapDetailsButton() {
@@ -113,10 +158,12 @@ class FeedViewCell: UICollectionViewCell {
         if model?.volumeButtonTappedCount == 0 {
             player?.volume = 1
             model?.volumeButtonTappedCount = 1
+            self.volumeButton.isSelected = true
         }
         else {
             model?.volumeButtonTappedCount = 0
             player?.volume = 0
+            self.volumeButton.isSelected = false
         }
         guard let model = model else { return }
         delegate?.didTapVolumeButton(with: model)
@@ -135,7 +182,7 @@ class FeedViewCell: UICollectionViewCell {
         // Buttons
         likeButton.frame = CGRect(x: width-size, y: height-(size*5.5)-10, width: size, height: size)
         
-        detailsButton.frame = CGRect(x: width-size, y: height-(size*4)-10, width: size, height: size)
+        detailsButton.frame = CGRect(x: width-size, y: height-(size*4)-10, width: size, height: size + 10)
         
         volumeButton.frame = CGRect(x: width-size, y: height-(size*7)-10, width: size, height: size)
         // Labels
@@ -186,10 +233,14 @@ class FeedViewCell: UICollectionViewCell {
     
     func loopVideo(_ videoPlayer: AVPlayer) {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            if self.model?.volumeButtonTappedCount == 1 {
+                self.didTapVolumeButton()
+            }
             videoPlayer.seek(to: CMTime.zero)
             videoPlayer.play()
-            videoPlayer.volume = 0 // set volume to 0 once video loops
-            self.model?.volumeButtonTappedCount = 0
+// the below two lines are commented out because calling self.didTapVolumeButton() cleverly takes care of them
+//            videoPlayer.volume = 0 // set volume to 0 once video loops
+//            self.model?.volumeButtonTappedCount = 0
         }
     }
     

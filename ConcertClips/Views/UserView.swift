@@ -21,7 +21,7 @@ struct UserView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: geometry.size.width)
-        }
+        }.background(.black)
     }
     
 //        .background(Image("concert_background_blue").resizable())
@@ -57,7 +57,7 @@ struct UserView: View {
                     NavigationLink(destination: SavedClipsView().background(.black), isActive: $moveToSavedClipsView) { EmptyView() }
                     Button(action: {
                         self.moveToSavedClipsView = true
-                        
+
                     }) {
                         Text("My Saved Clips")
                             .foregroundColor(.black)

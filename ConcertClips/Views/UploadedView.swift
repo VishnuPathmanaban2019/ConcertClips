@@ -33,7 +33,7 @@ struct UploadedView: View {
                             EmptyView()
                         }
 
-                        Text("Clip Uploaded!").foregroundColor(.white).onAppear() {
+                Text("Clip Uploaded!").fontWeight(.bold).foregroundColor(.white).onAppear() {
                             clipsManagerViewModel.add(clip)
                             data = nil
                             self.tabSelection = 0

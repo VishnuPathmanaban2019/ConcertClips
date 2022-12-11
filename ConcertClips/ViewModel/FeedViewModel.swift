@@ -133,7 +133,7 @@ extension ViewController: FeedViewCellDelegate {
 //                print(document?.data()["myClips"])
                 let docData = document?.data()
                 let savedClips = docData!["myClips"] as! [String]
-                let likeButtonSelected = docData!["likeButtonSelected"] as! [String]
+//                let likeButtonSelected = docData!["likeButtonSelected"] as! [String]
 
                 print("savedClipsBefore: \(savedClips)")
                 
@@ -166,25 +166,25 @@ extension ViewController: FeedViewCellDelegate {
                     
                     
                     // update boolean
-                    if likeButtonSelected == ["true"]
-                    {
-                        document?.reference.updateData([
-                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
-                        ])
-                        
-                        document?.reference.updateData([
-                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
-                        ]) // using array for now, will change to boolean once figured out
-                    }
-                    else {
-                        document?.reference.updateData([
-                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
-                        ])
-                        
-                        document?.reference.updateData([
-                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
-                        ]) // using array for now, will change to boolean once figured out
-                    }
+//                    if likeButtonSelected == ["true"]
+//                    {
+//                        document?.reference.updateData([
+//                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
+//                        ])
+//
+//                        document?.reference.updateData([
+//                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
+//                        ]) // using array for now, will change to boolean once figured out
+//                    }
+//                    else {
+//                        document?.reference.updateData([
+//                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
+//                        ])
+//
+//                        document?.reference.updateData([
+//                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
+//                        ]) // using array for now, will change to boolean once figured out
+//                    }
                 }
                 else { // add clip if we press like, and clip is NOT already in this user's savedClips
                     document?.reference.updateData([
@@ -192,25 +192,25 @@ extension ViewController: FeedViewCellDelegate {
                     ])
                     
                     // update boolean
-                    if likeButtonSelected == ["true"]
-                    {
-                        document?.reference.updateData([
-                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
-                        ])
-                        
-                        document?.reference.updateData([
-                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
-                        ]) // using array for now, will change to boolean once figured out
-                    }
-                    else {
-                        document?.reference.updateData([
-                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
-                        ])
-                        
-                        document?.reference.updateData([
-                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
-                        ]) // using array for now, will change to boolean once figured out
-                    }
+//                    if likeButtonSelected == ["true"]
+//                    {
+//                        document?.reference.updateData([
+//                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
+//                        ])
+//
+//                        document?.reference.updateData([
+//                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
+//                        ]) // using array for now, will change to boolean once figured out
+//                    }
+//                    else {
+//                        document?.reference.updateData([
+//                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
+//                        ])
+//
+//                        document?.reference.updateData([
+//                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
+//                        ]) // using array for now, will change to boolean once figured out
+//                    }
                     
                 }
                 
@@ -237,7 +237,7 @@ extension ViewController: FeedViewCellDelegate {
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height - 100
         
-        let rectangleView = UIView(frame: CGRect(x: 0, y: 600, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
+        let rectangleView = UIView(frame: CGRect(x: 0, y: 650, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
         rectangleView.backgroundColor = UIColor.black
         
         
@@ -245,53 +245,53 @@ extension ViewController: FeedViewCellDelegate {
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
-        captionLabelHeader.frame = CGRect(x: 0, y: 620, width: self.view.frame.width, height: 20)
+        captionLabelHeader.frame = CGRect(x: 0, y: 670, width: self.view.frame.width, height: 20)
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
-        captionLabelHeader.text = "Caption: "
+        captionLabelHeader.text = "       Caption: "
         // rram
         
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
         captionLabel.textColor = .white
         
-        captionLabel.frame = CGRect(x: 0, y: 620, width: self.view.frame.width, height: 20)
-        captionLabel.text = "                " + model.caption
+        captionLabel.frame = CGRect(x: 0, y: 670, width: self.view.frame.width, height: 20)
+        captionLabel.text = "                       " + model.caption
         
         
         // rram
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
-        eventLabelHeader.frame = CGRect(x: 0, y: 640, width: self.view.frame.width, height: 20)
+        eventLabelHeader.frame = CGRect(x: 0, y: 690, width: self.view.frame.width, height: 20)
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
-        eventLabelHeader.text = "Event: "
+        eventLabelHeader.text = "       Event: "
         // rram
         
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
         eventLabel.textColor = .white
         
-        eventLabel.frame = CGRect(x: 0, y: 640, width: self.view.frame.width, height: 20)
-        eventLabel.text = "                " + model.event
+        eventLabel.frame = CGRect(x: 0, y: 690, width: self.view.frame.width, height: 20)
+        eventLabel.text = "                       " + model.event
 
         // rram
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
-        sectionLabelHeader.frame = CGRect(x: 0, y: 660, width: self.view.frame.width, height: 20)
+        sectionLabelHeader.frame = CGRect(x: 0, y: 710, width: self.view.frame.width, height: 20)
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
-        sectionLabelHeader.text = "Section: "
+        sectionLabelHeader.text = "       Section: "
         // rram
         
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left
         sectionLabel.textColor = .white
         
-        sectionLabel.frame = CGRect(x: 0, y: 660, width: self.view.frame.width, height: 20)
-        sectionLabel.text = "                " + model.section
+        sectionLabel.frame = CGRect(x: 0, y: 710, width: self.view.frame.width, height: 20)
+        sectionLabel.text = "                       " + model.section
         
         view.addSubview(rectangleView)
         view.addSubview(captionLabelHeader)

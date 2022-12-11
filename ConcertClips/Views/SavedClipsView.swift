@@ -23,7 +23,7 @@ struct SavedClipsView: View {
         concertImageBackground.overlay(
             VStack {
                 HStack {
-                    Text("Saved Clips").padding().fontWeight(.bold).foregroundColor(.white)
+                    Text("Saved Clips").padding(.top).fontWeight(.bold).foregroundColor(.white)
                 }
                 SavedClipsViewRepresentable() //.ignoresSafeArea()
             } //.background(.black)

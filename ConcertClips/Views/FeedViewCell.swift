@@ -131,18 +131,18 @@ class FeedViewCell: UICollectionViewCell {
                 let document = querySnapshot?.documents.first
 //                print(document?.data()["myClips"])
                 let docData = document?.data()
-                var selected = docData!["likeButtonSelected"] as! [String]
+//                var selected = docData!["likeButtonSelected"] as! [String]
                 
                 
-                if selected == ["true"] {
-                    self.likeButton.isSelected = false
-                }
-                else {
-                    self.likeButton.isSelected = true
-                }
+//                if selected == ["true"] {
+//                    self.likeButton.isSelected = false
+//                }
+//                else {
+//                    self.likeButton.isSelected = true
+//                }
                 
-                print("selected (from DB): \(selected)")
-                print("like button selected (local): \(self.likeButton.isSelected)")
+//                print("selected (from DB): \(selected)")
+//                print("like button selected (local): \(self.likeButton.isSelected)")
                 
 
             }
@@ -182,7 +182,7 @@ class FeedViewCell: UICollectionViewCell {
         // Buttons
         likeButton.frame = CGRect(x: width-size, y: height-(size*5.5)-10, width: size, height: size)
         
-        detailsButton.frame = CGRect(x: width-size, y: height-(size*4)-10, width: size, height: size)
+        detailsButton.frame = CGRect(x: width-size, y: height-(size*4)-10, width: size, height: size + 10)
         
         volumeButton.frame = CGRect(x: width-size, y: height-(size*7)-10, width: size, height: size)
         // Labels

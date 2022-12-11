@@ -23,7 +23,7 @@ struct EventSectionFeedView: View {
     var body: some View {
         concertImageBackground.overlay(
             VStack {
-                Text("\(eventName) | Section: \(section)").fontWeight(.bold).foregroundColor(.white)
+                Text("\(eventName) | Section: \(section)").fontWeight(.bold).foregroundColor(.white).padding(.top)
                 EventSectionFeedViewRepresentable(eventName: eventName, section: section).ignoresSafeArea()
             }
         )

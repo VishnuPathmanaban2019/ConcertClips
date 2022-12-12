@@ -30,11 +30,18 @@ struct EventSectionView: View {
         }
         
         concertImageBackground.overlay(
-            List(Array(allSections.sorted()), id: \.self) { section in
-                NavigationLink {
-                    EventSectionFeedView(eventName: eventName, section: section).background(.black)
-                } label: {
-                    Text(section)
+            VStack {
+//                Text("\(eventName)").fontWeight(.bold).foregroundColor(.white).padding(.top)
+//                Text("|").foregroundColor(.white).padding(.top)
+//                Text("Sections").padding(.top)
+                Text("\(eventName) | All Sections").fontWeight(.bold).foregroundColor(.white).padding(.top)
+                
+                List(Array(allSections.sorted()), id: \.self) { section in
+                    NavigationLink {
+                        EventSectionFeedView(eventName: eventName, section: section).background(.black)
+                    } label: {
+                        Text(section)
+                    }
                 }
             }
         ).background(.black)

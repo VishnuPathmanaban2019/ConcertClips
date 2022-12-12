@@ -19,7 +19,6 @@ struct SavedClipsView: View {
     }
     
     var body: some View {
-        
         concertImageBackground.overlay(
             VStack {
                 HStack {

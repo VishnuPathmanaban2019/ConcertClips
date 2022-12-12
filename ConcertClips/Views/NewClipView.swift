@@ -21,6 +21,7 @@ struct NewClipView: View {
     @ObservedObject var eventsManagerViewModel = EventsManagerViewModel()
     
     @EnvironmentObject var viewModel: AuthenticationViewModel
+    @State private var date = Date()
     
     var body: some View {
         let events = eventsManagerViewModel.eventViewModels.sorted(by: { $0.event.name < $1.event.name }).map { $0.event }
@@ -42,6 +43,7 @@ struct NewClipView: View {
                             popupTagsPresented = false
                         }
                     })
+                
                 if (popupTagsPresented) {
                     let filteredMatches = events.filter { $0.name.hasPrefix(event) }.map { $0.name }
                     Menu {
@@ -58,6 +60,12 @@ struct NewClipView: View {
                         Text("Select an Event")
                     }.id(UUID())
                 }
+                
+                DatePicker(
+                    "Date",
+                    selection: $date,
+                    displayedComponents: [.date]
+                )
                 
             }
             if self.isValidClip() && events.map({ $0.name }).contains(event) {

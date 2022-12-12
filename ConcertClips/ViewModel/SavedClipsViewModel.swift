@@ -50,7 +50,7 @@ class SavedViewController: UIViewController {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = self.usersManagerViewModel.userRepository.store.collection(self.usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
 
-        userQuery.addSnapshotListener(includeMetadataChanges: true) { (querySnapshot, err) in
+        userQuery.getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -208,14 +208,14 @@ extension SavedViewController: FeedViewCellDelegate {
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height - 100
 
-        let rectangleView = UIView(frame: CGRect(x: 0, y: 520, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
+        let rectangleView = UIView(frame: CGRect(x: 0, y: 490, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
         rectangleView.backgroundColor = UIColor.black
         
         // rram
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
-        captionLabelHeader.frame = CGRect(x: 0, y: 540, width: self.view.frame.width, height: 20)
+        captionLabelHeader.frame = CGRect(x: 0, y: 500, width: self.view.frame.width, height: 20)
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         captionLabelHeader.text = "      Caption: "
@@ -225,14 +225,14 @@ extension SavedViewController: FeedViewCellDelegate {
         captionLabel.textAlignment = .left
         captionLabel.textColor = .white
 
-        captionLabel.frame = CGRect(x: 0, y: 540, width: self.view.frame.width, height: 20)
+        captionLabel.frame = CGRect(x: 0, y: 500, width: self.view.frame.width, height: 20)
         captionLabel.text = "                      " + model.caption
         
         // rram
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
-        eventLabelHeader.frame = CGRect(x: 0, y: 560, width: self.view.frame.width, height: 20)
+        eventLabelHeader.frame = CGRect(x: 0, y: 520, width: self.view.frame.width, height: 20)
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         eventLabelHeader.text = "      Event: "
@@ -242,7 +242,7 @@ extension SavedViewController: FeedViewCellDelegate {
         eventLabel.textAlignment = .left
         eventLabel.textColor = .white
 
-        eventLabel.frame = CGRect(x: 0, y: 560, width: self.view.frame.width, height: 20)
+        eventLabel.frame = CGRect(x: 0, y: 520, width: self.view.frame.width, height: 20)
         eventLabel.text = "                      " + model.event
         
         
@@ -250,7 +250,7 @@ extension SavedViewController: FeedViewCellDelegate {
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
-        sectionLabelHeader.frame = CGRect(x: 0, y: 580, width: self.view.frame.width, height: 20)
+        sectionLabelHeader.frame = CGRect(x: 0, y: 540, width: self.view.frame.width, height: 20)
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         sectionLabelHeader.text = "      Section: "
@@ -260,7 +260,7 @@ extension SavedViewController: FeedViewCellDelegate {
         sectionLabel.textAlignment = .left
         sectionLabel.textColor = .white
 
-        sectionLabel.frame = CGRect(x: 0, y: 580, width: self.view.frame.width, height: 20)
+        sectionLabel.frame = CGRect(x: 0, y: 540, width: self.view.frame.width, height: 20)
         sectionLabel.text = "                      " + model.section
 
         view.addSubview(rectangleView)

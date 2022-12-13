@@ -86,6 +86,19 @@ extension EventSectionViewController: UICollectionViewDataSource {
         let model = data[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedViewCell.identifier,
                                                       for: indexPath) as! FeedViewCell
+        
+        if model.detailsButtonTappedCount == 0 {
+            for subview in view.subviews {
+                if subview is UILabel {
+                    subview.removeFromSuperview()
+                }
+                
+                if subview.backgroundColor == .black {
+                    subview.removeFromSuperview()
+                }
+            }
+        }
+        
         cell.configure(with: model)
         cell.delegate = self
         cell.player?.play()

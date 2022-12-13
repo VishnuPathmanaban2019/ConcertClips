@@ -52,7 +52,7 @@ class FeedViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let likeButton: UIButton = {
+    internal let likeButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
         button.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .selected)
@@ -119,34 +119,7 @@ class FeedViewCell: UICollectionViewCell {
         guard let model = model else { return }
         delegate?.didTapLikeButton(with: model)
         
-        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
-        let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-        
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
-        
-        userQuery.getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                let document = querySnapshot?.documents.first
-//                print(document?.data()["myClips"])
-                let docData = document?.data()
-//                var selected = docData!["likeButtonSelected"] as! [String]
-                
-                
-//                if selected == ["true"] {
-//                    self.likeButton.isSelected = false
-//                }
-//                else {
-//                    self.likeButton.isSelected = true
-//                }
-                
-//                print("selected (from DB): \(selected)")
-//                print("like button selected (local): \(self.likeButton.isSelected)")
-                
-
-            }
-        }
+        self.likeButton.isSelected = !self.likeButton.isSelected
     }
     
     @objc private func didTapDetailsButton() {
@@ -233,6 +206,7 @@ class FeedViewCell: UICollectionViewCell {
     
     func loopVideo(_ videoPlayer: AVPlayer) {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            
             if self.model?.volumeButtonTappedCount == 1 {
                 self.didTapVolumeButton()
             }

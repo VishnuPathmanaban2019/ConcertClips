@@ -65,7 +65,8 @@ class SavedViewController: UIViewController {
                                            event: fields[3],
                                            section: fields[2],
                                            detailsButtonTappedCount: 0,
-                                           volumeButtonTappedCount: 0)
+                                           volumeButtonTappedCount: 0,
+                                           likeButtonTappedCount: 0)
                     self.data.append(model)
                 }
             }
@@ -107,6 +108,30 @@ extension SavedViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedViewCell.identifier,
                                                       for: indexPath) as! FeedViewCell
         
+        // display likeButtonSelection
+        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+        let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+        
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+        
+        userQuery.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                let document = querySnapshot?.documents.first
+                let docData = document?.data()
+                let savedClips = docData!["myClips"] as! [String]
+                
+                // remove clip if we press like, and clip is already in this user's savedClips
+                if savedClips.contains(serialized) {
+                    cell.likeButton.isSelected = true
+                }
+                else { // add clip if we press like, and clip is NOT already in this user's savedClips
+                    cell.likeButton.isSelected = false
+                }
+            }
+        }
+        // display likeButtonSelection
         
         if model.detailsButtonTappedCount == 0 {
             for subview in view.subviews {
@@ -132,9 +157,10 @@ extension SavedViewController: FeedViewCellDelegate {
     func didTapLikeButton(with model: VideoModel) {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-
+        
         let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
-
+        
+        
         userQuery.getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -142,64 +168,17 @@ extension SavedViewController: FeedViewCellDelegate {
                 let document = querySnapshot?.documents.first
                 let docData = document?.data()
                 let savedClips = docData!["myClips"] as! [String]
-//                let likeButtonSelected = docData!["likeButtonSelected"] as! [String]
-
-                print("savedClips (from scvm): \(savedClips)")
-
-
+                
                 // remove clip if we press like, and clip is already in this user's savedClips
                 if savedClips.contains(serialized) {
                     document?.reference.updateData([
                         "myClips": FieldValue.arrayRemove([serialized])
                     ])
-
-
-                    // update boolean
-//                    if likeButtonSelected == ["true"]
-//                    {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
-//                    else {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
                 }
                 else { // add clip if we press like, and clip is NOT already in this user's savedClips
                     document?.reference.updateData([
                         "myClips": FieldValue.arrayUnion([serialized])
                     ])
-
-                    // update boolean
-//                    if likeButtonSelected == ["true"]
-//                    {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
-//                    else {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
                 }
             }
         }

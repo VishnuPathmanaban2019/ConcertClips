@@ -50,7 +50,8 @@ class EventSectionViewController: UIViewController {
                                            event: clipViewModel.clip.event,
                                            section: clipViewModel.clip.section,
                                            detailsButtonTappedCount: 0,
-                                           volumeButtonTappedCount: 0)
+                                           volumeButtonTappedCount: 0,
+                                           likeButtonTappedCount: 0)
                     self.data.append(model)
                 }
             }

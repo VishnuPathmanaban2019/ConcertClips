@@ -201,6 +201,8 @@ class FeedViewCell: UICollectionViewCell {
         videoContainer.layer.addSublayer(playerView)
         player?.volume = 0
         player?.play()
+        
+//        updateUI(player!)
         loopVideo(player!)
     }
     
@@ -212,9 +214,56 @@ class FeedViewCell: UICollectionViewCell {
             }
             videoPlayer.seek(to: CMTime.zero)
             videoPlayer.play()
+            
 // the below two lines are commented out because calling self.didTapVolumeButton() cleverly takes care of them
 //            videoPlayer.volume = 0 // set volume to 0 once video loops
 //            self.model?.volumeButtonTappedCount = 0
+//            self.updateLikeButton(self.model!)
+        }
+    }
+    
+    
+    func updateUI(_ videoPlayer: AVPlayer) {
+            var timeObserverToken: Any?
+            // Notify every half second
+            let timeScale = CMTimeScale(NSEC_PER_SEC)
+            let time = CMTime(seconds: 1, preferredTimescale: timeScale)
+            
+            timeObserverToken = videoPlayer.addPeriodicTimeObserver(forInterval: time,
+                                                                    queue: .main) {
+                [weak self] time in
+                // update player UI
+                self!.updateLikeButton((self?.model!)!)
+                
+            }
+//        }
+    }
+    
+    func updateLikeButton(_ model: VideoModel) {
+        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+        let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+        
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+        
+        userQuery.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                let document = querySnapshot?.documents.first
+                let docData = document?.data()
+                let savedClips = docData!["myClips"] as! [String]
+                
+                // remove clip if we press like, and clip is already in this user's savedClips
+                if savedClips.contains(serialized) {
+                    self.likeButton.isSelected = true
+                    print("clip in saved clips")
+                }
+                else { // add clip if we press like, and clip is NOT already in this user's savedClips
+                    self.likeButton.isSelected = false
+                    print("clip not in saved clips")
+                }
+            }
+//            cell.reloadData()
         }
     }
     

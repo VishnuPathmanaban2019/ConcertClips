@@ -17,11 +17,11 @@ struct NewClipView: View {
     @State private var event = ""
     @State private var section = ""
     @State private var isActive = false
+    @State private var date = Date()
     @State private var popupTagsPresented = false
     @ObservedObject var eventsManagerViewModel = EventsManagerViewModel()
     
     @EnvironmentObject var viewModel: AuthenticationViewModel
-    @State private var date = Date()
     
     var body: some View {
         let events = eventsManagerViewModel.eventViewModels.sorted(by: { $0.event.name < $1.event.name }).map { $0.event }
@@ -61,15 +61,15 @@ struct NewClipView: View {
                     }.id(UUID())
                 }
                 
-//                DatePicker(
-//                    "Date",
-//                    selection: $date,
-//                    displayedComponents: [.date]
-//                )
+                DatePicker(
+                    "Date",
+                    selection: $date,
+                    displayedComponents: [.date]
+                )
                 
             }
             if self.isValidClip() && events.map({ $0.name }).contains(event) {
-                let clip = Clip(name: name, event: event, section: section, downloadURL: downloadURL)
+                let clip = Clip(name: name, event: event, section: section, date: date, downloadURL: downloadURL)
                 NavigationLink {
                     UploadedView(moveToFeedView: false, clip: clip, tabSelection: $tabSelection, data: $data).environmentObject(viewModel).navigationBarBackButtonHidden(true)
                     let _ = clearFields()
@@ -92,6 +92,7 @@ struct NewClipView: View {
         name = ""
         event = ""
         section = ""
+        date = Date()
     }
     
 }

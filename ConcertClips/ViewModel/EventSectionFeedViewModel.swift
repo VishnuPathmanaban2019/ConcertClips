@@ -55,6 +55,7 @@ class EventSectionViewController: UIViewController {
                                            videoURL: clipViewModel.clip.downloadURL,
                                            event: clipViewModel.clip.event,
                                            section: clipViewModel.clip.section,
+                                           date: clipViewModel.clip.date,
                                            detailsButtonTappedCount: 0,
                                            volumeButtonTappedCount: 0,
                                            likeButtonTappedCount: 0)
@@ -119,7 +120,9 @@ extension EventSectionViewController: FeedViewCellDelegate {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
         
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event + "`" + dateFormatter.string(from: model.date)
         
         userQuery.getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -216,8 +219,10 @@ extension EventSectionViewController: FeedViewCellDelegate {
         eventLabel.textAlignment = .left
         eventLabel.textColor = .white
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
         eventLabel.frame = CGRect(x: 0, y: 630, width: self.view.frame.width, height: 20)
-        eventLabel.text = "                      " + model.event
+        eventLabel.text = "                      " + model.event + " (" + dateFormatter.string(from: model.date) + ")"
         
         // 
         let sectionLabelHeader = UILabel()

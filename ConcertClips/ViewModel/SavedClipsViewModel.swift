@@ -50,13 +50,16 @@ class SavedViewController: UIViewController {
                 let document = querySnapshot?.documents.first
                 let docData = document?.data()
                 let savedClips = docData!["myClips"] as! [String]
-//                print(savedClips)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM/dd/yy"
                 savedClips.forEach { savedClip in
                     let fields = savedClip.components(separatedBy: "`")
+                    print(fields)
                     let model = VideoModel(caption: fields[1],
                                            videoURL: fields[0],
                                            event: fields[3],
                                            section: fields[2],
+                                           date: dateFormatter.date(from: fields[4]) ?? Date(),
                                            detailsButtonTappedCount: 0,
                                            volumeButtonTappedCount: 0,
                                            likeButtonTappedCount: 0)
@@ -104,8 +107,10 @@ extension SavedViewController: UICollectionViewDataSource {
         // display likeButtonSelection
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-        
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+      
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event + "`" + dateFormatter.string(from: model.date)
         
         userQuery.getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -151,7 +156,9 @@ extension SavedViewController: FeedViewCellDelegate {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
         
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event + "`" + dateFormatter.string(from: model.date)
         
         
         userQuery.getDocuments() { (querySnapshot, err) in
@@ -248,8 +255,10 @@ extension SavedViewController: FeedViewCellDelegate {
         eventLabel.textAlignment = .left
         eventLabel.textColor = .white
 
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
         eventLabel.frame = CGRect(x: 0, y: 520, width: self.view.frame.width, height: 20)
-        eventLabel.text = "                      " + model.event
+        eventLabel.text = "                      " + model.event + " (" + dateFormatter.string(from: model.date) + ")"
         
         
         // 

@@ -15,6 +15,7 @@ struct VideoModel {
     let videoURL: String
     let event: String
     let section: String
+    let date: Date
     let detailsButtonTappedCount: Int
     var volumeButtonTappedCount: Int
     var likeButtonTappedCount: Int
@@ -50,6 +51,7 @@ class ViewController: UIViewController {
                                        videoURL: clipViewModel.clip.downloadURL,
                                        event: clipViewModel.clip.event,
                                        section: clipViewModel.clip.section,
+                                       date: clipViewModel.clip.date,
                                        detailsButtonTappedCount: 0,
                                        volumeButtonTappedCount: 0,
                                        likeButtonTappedCount: 0)
@@ -83,8 +85,6 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        print("other collection view")
-        
         return data.count
     }
     
@@ -98,7 +98,9 @@ extension ViewController: UICollectionViewDataSource {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
         
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event + "`" + dateFormatter.string(from: model.date)
         
         userQuery.getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -129,8 +131,10 @@ extension ViewController: FeedViewCellDelegate {
     func didTapLikeButton(with model: VideoModel) {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-        
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+          
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event + "`" + dateFormatter.string(from: model.date)
         
         
         userQuery.getDocuments() { (querySnapshot, err) in
@@ -224,8 +228,10 @@ extension ViewController: FeedViewCellDelegate {
         eventLabel.textAlignment = .left
         eventLabel.textColor = .white
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
         eventLabel.frame = CGRect(x: 0, y: 690, width: self.view.frame.width, height: 20)
-        eventLabel.text = "                       " + model.event
+        eventLabel.text = "                       " + model.event + " (" + dateFormatter.string(from: model.date) + ")"
         
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left

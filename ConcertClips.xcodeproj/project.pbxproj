@@ -13,6 +13,10 @@
 		350C9B0629418FFC00CA167C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 350C9B0529418FFC00CA167C /* FirebaseStorage */; };
 		350C9B092941902A00CA167C /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 350C9B082941902A00CA167C /* GoogleSignIn */; };
 		350C9B0B2941902A00CA167C /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 350C9B0A2941902A00CA167C /* GoogleSignInSwift */; };
+		351E2DFA2949944D0059BC34 /* EventDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E2DF92949944D0059BC34 /* EventDateView.swift */; };
+		351E2DFC294998A10059BC34 /* EventDateFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E2DFB294998A10059BC34 /* EventDateFeedView.swift */; };
+		351E2DFE294999070059BC34 /* EventDateFeedViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E2DFD294999070059BC34 /* EventDateFeedViewRepresentable.swift */; };
+		351E2E00294999330059BC34 /* EventDateFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E2DFF294999330059BC34 /* EventDateFeedViewModel.swift */; };
 		35519C422916AA0C00B63497 /* NewEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C412916AA0C00B63497 /* NewEventView.swift */; };
 		35519C452916AB7E00B63497 /* EventsManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C442916AB7E00B63497 /* EventsManagerViewModel.swift */; };
 		35519C4A2916B8E400B63497 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35519C492916B8E400B63497 /* User.swift */; };
@@ -64,6 +68,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		351E2DF92949944D0059BC34 /* EventDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateView.swift; sourceTree = "<group>"; };
+		351E2DFB294998A10059BC34 /* EventDateFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateFeedView.swift; sourceTree = "<group>"; };
+		351E2DFD294999070059BC34 /* EventDateFeedViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateFeedViewRepresentable.swift; sourceTree = "<group>"; };
+		351E2DFF294999330059BC34 /* EventDateFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateFeedViewModel.swift; sourceTree = "<group>"; };
 		35519C412916AA0C00B63497 /* NewEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventView.swift; sourceTree = "<group>"; };
 		35519C442916AB7E00B63497 /* EventsManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManagerViewModel.swift; sourceTree = "<group>"; };
 		35519C492916B8E400B63497 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -158,6 +166,9 @@
 				35EF6DDB2941A67300274957 /* EventSectionFeedViewRepresentable.swift */,
 				BA7D65672942A1AD0042C8ED /* SavedClipsView.swift */,
 				BA7D65692942A1D90042C8ED /* SavedClipsViewRepresentable.swift */,
+				351E2DF92949944D0059BC34 /* EventDateView.swift */,
+				351E2DFB294998A10059BC34 /* EventDateFeedView.swift */,
+				351E2DFD294999070059BC34 /* EventDateFeedViewRepresentable.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -198,6 +209,7 @@
 				BA970B07294131430082A687 /* AuthenticationViewModel.swift */,
 				35EF6DDD2941A68900274957 /* EventSectionFeedViewModel.swift */,
 				BA7D65652942A1220042C8ED /* SavedClipsViewModel.swift */,
+				351E2DFF294999330059BC34 /* EventDateFeedViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -331,6 +343,7 @@
 				BAB04BE7291DFFCE005B42DE /* FeedViewModel.swift in Sources */,
 				BA970B08294131430082A687 /* AuthenticationViewModel.swift in Sources */,
 				4925F0F529446D46000C78E1 /* no_clips_view.swift in Sources */,
+				351E2E00294999330059BC34 /* EventDateFeedViewModel.swift in Sources */,
 				35EF6DDA2941971800274957 /* EventSectionFeedView.swift in Sources */,
 				BAB04BEB291E0CDE005B42DE /* FeedView.swift in Sources */,
 				BA970B1A294135F90082A687 /* GoogleSignInButton.swift in Sources */,
@@ -338,6 +351,7 @@
 				35AB9403293F94B9007EA56D /* EventFeedView.swift in Sources */,
 				35EF6DD82941946E00274957 /* EventSectionView.swift in Sources */,
 				35EF6DDE2941A68900274957 /* EventSectionFeedViewModel.swift in Sources */,
+				351E2DFE294999070059BC34 /* EventDateFeedViewRepresentable.swift in Sources */,
 				BABED9EB2915D146003BB814 /* Persistence.swift in Sources */,
 				35519C502916BA0400B63497 /* UsersManagerViewModel.swift in Sources */,
 				BA970B18294135C90082A687 /* LoginView.swift in Sources */,
@@ -359,9 +373,11 @@
 				BABED9EE2915D146003BB814 /* ConcertClips.xcdatamodeld in Sources */,
 				35E0C60F2915E8850019D623 /* EventRepository.swift in Sources */,
 				35519C422916AA0C00B63497 /* NewEventView.swift in Sources */,
+				351E2DFA2949944D0059BC34 /* EventDateView.swift in Sources */,
 				BA7D65662942A1220042C8ED /* SavedClipsViewModel.swift in Sources */,
 				35EF6DDC2941A67300274957 /* EventSectionFeedViewRepresentable.swift in Sources */,
 				35519C522916BA5700B63497 /* NewUserView.swift in Sources */,
+				351E2DFC294998A10059BC34 /* EventDateFeedView.swift in Sources */,
 				35E0C6122915E9950019D623 /* Event.swift in Sources */,
 				35E0C6152915EB300019D623 /* EventViewModel.swift in Sources */,
 				35519C452916AB7E00B63497 /* EventsManagerViewModel.swift in Sources */,

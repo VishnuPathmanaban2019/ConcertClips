@@ -18,14 +18,19 @@ struct EventFeedView: View {
     var body: some View {
         concertImageBackground.overlay(
             VStack {
-                HStack {
+                HStack(alignment: .lastTextBaseline) {
                     Text("\(eventName)").fontWeight(.bold).foregroundColor(.white).padding(.top)
                     Text("|").foregroundColor(.white).padding(.top)
                     NavigationLink {
                       EventSectionView(eventName: eventName, clips: clipsManagerViewModel.clipViewModels.map({ $0.clip }))
                     } label: {
                         Text("Sections").padding(.top)
-                        
+                    }
+                    Text("|").foregroundColor(.white).padding(.top)
+                    NavigationLink {
+                      EventDateView(eventName: eventName)
+                    } label: {
+                      Label("", systemImage: "calendar")
                     }
                 }
                 EventFeedViewRepresentable(eventName: eventName).ignoresSafeArea()

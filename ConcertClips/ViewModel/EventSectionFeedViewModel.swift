@@ -35,9 +35,15 @@ class EventSectionViewController: UIViewController {
     
     private var detailsButtonTappedCount = 0
     
+    private var trueWidth = 800.0
+    private var trueHeight = 800.0
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        self.trueWidth = self.view.frame.size.width
+        self.trueHeight = self.view.frame.size.height
         
         let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
         {
@@ -50,7 +56,8 @@ class EventSectionViewController: UIViewController {
                                            event: clipViewModel.clip.event,
                                            section: clipViewModel.clip.section,
                                            detailsButtonTappedCount: 0,
-                                           volumeButtonTappedCount: 0)
+                                           volumeButtonTappedCount: 0,
+                                           likeButtonTappedCount: 0)
                     self.data.append(model)
                 }
             }
@@ -144,10 +151,30 @@ extension EventSectionViewController: FeedViewCellDelegate {
         if self.detailsButtonTappedCount == 0 {
             self.detailsButtonTappedCount = 1
             shouldCreateSubviews = true
+            let trueSize = self.trueWidth/7
+            let swipeableView: UIView = {
+                // Initialize View
+                let view = UIView(frame: CGRect(origin: .zero,
+                                                size: CGSize(width: self.trueWidth - trueSize,
+                                                             height: self.trueHeight)))
+                
+                // Configure View
+                view.backgroundColor = .clear
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            self.view.addSubview(swipeableView)
         }
         else {
             self.detailsButtonTappedCount = 0
             shouldCreateSubviews = false
+            
+            // REMOVE SWIPEABLEVIEW HERE
+            for subview in view.subviews {
+                if subview.backgroundColor == .clear {
+                    subview.removeFromSuperview()
+                }
+            }
         }
         
         let size = self.view.frame.size.width/7
@@ -157,15 +184,15 @@ extension EventSectionViewController: FeedViewCellDelegate {
         let rectangleView = UIView(frame: CGRect(x: 0, y: 600, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
         rectangleView.backgroundColor = UIColor.black
         
-        // rram
+        // 
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
         captionLabelHeader.frame = CGRect(x: 0, y: 610, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
+        //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         captionLabelHeader.text = "      Caption: "
-        // rram
+        // 
         
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
@@ -175,15 +202,15 @@ extension EventSectionViewController: FeedViewCellDelegate {
         captionLabel.text = "                      " + model.caption
         
         
-        // rram
+        // 
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
         eventLabelHeader.frame = CGRect(x: 0, y: 630, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
+        //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         eventLabelHeader.text = "      Event: "
-        // rram
+        // 
         
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
@@ -191,16 +218,16 @@ extension EventSectionViewController: FeedViewCellDelegate {
         
         eventLabel.frame = CGRect(x: 0, y: 630, width: self.view.frame.width, height: 20)
         eventLabel.text = "                      " + model.event
-
-        // rram
+        
+        // 
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
         sectionLabelHeader.frame = CGRect(x: 0, y: 650, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
+        //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         sectionLabelHeader.text = "      Section: "
-        // rram
+        // 
         
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left

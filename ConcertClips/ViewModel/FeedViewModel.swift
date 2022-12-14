@@ -17,6 +17,7 @@ struct VideoModel {
     let section: String
     let detailsButtonTappedCount: Int
     var volumeButtonTappedCount: Int
+    var likeButtonTappedCount: Int
 }
 
 class ViewController: UIViewController {
@@ -30,11 +31,14 @@ class ViewController: UIViewController {
     
     private var detailsButtonTappedCount = 0
     
+    private var trueWidth = 800.0
+    private var trueHeight = 800.0
+    
     override func viewDidLoad() {
-        
-//        self.view.backgroundColor = UIColor(patternImage: UIImage(named:"bg")!)
-        
         super.viewDidLoad()
+        
+        self.trueWidth = self.view.frame.size.width
+        self.trueHeight = self.view.frame.size.height
         
         let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
         {
@@ -47,7 +51,8 @@ class ViewController: UIViewController {
                                        event: clipViewModel.clip.event,
                                        section: clipViewModel.clip.section,
                                        detailsButtonTappedCount: 0,
-                                       volumeButtonTappedCount: 0)
+                                       volumeButtonTappedCount: 0,
+                                       likeButtonTappedCount: 0)
                 self.data.append(model)
                 
                 
@@ -77,6 +82,9 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        print("other collection view")
+        
         return data.count
     }
     
@@ -86,28 +94,29 @@ extension ViewController: UICollectionViewDataSource {
                                                       for: indexPath) as! FeedViewCell
         cell.configure(with: model)
         
+        // display likeButtonSelection
+        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+        let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
         
-        //  idea for details:
-        // IF details enabled (if detailsTappedCount == 1)
-        // remove previous details subview
-        // add new details subview by manually called didTapDetailsButton
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
         
-        if model.detailsButtonTappedCount == 0 {
-            for subview in view.subviews {
-                if subview is UILabel {
-                    subview.removeFromSuperview()
-                }
+        userQuery.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                let document = querySnapshot?.documents.first
+                let docData = document?.data()
+                let savedClips = docData!["myClips"] as! [String]
                 
-                if subview.backgroundColor == .black {
-                    subview.removeFromSuperview()
+                // remove clip if we press like, and clip is already in this user's savedClips
+                if savedClips.contains(serialized) {
+                    cell.likeButton.isSelected = true
+                }
+                else { // add clip if we press like, and clip is NOT already in this user's savedClips
+                    cell.likeButton.isSelected = false
                 }
             }
-//            didTapDetailsButton(with: model)
         }
-        
-        // if details NOT enabled (if detailsTappedCount == 0)
-        // do nothing
-        
         
         cell.delegate = self
         cell.player?.play()
@@ -120,9 +129,8 @@ extension ViewController: FeedViewCellDelegate {
     func didTapLikeButton(with model: VideoModel) {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-
+        
         let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
-
         
         
         userQuery.getDocuments() { (querySnapshot, err) in
@@ -130,93 +138,21 @@ extension ViewController: FeedViewCellDelegate {
                 print("Error getting documents: \(err)")
             } else {
                 let document = querySnapshot?.documents.first
-//                print(document?.data()["myClips"])
                 let docData = document?.data()
                 let savedClips = docData!["myClips"] as! [String]
-//                let likeButtonSelected = docData!["likeButtonSelected"] as! [String]
-
-                print("savedClipsBefore: \(savedClips)")
-                
-                    
-//                if likeButtonSelected == ["false"] {
-//                    document?.reference.updateData([ // update likeButtonSelected to be false
-//                        "likeButtonSelected": FieldValue.arrayRemove(["false"]),
-//                    ])
-//
-//                    document?.reference.updateData([ // update likeButtonSelected to be false
-//                        "likeButtonSelected": FieldValue.arrayUnion(["true"]),
-//                    ])
-//                }
-//                else {
-//                    document?.reference.updateData([ // update likeButtonSelected to be false
-//                        "likeButtonSelected": FieldValue.arrayRemove(["true"]),
-//                    ])
-//
-//                    document?.reference.updateData([ // update likeButtonSelected to be false
-//                        "likeButtonSelected": FieldValue.arrayUnion(["false"]),
-//                    ])
-//                }
-
                 
                 // remove clip if we press like, and clip is already in this user's savedClips
                 if savedClips.contains(serialized) {
                     document?.reference.updateData([
                         "myClips": FieldValue.arrayRemove([serialized])
                     ])
-                    
-                    
-                    // update boolean
-//                    if likeButtonSelected == ["true"]
-//                    {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
-//                    else {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
                 }
                 else { // add clip if we press like, and clip is NOT already in this user's savedClips
                     document?.reference.updateData([
                         "myClips": FieldValue.arrayUnion([serialized])
                     ])
-                    
-                    // update boolean
-//                    if likeButtonSelected == ["true"]
-//                    {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
-//                    else {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
-                    
                 }
-                
-                print("savedClipsAfter: \(document?.data())")
             }
-            
         }
     }
     
@@ -227,10 +163,30 @@ extension ViewController: FeedViewCellDelegate {
         if self.detailsButtonTappedCount == 0 {
             self.detailsButtonTappedCount = 1
             shouldCreateSubviews = true
+            let trueSize = self.trueWidth/7
+            let swipeableView: UIView = {
+                // Initialize View
+                let view = UIView(frame: CGRect(origin: .zero,
+                                                size: CGSize(width: self.trueWidth - trueSize,
+                                                             height: self.trueHeight)))
+                
+                // Configure View
+                view.backgroundColor = .clear
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            self.view.addSubview(swipeableView)
         }
         else {
             self.detailsButtonTappedCount = 0
             shouldCreateSubviews = false
+            
+            // REMOVE SWIPEABLEVIEW HERE
+            for subview in view.subviews {
+                if subview.backgroundColor == .clear {
+                    subview.removeFromSuperview()
+                }
+            }
         }
         
         let size = self.view.frame.size.width/7
@@ -241,15 +197,14 @@ extension ViewController: FeedViewCellDelegate {
         rectangleView.backgroundColor = UIColor.black
         
         
-        // rram
+        
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
         captionLabelHeader.frame = CGRect(x: 0, y: 670, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
+        //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         captionLabelHeader.text = "       Caption: "
-        // rram
         
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
@@ -258,16 +213,12 @@ extension ViewController: FeedViewCellDelegate {
         captionLabel.frame = CGRect(x: 0, y: 670, width: self.view.frame.width, height: 20)
         captionLabel.text = "                       " + model.caption
         
-        
-        // rram
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
         eventLabelHeader.frame = CGRect(x: 0, y: 690, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         eventLabelHeader.text = "       Event: "
-        // rram
         
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
@@ -275,16 +226,13 @@ extension ViewController: FeedViewCellDelegate {
         
         eventLabel.frame = CGRect(x: 0, y: 690, width: self.view.frame.width, height: 20)
         eventLabel.text = "                       " + model.event
-
-        // rram
+        
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
         sectionLabelHeader.frame = CGRect(x: 0, y: 710, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         sectionLabelHeader.text = "       Section: "
-        // rram
         
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left

@@ -52,7 +52,7 @@ class FeedViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let likeButton: UIButton = {
+    internal let likeButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
         button.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .selected)
@@ -69,7 +69,15 @@ class FeedViewCell: UICollectionViewCell {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "speaker"), for: .normal)
         button.setBackgroundImage(UIImage(systemName: "speaker.fill"), for: .selected)
-
+        
+        return button
+    }()
+    
+    private let getRidOfDetailsButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(systemName: "lasso"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "lasso.and.sparkles"), for: .selected)
+        
         return button
     }()
     
@@ -89,11 +97,11 @@ class FeedViewCell: UICollectionViewCell {
         contentView.backgroundColor = .black
         contentView.clipsToBounds = true
         
-//        let lb = UILabel()
-//        lb.textAlignment = .center
-//        lb.numberOfLines = 0
-//        lb.text = "No Clips Yet!"
-//        contentView.addSubview(lb)
+        //        let lb = UILabel()
+        //        lb.textAlignment = .center
+        //        lb.numberOfLines = 0
+        //        lb.text = "No Clips Yet!"
+        //        contentView.addSubview(lb)
         
         addSubviews()
     }
@@ -103,13 +111,14 @@ class FeedViewCell: UICollectionViewCell {
         contentView.addSubview(likeButton)
         contentView.addSubview(detailsButton)
         contentView.addSubview(volumeButton)
+        contentView.addSubview(getRidOfDetailsButton)
         
         
         // Add actions
         likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchDown)
         detailsButton.addTarget(self, action: #selector(didTapDetailsButton), for: .touchDown)
         volumeButton.addTarget(self, action: #selector(didTapVolumeButton), for: .touchDown)
-        
+        getRidOfDetailsButton.addTarget(self, action: #selector(didTapGetRidOfDetailsButton), for: .touchDown)
         videoContainer.clipsToBounds = true
         
         contentView.sendSubviewToBack(videoContainer)
@@ -119,39 +128,21 @@ class FeedViewCell: UICollectionViewCell {
         guard let model = model else { return }
         delegate?.didTapLikeButton(with: model)
         
-        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
-        let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+        self.likeButton.isSelected = !self.likeButton.isSelected
+    }
+    
+    @objc private func didTapGetRidOfDetailsButton() {
+        guard let model = model else { return }
+        delegate?.didTapLikeButton(with: model)
         
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
-        
-        userQuery.getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                let document = querySnapshot?.documents.first
-//                print(document?.data()["myClips"])
-                let docData = document?.data()
-//                var selected = docData!["likeButtonSelected"] as! [String]
-                
-                
-//                if selected == ["true"] {
-//                    self.likeButton.isSelected = false
-//                }
-//                else {
-//                    self.likeButton.isSelected = true
-//                }
-                
-//                print("selected (from DB): \(selected)")
-//                print("like button selected (local): \(self.likeButton.isSelected)")
-                
-
-            }
-        }
+        self.getRidOfDetailsButton.isSelected = !self.getRidOfDetailsButton.isSelected
     }
     
     @objc private func didTapDetailsButton() {
         guard let model = model else { return }
         delegate?.didTapDetailsButton(with: model)
+        
+        
     }
     
     @objc private func didTapVolumeButton() {
@@ -228,21 +219,66 @@ class FeedViewCell: UICollectionViewCell {
         videoContainer.layer.addSublayer(playerView)
         player?.volume = 0
         player?.play()
+        
+        updateUI(player!)
         loopVideo(player!)
     }
     
     func loopVideo(_ videoPlayer: AVPlayer) {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            
             if self.model?.volumeButtonTappedCount == 1 {
                 self.didTapVolumeButton()
             }
             videoPlayer.seek(to: CMTime.zero)
             videoPlayer.play()
-// the below two lines are commented out because calling self.didTapVolumeButton() cleverly takes care of them
-//            videoPlayer.volume = 0 // set volume to 0 once video loops
-//            self.model?.volumeButtonTappedCount = 0
         }
     }
+    
+    
+    func updateUI(_ videoPlayer: AVPlayer) {
+        var timeObserverToken: Any?
+        // Notify every half second
+        let timeScale = CMTimeScale(NSEC_PER_SEC)
+        let time = CMTime(seconds: 1, preferredTimescale: timeScale)
+        
+        timeObserverToken = videoPlayer.addPeriodicTimeObserver(forInterval: time,
+                                                                queue: .main) {
+            [weak self] time in
+            // update player UI
+            self!.updateLikeButton((self?.model!)!)
+        }
+    }
+    
+    func updateLikeButton(_ model: VideoModel) {
+        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+        
+        if userID != "default_user_id" {
+            
+            let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+            
+            let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+            
+            userQuery.getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    let document = querySnapshot?.documents.first
+                    let docData = document?.data()
+                    let savedClips = docData!["myClips"] as! [String]
+                    
+                    // remove clip if we press like, and clip is already in this user's savedClips
+                    if savedClips.contains(serialized) {
+                        self.likeButton.isSelected = true
+                    }
+                    else { // add clip if we press like, and clip is NOT already in this user's savedClips
+                        self.likeButton.isSelected = false
+                    }
+                }
+            }
+        }
+    }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

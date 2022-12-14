@@ -21,7 +21,7 @@ struct ClipSelectView: View {
     @ObservedObject var clipSelectViewModel = ClipSelectViewModel()
     
     var body: some View {
-        ZStack { // rram
+        ZStack { // 
 //            Image("concert_background_blue").scaledToFit()
             VStack {
                 if let data = data {

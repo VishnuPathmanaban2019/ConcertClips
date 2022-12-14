@@ -29,23 +29,16 @@ class SavedViewController: UIViewController {
     private var data = [VideoModel]()
 
     private var detailsButtonTappedCount = 0
-
-
-// rram -- UI follow up & work on bookmark persistence Issue:
-//- First click seems to not do anything to the bookmark UI
-//- Unbookmarked clip in savedClips does not go away (even after moving away and coming back to tab)
-//    - leads:
-//        - How often is viewDidLoad called?
-//            - Will I need to remove from self.data?
-//        - Is querySnapshot saved? How often is it refreshed?
-//            - Can I use snapshotListener instead? To get realtime data?
-//                - https://firebase.google.com/docs/firestore/query-data/listen
-//
-//
+    
+    private var trueWidth = 800.0
+    private var trueHeight = 800.0
 
     override func viewDidLoad() {
 
         super.viewDidLoad()
+        
+        self.trueWidth = self.view.frame.size.width
+        self.trueHeight = self.view.frame.size.height
 
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = self.usersManagerViewModel.userRepository.store.collection(self.usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
@@ -65,7 +58,8 @@ class SavedViewController: UIViewController {
                                            event: fields[3],
                                            section: fields[2],
                                            detailsButtonTappedCount: 0,
-                                           volumeButtonTappedCount: 0)
+                                           volumeButtonTappedCount: 0,
+                                           likeButtonTappedCount: 0)
                     self.data.append(model)
                 }
             }
@@ -107,6 +101,30 @@ extension SavedViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedViewCell.identifier,
                                                       for: indexPath) as! FeedViewCell
         
+        // display likeButtonSelection
+        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
+        let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+        
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+        
+        userQuery.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                let document = querySnapshot?.documents.first
+                let docData = document?.data()
+                let savedClips = docData!["myClips"] as! [String]
+                
+                // remove clip if we press like, and clip is already in this user's savedClips
+                if savedClips.contains(serialized) {
+                    cell.likeButton.isSelected = true
+                }
+                else { // add clip if we press like, and clip is NOT already in this user's savedClips
+                    cell.likeButton.isSelected = false
+                }
+            }
+        }
+        // display likeButtonSelection
         
         if model.detailsButtonTappedCount == 0 {
             for subview in view.subviews {
@@ -132,9 +150,10 @@ extension SavedViewController: FeedViewCellDelegate {
     func didTapLikeButton(with model: VideoModel) {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-
+        
         let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
-
+        
+        
         userQuery.getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -142,64 +161,17 @@ extension SavedViewController: FeedViewCellDelegate {
                 let document = querySnapshot?.documents.first
                 let docData = document?.data()
                 let savedClips = docData!["myClips"] as! [String]
-//                let likeButtonSelected = docData!["likeButtonSelected"] as! [String]
-
-                print("savedClips (from scvm): \(savedClips)")
-
-
+                
                 // remove clip if we press like, and clip is already in this user's savedClips
                 if savedClips.contains(serialized) {
                     document?.reference.updateData([
                         "myClips": FieldValue.arrayRemove([serialized])
                     ])
-
-
-                    // update boolean
-//                    if likeButtonSelected == ["true"]
-//                    {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
-//                    else {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
                 }
                 else { // add clip if we press like, and clip is NOT already in this user's savedClips
                     document?.reference.updateData([
                         "myClips": FieldValue.arrayUnion([serialized])
                     ])
-
-                    // update boolean
-//                    if likeButtonSelected == ["true"]
-//                    {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["true"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["false"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
-//                    else {
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayRemove(["false"]),
-//                        ])
-//
-//                        document?.reference.updateData([
-//                            "likeButtonSelected": FieldValue.arrayUnion(["true"]),
-//                        ]) // using array for now, will change to boolean once figured out
-//                    }
                 }
             }
         }
@@ -212,10 +184,30 @@ extension SavedViewController: FeedViewCellDelegate {
         if self.detailsButtonTappedCount == 0 {
             self.detailsButtonTappedCount = 1
             shouldCreateSubviews = true
+            let trueSize = self.trueWidth/7
+            let swipeableView: UIView = {
+                // Initialize View
+                let view = UIView(frame: CGRect(origin: .zero,
+                                                size: CGSize(width: self.trueWidth - trueSize,
+                                                             height: self.trueHeight)))
+
+                // Configure View
+                view.backgroundColor = .clear
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            self.view.addSubview(swipeableView)
         }
         else {
             self.detailsButtonTappedCount = 0
             shouldCreateSubviews = false
+            
+            // REMOVE SWIPEABLEVIEW HERE
+            for subview in view.subviews {
+                if subview.backgroundColor == .clear {
+                    subview.removeFromSuperview()
+                }
+            }
         }
 
         let size = self.view.frame.size.width/7
@@ -225,7 +217,7 @@ extension SavedViewController: FeedViewCellDelegate {
         let rectangleView = UIView(frame: CGRect(x: 0, y: 490, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
         rectangleView.backgroundColor = UIColor.black
         
-        // rram
+        // 
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
@@ -233,7 +225,7 @@ extension SavedViewController: FeedViewCellDelegate {
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         captionLabelHeader.text = "      Caption: "
-        // rram
+        // 
 
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
@@ -242,7 +234,7 @@ extension SavedViewController: FeedViewCellDelegate {
         captionLabel.frame = CGRect(x: 0, y: 500, width: self.view.frame.width, height: 20)
         captionLabel.text = "                      " + model.caption
         
-        // rram
+        // 
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
@@ -250,7 +242,7 @@ extension SavedViewController: FeedViewCellDelegate {
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         eventLabelHeader.text = "      Event: "
-        // rram
+        // 
 
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
@@ -260,7 +252,7 @@ extension SavedViewController: FeedViewCellDelegate {
         eventLabel.text = "                      " + model.event
         
         
-        // rram
+        // 
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
@@ -268,7 +260,7 @@ extension SavedViewController: FeedViewCellDelegate {
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         sectionLabelHeader.text = "      Section: "
-        // rram
+        // 
 
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left

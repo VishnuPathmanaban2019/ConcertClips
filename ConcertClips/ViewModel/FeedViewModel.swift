@@ -20,9 +20,6 @@ struct VideoModel {
     var likeButtonTappedCount: Int
 }
 
-//var trueWidth = 1000.0
-//var trueHeight = 1000.0
-
 class ViewController: UIViewController {
     
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
@@ -35,7 +32,7 @@ class ViewController: UIViewController {
     private var detailsButtonTappedCount = 0
     
     private var trueWidth = 800.0
-    private var trueHeight = 800.0    
+    private var trueHeight = 800.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,7 +169,7 @@ extension ViewController: FeedViewCellDelegate {
                 let view = UIView(frame: CGRect(origin: .zero,
                                                 size: CGSize(width: self.trueWidth - trueSize,
                                                              height: self.trueHeight)))
-
+                
                 // Configure View
                 view.backgroundColor = .clear
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -200,7 +197,7 @@ extension ViewController: FeedViewCellDelegate {
         rectangleView.backgroundColor = UIColor.black
         
         
-        // rram
+        
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
@@ -208,7 +205,6 @@ extension ViewController: FeedViewCellDelegate {
         //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         captionLabelHeader.text = "       Caption: "
-        // rram
         
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
@@ -217,16 +213,12 @@ extension ViewController: FeedViewCellDelegate {
         captionLabel.frame = CGRect(x: 0, y: 670, width: self.view.frame.width, height: 20)
         captionLabel.text = "                       " + model.caption
         
-        
-        // rram
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
         eventLabelHeader.frame = CGRect(x: 0, y: 690, width: self.view.frame.width, height: 20)
-        //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         eventLabelHeader.text = "       Event: "
-        // rram
         
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
@@ -235,15 +227,12 @@ extension ViewController: FeedViewCellDelegate {
         eventLabel.frame = CGRect(x: 0, y: 690, width: self.view.frame.width, height: 20)
         eventLabel.text = "                       " + model.event
         
-        // rram
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
         sectionLabelHeader.frame = CGRect(x: 0, y: 710, width: self.view.frame.width, height: 20)
-        //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         sectionLabelHeader.text = "       Section: "
-        // rram
         
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left

@@ -217,7 +217,7 @@ extension SavedViewController: FeedViewCellDelegate {
         let rectangleView = UIView(frame: CGRect(x: 0, y: 490, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
         rectangleView.backgroundColor = UIColor.black
         
-        // rram
+        // 
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
@@ -225,7 +225,7 @@ extension SavedViewController: FeedViewCellDelegate {
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         captionLabelHeader.text = "      Caption: "
-        // rram
+        // 
 
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
@@ -234,7 +234,7 @@ extension SavedViewController: FeedViewCellDelegate {
         captionLabel.frame = CGRect(x: 0, y: 500, width: self.view.frame.width, height: 20)
         captionLabel.text = "                      " + model.caption
         
-        // rram
+        // 
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
@@ -242,7 +242,7 @@ extension SavedViewController: FeedViewCellDelegate {
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         eventLabelHeader.text = "      Event: "
-        // rram
+        // 
 
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
@@ -252,7 +252,7 @@ extension SavedViewController: FeedViewCellDelegate {
         eventLabel.text = "                      " + model.event
         
         
-        // rram
+        // 
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
@@ -260,7 +260,7 @@ extension SavedViewController: FeedViewCellDelegate {
 //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         sectionLabelHeader.text = "      Section: "
-        // rram
+        // 
 
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left

@@ -69,7 +69,7 @@ class FeedViewCell: UICollectionViewCell {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "speaker"), for: .normal)
         button.setBackgroundImage(UIImage(systemName: "speaker.fill"), for: .selected)
-
+        
         return button
     }()
     
@@ -77,7 +77,7 @@ class FeedViewCell: UICollectionViewCell {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "lasso"), for: .normal)
         button.setBackgroundImage(UIImage(systemName: "lasso.and.sparkles"), for: .selected)
-
+        
         return button
     }()
     
@@ -97,11 +97,11 @@ class FeedViewCell: UICollectionViewCell {
         contentView.backgroundColor = .black
         contentView.clipsToBounds = true
         
-//        let lb = UILabel()
-//        lb.textAlignment = .center
-//        lb.numberOfLines = 0
-//        lb.text = "No Clips Yet!"
-//        contentView.addSubview(lb)
+        //        let lb = UILabel()
+        //        lb.textAlignment = .center
+        //        lb.numberOfLines = 0
+        //        lb.text = "No Clips Yet!"
+        //        contentView.addSubview(lb)
         
         addSubviews()
     }
@@ -232,27 +232,22 @@ class FeedViewCell: UICollectionViewCell {
             }
             videoPlayer.seek(to: CMTime.zero)
             videoPlayer.play()
-            
-// the below two lines are commented out because calling self.didTapVolumeButton() cleverly takes care of them
-//            videoPlayer.volume = 0 // set volume to 0 once video loops
-//            self.model?.volumeButtonTappedCount = 0
-//            self.updateLikeButton(self.model!)
         }
     }
     
     
     func updateUI(_ videoPlayer: AVPlayer) {
-            var timeObserverToken: Any?
-            // Notify every half second
-            let timeScale = CMTimeScale(NSEC_PER_SEC)
-            let time = CMTime(seconds: 1, preferredTimescale: timeScale)
-            
-            timeObserverToken = videoPlayer.addPeriodicTimeObserver(forInterval: time,
-                                                                    queue: .main) {
-                [weak self] time in
-                // update player UI
-                self!.updateLikeButton((self?.model!)!)
-            }
+        var timeObserverToken: Any?
+        // Notify every half second
+        let timeScale = CMTimeScale(NSEC_PER_SEC)
+        let time = CMTime(seconds: 1, preferredTimescale: timeScale)
+        
+        timeObserverToken = videoPlayer.addPeriodicTimeObserver(forInterval: time,
+                                                                queue: .main) {
+            [weak self] time in
+            // update player UI
+            self!.updateLikeButton((self?.model!)!)
+        }
     }
     
     func updateLikeButton(_ model: VideoModel) {
@@ -283,7 +278,7 @@ class FeedViewCell: UICollectionViewCell {
             }
         }
     }
-        
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

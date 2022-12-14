@@ -20,6 +20,9 @@ struct VideoModel {
     var likeButtonTappedCount: Int
 }
 
+//var trueWidth = 1000.0
+//var trueHeight = 1000.0
+
 class ViewController: UIViewController {
     
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
@@ -31,11 +34,14 @@ class ViewController: UIViewController {
     
     private var detailsButtonTappedCount = 0
     
+    private var trueWidth = 800.0
+    private var trueHeight = 800.0    
+    
     override func viewDidLoad() {
-        
-        //        self.view.backgroundColor = UIColor(patternImage: UIImage(named:"bg")!)
-        
         super.viewDidLoad()
+        
+        self.trueWidth = self.view.frame.size.width
+        self.trueHeight = self.view.frame.size.height
         
         let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
         {
@@ -79,6 +85,9 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        print("other collection view")
+        
         return data.count
     }
     
@@ -87,13 +96,6 @@ extension ViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedViewCell.identifier,
                                                       for: indexPath) as! FeedViewCell
         cell.configure(with: model)
-        
-        
-        //  idea for details:
-        // IF details enabled (if detailsTappedCount == 1)
-        // remove previous details subview
-        // add new details subview by manually called didTapDetailsButton
-        
         
         // display likeButtonSelection
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
@@ -117,28 +119,7 @@ extension ViewController: UICollectionViewDataSource {
                     cell.likeButton.isSelected = false
                 }
             }
-//            cell.reloadData()
         }
-        
-        // display likeButtonSelection
-        
-        
-        if model.detailsButtonTappedCount == 0 {
-            for subview in view.subviews {
-                if subview is UILabel {
-                    subview.removeFromSuperview()
-                }
-                
-                if subview.backgroundColor == .black {
-                    subview.removeFromSuperview()
-                }
-            }
-            //            didTapDetailsButton(with: model)
-        }
-        
-        // if details NOT enabled (if detailsTappedCount == 0)
-        // do nothing
-        
         
         cell.delegate = self
         cell.player?.play()
@@ -185,10 +166,30 @@ extension ViewController: FeedViewCellDelegate {
         if self.detailsButtonTappedCount == 0 {
             self.detailsButtonTappedCount = 1
             shouldCreateSubviews = true
+            let trueSize = self.trueWidth/7
+            let swipeableView: UIView = {
+                // Initialize View
+                let view = UIView(frame: CGRect(origin: .zero,
+                                                size: CGSize(width: self.trueWidth - trueSize,
+                                                             height: self.trueHeight)))
+
+                // Configure View
+                view.backgroundColor = .clear
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            self.view.addSubview(swipeableView)
         }
         else {
             self.detailsButtonTappedCount = 0
             shouldCreateSubviews = false
+            
+            // REMOVE SWIPEABLEVIEW HERE
+            for subview in view.subviews {
+                if subview.backgroundColor == .clear {
+                    subview.removeFromSuperview()
+                }
+            }
         }
         
         let size = self.view.frame.size.width/7

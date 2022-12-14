@@ -73,6 +73,14 @@ class FeedViewCell: UICollectionViewCell {
         return button
     }()
     
+    private let getRidOfDetailsButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(systemName: "lasso"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "lasso.and.sparkles"), for: .selected)
+
+        return button
+    }()
+    
     private let videoContainer = UIView()
     
     // Delegate
@@ -103,13 +111,14 @@ class FeedViewCell: UICollectionViewCell {
         contentView.addSubview(likeButton)
         contentView.addSubview(detailsButton)
         contentView.addSubview(volumeButton)
+        contentView.addSubview(getRidOfDetailsButton)
         
         
         // Add actions
         likeButton.addTarget(self, action: #selector(didTapLikeButton), for: .touchDown)
         detailsButton.addTarget(self, action: #selector(didTapDetailsButton), for: .touchDown)
         volumeButton.addTarget(self, action: #selector(didTapVolumeButton), for: .touchDown)
-        
+        getRidOfDetailsButton.addTarget(self, action: #selector(didTapGetRidOfDetailsButton), for: .touchDown)
         videoContainer.clipsToBounds = true
         
         contentView.sendSubviewToBack(videoContainer)
@@ -122,9 +131,18 @@ class FeedViewCell: UICollectionViewCell {
         self.likeButton.isSelected = !self.likeButton.isSelected
     }
     
+    @objc private func didTapGetRidOfDetailsButton() {
+        guard let model = model else { return }
+        delegate?.didTapLikeButton(with: model)
+        
+        self.getRidOfDetailsButton.isSelected = !self.getRidOfDetailsButton.isSelected
+    }
+    
     @objc private func didTapDetailsButton() {
         guard let model = model else { return }
         delegate?.didTapDetailsButton(with: model)
+        
+        
     }
     
     @objc private func didTapVolumeButton() {
@@ -202,7 +220,7 @@ class FeedViewCell: UICollectionViewCell {
         player?.volume = 0
         player?.play()
         
-//        updateUI(player!)
+        updateUI(player!)
         loopVideo(player!)
     }
     
@@ -234,38 +252,38 @@ class FeedViewCell: UICollectionViewCell {
                 [weak self] time in
                 // update player UI
                 self!.updateLikeButton((self?.model!)!)
-                
             }
-//        }
     }
     
     func updateLikeButton(_ model: VideoModel) {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
-        let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
         
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
-        
-        userQuery.getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                let document = querySnapshot?.documents.first
-                let docData = document?.data()
-                let savedClips = docData!["myClips"] as! [String]
-                
-                // remove clip if we press like, and clip is already in this user's savedClips
-                if savedClips.contains(serialized) {
-                    self.likeButton.isSelected = true
-                    print("clip in saved clips")
-                }
-                else { // add clip if we press like, and clip is NOT already in this user's savedClips
-                    self.likeButton.isSelected = false
-                    print("clip not in saved clips")
+        if userID != "default_user_id" {
+            
+            let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
+            
+            let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+            
+            userQuery.getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    let document = querySnapshot?.documents.first
+                    let docData = document?.data()
+                    let savedClips = docData!["myClips"] as! [String]
+                    
+                    // remove clip if we press like, and clip is already in this user's savedClips
+                    if savedClips.contains(serialized) {
+                        self.likeButton.isSelected = true
+                    }
+                    else { // add clip if we press like, and clip is NOT already in this user's savedClips
+                        self.likeButton.isSelected = false
+                    }
                 }
             }
-//            cell.reloadData()
         }
     }
+        
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

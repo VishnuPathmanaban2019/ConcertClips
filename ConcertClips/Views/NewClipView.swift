@@ -61,11 +61,11 @@ struct NewClipView: View {
                     }.id(UUID())
                 }
                 
-                DatePicker(
-                    "Date",
-                    selection: $date,
-                    displayedComponents: [.date]
-                )
+//                DatePicker(
+//                    "Date",
+//                    selection: $date,
+//                    displayedComponents: [.date]
+//                )
                 
             }
             if self.isValidClip() && events.map({ $0.name }).contains(event) {

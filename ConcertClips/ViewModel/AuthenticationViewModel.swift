@@ -66,7 +66,7 @@ class AuthenticationViewModel: ObservableObject {
                         print("Error getting documents: \(err)")
                     } else {
                         if querySnapshot?.count == 0 {
-                            let user = User(username: userID) // add user to db
+                            let user = User(username: userID, myClips: []) // add user to db
                             usersManagerViewModel.add(user)
                         }
                     }

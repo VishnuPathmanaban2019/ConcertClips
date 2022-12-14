@@ -29,23 +29,16 @@ class SavedViewController: UIViewController {
     private var data = [VideoModel]()
 
     private var detailsButtonTappedCount = 0
-
-
-// rram -- UI follow up & work on bookmark persistence Issue:
-//- First click seems to not do anything to the bookmark UI
-//- Unbookmarked clip in savedClips does not go away (even after moving away and coming back to tab)
-//    - leads:
-//        - How often is viewDidLoad called?
-//            - Will I need to remove from self.data?
-//        - Is querySnapshot saved? How often is it refreshed?
-//            - Can I use snapshotListener instead? To get realtime data?
-//                - https://firebase.google.com/docs/firestore/query-data/listen
-//
-//
+    
+    private var trueWidth = 800.0
+    private var trueHeight = 800.0
 
     override func viewDidLoad() {
 
         super.viewDidLoad()
+        
+        self.trueWidth = self.view.frame.size.width
+        self.trueHeight = self.view.frame.size.height
 
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = self.usersManagerViewModel.userRepository.store.collection(self.usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
@@ -191,10 +184,30 @@ extension SavedViewController: FeedViewCellDelegate {
         if self.detailsButtonTappedCount == 0 {
             self.detailsButtonTappedCount = 1
             shouldCreateSubviews = true
+            let trueSize = self.trueWidth/7
+            let swipeableView: UIView = {
+                // Initialize View
+                let view = UIView(frame: CGRect(origin: .zero,
+                                                size: CGSize(width: self.trueWidth - trueSize,
+                                                             height: self.trueHeight)))
+
+                // Configure View
+                view.backgroundColor = .clear
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            self.view.addSubview(swipeableView)
         }
         else {
             self.detailsButtonTappedCount = 0
             shouldCreateSubviews = false
+            
+            // REMOVE SWIPEABLEVIEW HERE
+            for subview in view.subviews {
+                if subview.backgroundColor == .clear {
+                    subview.removeFromSuperview()
+                }
+            }
         }
 
         let size = self.view.frame.size.width/7

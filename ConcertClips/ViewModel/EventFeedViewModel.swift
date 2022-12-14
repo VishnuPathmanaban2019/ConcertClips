@@ -33,9 +33,15 @@ class EventViewController: UIViewController {
     
     private var detailsButtonTappedCount = 0
     
+    private var trueWidth = 800.0
+    private var trueHeight = 800.0
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        self.trueWidth = self.view.frame.size.width
+        self.trueHeight = self.view.frame.size.height
         
         let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
         {
@@ -144,10 +150,30 @@ extension EventViewController: FeedViewCellDelegate {
         if self.detailsButtonTappedCount == 0 {
             self.detailsButtonTappedCount = 1
             shouldCreateSubviews = true
+            let trueSize = self.trueWidth/7
+            let swipeableView: UIView = {
+                // Initialize View
+                let view = UIView(frame: CGRect(origin: .zero,
+                                                size: CGSize(width: self.trueWidth - trueSize,
+                                                             height: self.trueHeight)))
+
+                // Configure View
+                view.backgroundColor = .clear
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            self.view.addSubview(swipeableView)
         }
         else {
             self.detailsButtonTappedCount = 0
             shouldCreateSubviews = false
+            
+            // REMOVE SWIPEABLEVIEW HERE
+            for subview in view.subviews {
+                if subview.backgroundColor == .clear {
+                    subview.removeFromSuperview()
+                }
+            }
         }
         
         let size = self.view.frame.size.width/7

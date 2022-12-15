@@ -1,4 +1,4 @@
-# 67443-team16
+# ConcertClips
 
 ## Required Packages on Xcode
 firebase-ios-sdk
@@ -7,5 +7,5 @@ firebase-ios-sdk
 GoogleSignIn
 - select all options
 
-## ConcertClipsFirebase Previous Commits
-https://github.com/VishnuPathmanaban2019/ConcertClipsFirebase
+## Sample Videos
+We are using a free Firebase plan, so our bandwidth and Firebase storage actions are limited. Please use the compressed videos in our sample_videos folder when testing for accurate performance. Thanks!

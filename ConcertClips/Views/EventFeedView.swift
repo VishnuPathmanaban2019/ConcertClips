@@ -28,7 +28,7 @@ struct EventFeedView: View {
                     }
                     Text("|").foregroundColor(.white).padding(.top)
                     NavigationLink {
-                      EventDateView(eventName: eventName)
+                      EventDateView(moveToFeedView: false, eventName: eventName)
                     } label: {
                       Label("", systemImage: "calendar")
                     }

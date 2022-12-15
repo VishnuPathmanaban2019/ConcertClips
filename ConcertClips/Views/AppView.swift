@@ -23,7 +23,7 @@ struct AppView: View {
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                     Text("Search")
-                }.tag(1) //.background(Image("concert_background_blue").resizable())
+                }.tag(1)
             
             ClipSelectView(tabSelection: $tabSelection)
                 .tabItem {

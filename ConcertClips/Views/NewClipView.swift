@@ -80,7 +80,6 @@ struct NewClipView: View {
         }
     }
     
-    
     private func isValidClip() -> Bool {
         if name.isEmpty { return false }
         if event.isEmpty { return false }

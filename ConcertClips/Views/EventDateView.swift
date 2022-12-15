@@ -23,10 +23,8 @@ struct EventDateView: View {
     }
     
     var body: some View {
-        
         concertImageBackground.overlay(
             VStack {
-                
                 Button(action: {
                     self.moveToFeedView = true
                     
@@ -34,7 +32,6 @@ struct EventDateView: View {
                     Text("Sort Clips By Date")
                         .foregroundColor(.black)
                         .padding()
-                    //                            .frame(maxWidth: .infinity)
                         .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
                         .cornerRadius(12)
                         .padding()
@@ -43,12 +40,6 @@ struct EventDateView: View {
                 NavigationLink(destination: EventDateFeedView(eventName: eventName).background(.black), isActive: $moveToFeedView) {
                     EmptyView()
                 }
-                
-                //                    NavigationLink {
-                //                        EventDateFeedView(eventName: eventName).background(.black)
-                //                    } label: {
-                //                        Text("Sort Clips By Date!")
-                //                    }
             }
         )
     }

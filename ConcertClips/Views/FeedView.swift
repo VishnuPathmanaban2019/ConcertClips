@@ -17,13 +17,8 @@ struct FeedView: View {
     var body: some View {
         concertImageBackground.overlay(
             VStack {
-                FeedViewRepresentable() //.ignoresSafeArea()
+                FeedViewRepresentable()
             }
         )
-//            .background(Image("no_clips_yet_v2")
-//            .resizable()
-////            .aspectRatio(contentMode: .fit)
-////            .frame(width: 100, height: 100, alignment: .center)
-//            .cornerRadius(8))
     }
 }

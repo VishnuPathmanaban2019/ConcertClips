@@ -20,6 +20,6 @@ struct ContentView: View {
             case .signedOut: LoginView()
             }
         }.background(Image("concert_background_blue"))
-         .ignoresSafeArea(.all)
+            .ignoresSafeArea(.all)
     }
 }

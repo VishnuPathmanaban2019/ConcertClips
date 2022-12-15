@@ -29,28 +29,27 @@ struct UploadedView: View {
         
         concertImageBackground.overlay(
             VStack {
-                        NavigationLink(destination:  ContentView().environmentObject(viewModel).navigationBarBackButtonHidden(true), isActive: $moveToFeedView) {
-                            EmptyView()
-                        }
-
+                NavigationLink(destination:  ContentView().environmentObject(viewModel).navigationBarBackButtonHidden(true), isActive: $moveToFeedView) {
+                    EmptyView()
+                }
+                
                 Text("Clip Uploaded!").fontWeight(.bold).foregroundColor(.white).onAppear() {
-                            clipsManagerViewModel.add(clip)
-                            data = nil
-                            self.tabSelection = 0
-                        }
+                    clipsManagerViewModel.add(clip)
+                    data = nil
+                    self.tabSelection = 0
+                }
                 
-                        Button(action: {
-                            self.moveToFeedView = true
-                
-                        }) {
-                            Text("Go to Feed")
-                                .foregroundColor(.black)
-                                .padding()
-                //                            .frame(maxWidth: .infinity)
-                                .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
-                                .cornerRadius(12)
-                                .padding()
-                        }
+                Button(action: {
+                    self.moveToFeedView = true
+                    
+                }) {
+                    Text("Go to Feed")
+                        .foregroundColor(.black)
+                        .padding()
+                        .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
+                        .cornerRadius(12)
+                        .padding()
+                }
             }
         )
     }

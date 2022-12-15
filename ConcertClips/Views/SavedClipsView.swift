@@ -24,8 +24,8 @@ struct SavedClipsView: View {
                 HStack {
                     Text("Saved Clips").padding(.top).fontWeight(.bold).foregroundColor(.white)
                 }
-                SavedClipsViewRepresentable() //.ignoresSafeArea()
-            } //.background(.black)
+                SavedClipsViewRepresentable()
+            }
         )
     }
 }

@@ -22,15 +22,15 @@ struct EventFeedView: View {
                     Text("\(eventName)").fontWeight(.bold).foregroundColor(.white).padding(.top)
                     Text("|").foregroundColor(.white).padding(.top)
                     NavigationLink {
-                      EventSectionView(eventName: eventName, clips: clipsManagerViewModel.clipViewModels.map({ $0.clip }))
+                        EventSectionView(eventName: eventName, clips: clipsManagerViewModel.clipViewModels.map({ $0.clip }))
                     } label: {
                         Text("Sections").padding(.top)
                     }
                     Text("|").foregroundColor(.white).padding(.top)
                     NavigationLink {
-                      EventDateView(moveToFeedView: false, eventName: eventName)
+                        EventDateView(moveToFeedView: false, eventName: eventName)
                     } label: {
-                      Label("", systemImage: "calendar")
+                        Label("", systemImage: "calendar")
                     }
                 }
                 EventFeedViewRepresentable(eventName: eventName).ignoresSafeArea()

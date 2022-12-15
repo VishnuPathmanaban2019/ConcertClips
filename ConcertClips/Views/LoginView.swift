@@ -39,7 +39,6 @@ struct LoginView: View {
                 }
             
             Spacer()
-            
-        }//sear.background(Color.gray.edgesIgnoringSafeArea(.all))
+        }
     }
 }

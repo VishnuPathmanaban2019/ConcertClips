@@ -130,7 +130,6 @@ extension SavedViewController: UICollectionViewDataSource {
             }
         }
         // display likeButtonSelection
-        
         if model.detailsButtonTappedCount == 0 {
             for subview in view.subviews {
                 if subview is UILabel {
@@ -197,7 +196,6 @@ extension SavedViewController: FeedViewCellDelegate {
                 let view = UIView(frame: CGRect(origin: .zero,
                                                 size: CGSize(width: self.trueWidth - trueSize,
                                                              height: self.trueHeight)))
-
                 // Configure View
                 view.backgroundColor = .clear
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -224,15 +222,12 @@ extension SavedViewController: FeedViewCellDelegate {
         let rectangleView = UIView(frame: CGRect(x: 0, y: 490, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
         rectangleView.backgroundColor = UIColor.black
         
-        // 
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
         captionLabelHeader.frame = CGRect(x: 0, y: 500, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         captionLabelHeader.text = "      Caption: "
-        // 
 
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
@@ -241,15 +236,12 @@ extension SavedViewController: FeedViewCellDelegate {
         captionLabel.frame = CGRect(x: 0, y: 500, width: self.view.frame.width, height: 20)
         captionLabel.text = "                      " + model.caption
         
-        // 
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
         eventLabelHeader.frame = CGRect(x: 0, y: 520, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         eventLabelHeader.text = "      Event: "
-        // 
 
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
@@ -260,16 +252,12 @@ extension SavedViewController: FeedViewCellDelegate {
         eventLabel.frame = CGRect(x: 0, y: 520, width: self.view.frame.width, height: 20)
         eventLabel.text = "                      " + model.event + " (" + dateFormatter.string(from: model.date) + ")"
         
-        
-        // 
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
         sectionLabelHeader.frame = CGRect(x: 0, y: 540, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         sectionLabelHeader.text = "      Section: "
-        // 
 
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left

@@ -160,7 +160,6 @@ extension EventSectionViewController: FeedViewCellDelegate {
                 let view = UIView(frame: CGRect(origin: .zero,
                                                 size: CGSize(width: self.trueWidth - trueSize,
                                                              height: self.trueHeight)))
-                
                 // Configure View
                 view.backgroundColor = .clear
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -187,15 +186,12 @@ extension EventSectionViewController: FeedViewCellDelegate {
         let rectangleView = UIView(frame: CGRect(x: 0, y: 600, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
         rectangleView.backgroundColor = UIColor.black
         
-        // 
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
         captionLabelHeader.frame = CGRect(x: 0, y: 610, width: self.view.frame.width, height: 20)
-        //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         captionLabelHeader.text = "      Caption: "
-        // 
         
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
@@ -204,16 +200,12 @@ extension EventSectionViewController: FeedViewCellDelegate {
         captionLabel.frame = CGRect(x: 0, y: 610, width: self.view.frame.width, height: 20)
         captionLabel.text = "                      " + model.caption
         
-        
-        // 
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
         eventLabelHeader.frame = CGRect(x: 0, y: 630, width: self.view.frame.width, height: 20)
-        //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         eventLabelHeader.text = "      Event: "
-        // 
         
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
@@ -229,7 +221,6 @@ extension EventSectionViewController: FeedViewCellDelegate {
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
         sectionLabelHeader.frame = CGRect(x: 0, y: 650, width: self.view.frame.width, height: 20)
-        //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         sectionLabelHeader.text = "      Section: "
         // 

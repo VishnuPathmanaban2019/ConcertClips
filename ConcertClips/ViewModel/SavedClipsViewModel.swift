@@ -54,7 +54,6 @@ class SavedViewController: UIViewController {
                 dateFormatter.dateFormat = "MM/dd/yy"
                 savedClips.forEach { savedClip in
                     let fields = savedClip.components(separatedBy: "`")
-                    print(fields)
                     let model = VideoModel(caption: fields[1],
                                            videoURL: fields[0],
                                            event: fields[3],

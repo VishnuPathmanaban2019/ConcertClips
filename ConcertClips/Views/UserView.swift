@@ -71,7 +71,7 @@ struct UserView: View {
                             .foregroundColor(.black)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color("443Blue1"))
+                            .background(.blue)
                             .cornerRadius(12)
                             .padding()
                     }

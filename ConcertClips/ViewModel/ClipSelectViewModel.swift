@@ -18,7 +18,7 @@ class ClipSelectViewModel: ObservableObject {
         let _ = videoRef.putFile(from: file, metadata: nil) { (metadata, error) in
             guard let _ = metadata else {
                 // Uh-oh, an error occurred!
-                print("error 1")
+                print("Upload error! Q'apla!")
                 return
             }
         }

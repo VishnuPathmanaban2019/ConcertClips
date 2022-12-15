@@ -1,12 +1,5 @@
 import SwiftUI
 
-//struct SavedClipsView: View {
-//    var body: some View {
-//        SavedClipsViewRepresentable().ignoresSafeArea()
-//    }
-//}
-
-
 struct SavedClipsView: View {
     
     private var concertImageBackground: some View {

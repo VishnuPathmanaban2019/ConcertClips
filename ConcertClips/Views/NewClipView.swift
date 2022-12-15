@@ -30,7 +30,7 @@ struct NewClipView: View {
                 .font(.title)
                 .fontWeight(.bold)
             Form {
-                TextField("Name", text: $name)
+                TextField("Caption", text: $name)
                 
                 TextField("Section", text: $section)
                 

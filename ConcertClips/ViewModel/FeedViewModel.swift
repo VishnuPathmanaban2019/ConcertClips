@@ -206,7 +206,6 @@ extension ViewController: FeedViewCellDelegate {
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
         captionLabelHeader.frame = CGRect(x: 0, y: 670, width: self.view.frame.width, height: 20)
-        //        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         captionLabelHeader.text = "       Caption: "
         

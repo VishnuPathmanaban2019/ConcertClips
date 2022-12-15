@@ -50,13 +50,15 @@ class SavedViewController: UIViewController {
                 let document = querySnapshot?.documents.first
                 let docData = document?.data()
                 let savedClips = docData!["myClips"] as! [String]
-//                print(savedClips)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM/dd/yy"
                 savedClips.forEach { savedClip in
                     let fields = savedClip.components(separatedBy: "`")
                     let model = VideoModel(caption: fields[1],
                                            videoURL: fields[0],
                                            event: fields[3],
                                            section: fields[2],
+                                           date: dateFormatter.date(from: fields[4]) ?? Date(),
                                            detailsButtonTappedCount: 0,
                                            volumeButtonTappedCount: 0,
                                            likeButtonTappedCount: 0)
@@ -104,8 +106,10 @@ extension SavedViewController: UICollectionViewDataSource {
         // display likeButtonSelection
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-        
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+      
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event + "`" + dateFormatter.string(from: model.date)
         
         userQuery.getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -125,7 +129,6 @@ extension SavedViewController: UICollectionViewDataSource {
             }
         }
         // display likeButtonSelection
-        
         if model.detailsButtonTappedCount == 0 {
             for subview in view.subviews {
                 if subview is UILabel {
@@ -151,7 +154,9 @@ extension SavedViewController: FeedViewCellDelegate {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
         let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
         
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event + "`" + dateFormatter.string(from: model.date)
         
         
         userQuery.getDocuments() { (querySnapshot, err) in
@@ -190,7 +195,6 @@ extension SavedViewController: FeedViewCellDelegate {
                 let view = UIView(frame: CGRect(origin: .zero,
                                                 size: CGSize(width: self.trueWidth - trueSize,
                                                              height: self.trueHeight)))
-
                 // Configure View
                 view.backgroundColor = .clear
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -217,15 +221,12 @@ extension SavedViewController: FeedViewCellDelegate {
         let rectangleView = UIView(frame: CGRect(x: 0, y: 490, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
         rectangleView.backgroundColor = UIColor.black
         
-        // 
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
         captionLabelHeader.frame = CGRect(x: 0, y: 500, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         captionLabelHeader.text = "      Caption: "
-        // 
 
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
@@ -234,33 +235,28 @@ extension SavedViewController: FeedViewCellDelegate {
         captionLabel.frame = CGRect(x: 0, y: 500, width: self.view.frame.width, height: 20)
         captionLabel.text = "                      " + model.caption
         
-        // 
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
         eventLabelHeader.frame = CGRect(x: 0, y: 520, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         eventLabelHeader.text = "      Event: "
-        // 
 
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
         eventLabel.textColor = .white
 
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
         eventLabel.frame = CGRect(x: 0, y: 520, width: self.view.frame.width, height: 20)
-        eventLabel.text = "                      " + model.event
+        eventLabel.text = "                      " + model.event + " (" + dateFormatter.string(from: model.date) + ")"
         
-        
-        // 
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
         sectionLabelHeader.frame = CGRect(x: 0, y: 540, width: self.view.frame.width, height: 20)
-//        sectionLabelHeader.font = UIFont.boldSystemFont(ofSize: 16.0)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         sectionLabelHeader.text = "      Section: "
-        // 
 
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left

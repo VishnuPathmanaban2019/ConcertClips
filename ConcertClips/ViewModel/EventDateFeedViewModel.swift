@@ -1,30 +1,31 @@
 //
-//  ViewController.swift
+//  EventDateFeedViewModel.swift
 //  ConcertClips
 //
-// Citations:
-// Adapted from: https://github.com/dks333/Tiktok-Clone
+//  Created by Siddharth Paratkar on 12/14/22.
+//
 
 import UIKit
 import SwiftUI
 import GoogleSignIn
 import FirebaseFirestore
 
-struct VideoModel {
-    let caption: String
-    let videoURL: String
-    let event: String
-    let section: String
-    let date: Date
-    let detailsButtonTappedCount: Int
-    var volumeButtonTappedCount: Int
-    var likeButtonTappedCount: Int
-}
-
-class ViewController: UIViewController {
+class EventDateViewController: UIViewController {
     
     @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
     var usersManagerViewModel = UsersManagerViewModel()
+    
+    @State var eventName: String
+    
+    init(eventName: String) {
+        self.eventName = eventName
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    // This is also necessary when extending the superclass.
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private var collectionView: UICollectionView?
     
@@ -36,6 +37,7 @@ class ViewController: UIViewController {
     private var trueHeight = 800.0
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         self.trueWidth = self.view.frame.size.width
@@ -44,20 +46,19 @@ class ViewController: UIViewController {
         let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
         {
             (varTimer) in
-            let clipViewModels = self.clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip < $1.clip })
-            
+            let clipViewModels = self.clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip.date < $1.clip.date })
             clipViewModels.forEach { clipViewModel in
-                let model = VideoModel(caption: clipViewModel.clip.name,
-                                       videoURL: clipViewModel.clip.downloadURL,
-                                       event: clipViewModel.clip.event,
-                                       section: clipViewModel.clip.section,
-                                       date: clipViewModel.clip.date,
-                                       detailsButtonTappedCount: 0,
-                                       volumeButtonTappedCount: 0,
-                                       likeButtonTappedCount: 0)
-                self.data.append(model)
-                
-                
+                if (clipViewModel.clip.event == self.eventName) {
+                    let model = VideoModel(caption: clipViewModel.clip.name,
+                                           videoURL: clipViewModel.clip.downloadURL,
+                                           event: clipViewModel.clip.event,
+                                           section: clipViewModel.clip.section,
+                                           date: clipViewModel.clip.date,
+                                           detailsButtonTappedCount: 0,
+                                           volumeButtonTappedCount: 0,
+                                           likeButtonTappedCount: 0)
+                    self.data.append(model)
+                }
             }
             
             let layout = UICollectionViewFlowLayout()
@@ -82,9 +83,8 @@ class ViewController: UIViewController {
     var shouldCreateSubviews = true
 }
 
-extension ViewController: UICollectionViewDataSource {
+extension EventDateViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return data.count
     }
     
@@ -92,41 +92,27 @@ extension ViewController: UICollectionViewDataSource {
         let model = data[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedViewCell.identifier,
                                                       for: indexPath) as! FeedViewCell
-        cell.configure(with: model)
         
-        // display likeButtonSelection
-        let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
-        let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yy"
-        let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event + "`" + dateFormatter.string(from: model.date)
-        
-        userQuery.getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                let document = querySnapshot?.documents.first
-                let docData = document?.data()
-                let savedClips = docData!["myClips"] as! [String]
-                
-                // remove clip if we press like, and clip is already in this user's savedClips
-                if savedClips.contains(serialized) {
-                    cell.likeButton.isSelected = true
+        if model.detailsButtonTappedCount == 0 {
+            for subview in view.subviews {
+                if subview is UILabel {
+                    subview.removeFromSuperview()
                 }
-                else { // add clip if we press like, and clip is NOT already in this user's savedClips
-                    cell.likeButton.isSelected = false
+                
+                if subview.backgroundColor == .black {
+                    subview.removeFromSuperview()
                 }
             }
         }
         
+        cell.configure(with: model)
         cell.delegate = self
         cell.player?.play()
         return cell
     }
 }
 
-extension ViewController: FeedViewCellDelegate {
+extension EventDateViewController: FeedViewCellDelegate {
     
     func didTapLikeButton(with model: VideoModel) {
         let userID = GIDSignIn.sharedInstance.currentUser?.userID ?? "default_user_id"
@@ -136,7 +122,6 @@ extension ViewController: FeedViewCellDelegate {
         dateFormatter.dateFormat = "MM/dd/yy"
         let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event + "`" + dateFormatter.string(from: model.date)
         
-        
         userQuery.getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -145,13 +130,13 @@ extension ViewController: FeedViewCellDelegate {
                 let docData = document?.data()
                 let savedClips = docData!["myClips"] as! [String]
                 
-                // remove clip if we press like, and clip is already in this user's savedClips
+                // remove clip if clip is already in this user's savedClips
                 if savedClips.contains(serialized) {
                     document?.reference.updateData([
                         "myClips": FieldValue.arrayRemove([serialized])
                     ])
                 }
-                else { // add clip if we press like, and clip is NOT already in this user's savedClips
+                else { // add clip if clip is NOT already in this user's savedClips
                     document?.reference.updateData([
                         "myClips": FieldValue.arrayUnion([serialized])
                     ])
@@ -173,7 +158,6 @@ extension ViewController: FeedViewCellDelegate {
                 let view = UIView(frame: CGRect(origin: .zero,
                                                 size: CGSize(width: self.trueWidth - trueSize,
                                                              height: self.trueHeight)))
-                
                 // Configure View
                 view.backgroundColor = .clear
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -197,31 +181,31 @@ extension ViewController: FeedViewCellDelegate {
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height - 100
         
-        let rectangleView = UIView(frame: CGRect(x: 0, y: 650, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
+        let rectangleView = UIView(frame: CGRect(x: 0, y: 600, width: self.view.frame.size.width, height: self.view.frame.size.height - 30))
         rectangleView.backgroundColor = UIColor.black
-        
-        
         
         let captionLabelHeader = UILabel()
         captionLabelHeader.textAlignment = .left
         captionLabelHeader.textColor = .white
-        captionLabelHeader.frame = CGRect(x: 0, y: 670, width: self.view.frame.width, height: 20)
+        captionLabelHeader.frame = CGRect(x: 0, y: 610, width: self.view.frame.width, height: 20)
         captionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
-        captionLabelHeader.text = "       Caption: "
+        captionLabelHeader.text = "      Caption: "
         
         let captionLabel = UILabel()
         captionLabel.textAlignment = .left
         captionLabel.textColor = .white
         
-        captionLabel.frame = CGRect(x: 0, y: 670, width: self.view.frame.width, height: 20)
-        captionLabel.text = "                       " + model.caption
+        captionLabel.frame = CGRect(x: 0, y: 610, width: self.view.frame.width, height: 20)
+        captionLabel.text = "                      " + model.caption
         
+        
+        //
         let eventLabelHeader = UILabel()
         eventLabelHeader.textAlignment = .left
         eventLabelHeader.textColor = .white
-        eventLabelHeader.frame = CGRect(x: 0, y: 690, width: self.view.frame.width, height: 20)
+        eventLabelHeader.frame = CGRect(x: 0, y: 630, width: self.view.frame.width, height: 20)
         eventLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
-        eventLabelHeader.text = "       Event: "
+        eventLabelHeader.text = "      Event: "
         
         let eventLabel = UILabel()
         eventLabel.textAlignment = .left
@@ -229,22 +213,22 @@ extension ViewController: FeedViewCellDelegate {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yy"
-        eventLabel.frame = CGRect(x: 0, y: 690, width: self.view.frame.width, height: 20)
-        eventLabel.text = "                       " + model.event + " (" + dateFormatter.string(from: model.date) + ")"
+        eventLabel.frame = CGRect(x: 0, y: 630, width: self.view.frame.width, height: 20)
+        eventLabel.text = "                      " + model.event + " (" + dateFormatter.string(from: model.date) + ")"
         
         let sectionLabelHeader = UILabel()
         sectionLabelHeader.textAlignment = .left
         sectionLabelHeader.textColor = .white
-        sectionLabelHeader.frame = CGRect(x: 0, y: 710, width: self.view.frame.width, height: 20)
+        sectionLabelHeader.frame = CGRect(x: 0, y: 650, width: self.view.frame.width, height: 20)
         sectionLabelHeader.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
-        sectionLabelHeader.text = "       Section: "
+        sectionLabelHeader.text = "      Section: "
         
         let sectionLabel = UILabel()
         sectionLabel.textAlignment = .left
         sectionLabel.textColor = .white
         
-        sectionLabel.frame = CGRect(x: 0, y: 710, width: self.view.frame.width, height: 20)
-        sectionLabel.text = "                       " + model.section
+        sectionLabel.frame = CGRect(x: 0, y: 650, width: self.view.frame.width, height: 20)
+        sectionLabel.text = "                      " + model.section
         
         view.addSubview(rectangleView)
         view.addSubview(captionLabelHeader)
@@ -268,3 +252,4 @@ extension ViewController: FeedViewCellDelegate {
         }
     }
 }
+

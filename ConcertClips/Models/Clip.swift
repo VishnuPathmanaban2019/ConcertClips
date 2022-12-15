@@ -15,6 +15,7 @@ struct Clip: Identifiable, Comparable, Codable {
     var name: String
     var event: String
     var section: String
+    var date: Date
     var downloadURL: String
     
     // MARK: Codable
@@ -23,6 +24,7 @@ struct Clip: Identifiable, Comparable, Codable {
         case name
         case event
         case section
+        case date
         case downloadURL
     }
     

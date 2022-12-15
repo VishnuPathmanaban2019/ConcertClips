@@ -24,15 +24,12 @@ struct UserView: View {
         }.background(.black)
     }
     
-//        .background(Image("concert_background_blue").resizable())
-    
     var body: some View {
         NavigationView {
             concertImageBackground.overlay(
                 VStack {
                     Spacer()
                     HStack {
-                        // 3
                         NetworkImage(url: user?.profile?.imageURL(withDimension: 200))
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100, alignment: .center)
@@ -57,12 +54,11 @@ struct UserView: View {
                     NavigationLink(destination: SavedClipsView().background(.black), isActive: $moveToSavedClipsView) { EmptyView() }
                     Button(action: {
                         self.moveToSavedClipsView = true
-
+                        
                     }) {
                         Text("My Saved Clips")
                             .foregroundColor(.black)
                             .padding()
-//                            .frame(maxWidth: .infinity)
                             .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
                             .cornerRadius(12)
                             .padding()
@@ -75,12 +71,12 @@ struct UserView: View {
                             .foregroundColor(.black)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color("443Blue1"))
+                            .background(.blue)
                             .cornerRadius(12)
                             .padding()
                     }
                     Spacer()
-                } //.background(Color(.black))
+                }
             )
         }
         .navigationViewStyle(StackNavigationViewStyle())
@@ -89,7 +85,6 @@ struct UserView: View {
 
 struct NetworkImage: View {
     let url: URL?
-    
     var body: some View {
         if let url = url,
            let data = try? Data(contentsOf: url),

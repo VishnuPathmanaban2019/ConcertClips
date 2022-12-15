@@ -1,9 +1,14 @@
-// Converted by Storyboard to SwiftUI Converter v3.0.10 - https://swiftify.com/converter/storyboard2swiftui
+//
+//  EventDateFeedView.swift
+//  ConcertClips
+//
+//  Created by Siddharth Paratkar on 12/14/22.
+//
 
 import SwiftUI
 
-struct FeedView: View {
-    @State var isPresented = false
+struct EventDateFeedView: View {
+    @State var eventName: String
     
     private var concertImageBackground: some View {
         GeometryReader { geometry in
@@ -17,7 +22,8 @@ struct FeedView: View {
     var body: some View {
         concertImageBackground.overlay(
             VStack {
-                FeedViewRepresentable()
+                Text("\(eventName) | Sorted By Date").fontWeight(.bold).foregroundColor(.white).padding(.top)
+                EventDateFeedViewRepresentable(eventName: eventName).ignoresSafeArea()
             }
         )
     }

@@ -25,17 +25,13 @@ struct EventSectionView: View {
         var allSections = Set<String>()
         let _ = clips.forEach { clip in
             if (clip.event == eventName) {
-               allSections.insert(clip.section)
+                allSections.insert(clip.section)
             }
         }
         
         concertImageBackground.overlay(
             VStack {
-//                Text("\(eventName)").fontWeight(.bold).foregroundColor(.white).padding(.top)
-//                Text("|").foregroundColor(.white).padding(.top)
-//                Text("Sections").padding(.top)
                 Text("\(eventName) | All Sections").fontWeight(.bold).foregroundColor(.white).padding(.top)
-                
                 List(Array(allSections.sorted()), id: \.self) { section in
                     NavigationLink {
                         EventSectionFeedView(eventName: eventName, section: section).background(.black)

@@ -1,20 +1,17 @@
 //
-//  UploadedView.swift
+//  EventDateView.swift
 //  ConcertClips
 //
-//  Created by Siddharth Paratkar on 11/10/22.
+//  Created by Siddharth Paratkar on 12/14/22.
 //
 
 import SwiftUI
 
-struct UploadedView: View {
+import SwiftUI
+
+struct EventDateView: View {
     @State var moveToFeedView : Bool
-    @ObservedObject var clipsManagerViewModel = ClipsManagerViewModel()
-    var clip: Clip
-    @Binding var tabSelection: Int
-    @Binding var data: Movie?
-    @EnvironmentObject var viewModel: AuthenticationViewModel
-    
+    @State var eventName: String
     
     private var concertImageBackground: some View {
         GeometryReader { geometry in
@@ -26,29 +23,22 @@ struct UploadedView: View {
     }
     
     var body: some View {
-        
         concertImageBackground.overlay(
             VStack {
-                NavigationLink(destination:  ContentView().environmentObject(viewModel).navigationBarBackButtonHidden(true), isActive: $moveToFeedView) {
-                    EmptyView()
-                }
-                
-                Text("Clip Uploaded!").fontWeight(.bold).foregroundColor(.white).onAppear() {
-                    clipsManagerViewModel.add(clip)
-                    data = nil
-                    self.tabSelection = 0
-                }
-                
                 Button(action: {
                     self.moveToFeedView = true
                     
                 }) {
-                    Text("Go to Feed")
+                    Text("Sort Clips By Date")
                         .foregroundColor(.black)
                         .padding()
                         .background(Color(red: 0.4627, green: 0.8392, blue: 1.0))
                         .cornerRadius(12)
                         .padding()
+                }
+                
+                NavigationLink(destination: EventDateFeedView(eventName: eventName).background(.black), isActive: $moveToFeedView) {
+                    EmptyView()
                 }
             }
         )

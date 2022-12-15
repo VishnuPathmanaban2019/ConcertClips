@@ -96,13 +96,6 @@ class FeedViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.backgroundColor = .black
         contentView.clipsToBounds = true
-        
-        //        let lb = UILabel()
-        //        lb.textAlignment = .center
-        //        lb.numberOfLines = 0
-        //        lb.text = "No Clips Yet!"
-        //        contentView.addSubview(lb)
-        
         addSubviews()
     }
     
@@ -257,7 +250,9 @@ class FeedViewCell: UICollectionViewCell {
             
             let userQuery = usersManagerViewModel.userRepository.store.collection(usersManagerViewModel.userRepository.path).whereField("username", isEqualTo: userID)
             
-            let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yy"
+            let serialized = model.videoURL + "`" + model.caption + "`" + model.section + "`" + model.event + "`" + dateFormatter.string(from: model.date)
             
             userQuery.getDocuments() { (querySnapshot, err) in
                 if let err = err {

@@ -1,5 +1,3 @@
-// Converted by Storyboard to SwiftUI Converter v3.0.10 - https://swiftify.com/converter/storyboard2swiftui
-
 import SwiftUI
 
 struct EventFeedView: View {
@@ -18,14 +16,19 @@ struct EventFeedView: View {
     var body: some View {
         concertImageBackground.overlay(
             VStack {
-                HStack {
+                HStack(alignment: .lastTextBaseline) {
                     Text("\(eventName)").fontWeight(.bold).foregroundColor(.white).padding(.top)
                     Text("|").foregroundColor(.white).padding(.top)
                     NavigationLink {
-                      EventSectionView(eventName: eventName, clips: clipsManagerViewModel.clipViewModels.map({ $0.clip }))
+                        EventSectionView(eventName: eventName, clips: clipsManagerViewModel.clipViewModels.map({ $0.clip }))
                     } label: {
                         Text("Sections").padding(.top)
-                        
+                    }
+                    Text("|").foregroundColor(.white).padding(.top)
+                    NavigationLink {
+                        EventDateView(moveToFeedView: false, eventName: eventName)
+                    } label: {
+                        Label("", systemImage: "calendar")
                     }
                 }
                 EventFeedViewRepresentable(eventName: eventName).ignoresSafeArea()

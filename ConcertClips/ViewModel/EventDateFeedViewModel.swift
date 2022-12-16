@@ -46,7 +46,7 @@ class EventDateViewController: UIViewController {
         let varTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false)
         {
             (varTimer) in
-            let clipViewModels = self.clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip.date < $1.clip.date })
+            let clipViewModels = self.clipsManagerViewModel.clipViewModels.sorted(by: { $0.clip.date > $1.clip.date })
             clipViewModels.forEach { clipViewModel in
                 if (clipViewModel.clip.event == self.eventName) {
                     let model = VideoModel(caption: clipViewModel.clip.name,

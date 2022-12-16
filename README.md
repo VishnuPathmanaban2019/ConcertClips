@@ -19,8 +19,8 @@ C-Level Use Cases:
 - Sort clips from specific event by date
 - Improved UI and usability (volume and saved buttons filling in, no clips yet default page)
 
-NOTE:
-For graders going off of our original sprint 6 C-Level use cases: We dropped spotify integration as a use case right after submitting that sprint since it did not align with our app's desirability and goals based on further user testing. We instead used the time to improve our UI and usability and make the main concert video filtering experience more solid (overall please don't deduct points for no spotify integration, because this was not truly one of our goals). Additionally, our feeds are automatically sorted alphabetically, and we changed our liking feature to a saving feature to better accomodate for our user testing results, so we could not implement sorting by popularity and sorting alphabetically (which is the default case). Again, please don't deduct points for missing these two, since they were impossible to do with the design changes we made after further user testing. 
+NOTE (approved by TA Sooyoung and Prof H.):
+For graders going off of our original sprint 6 C-Level use cases: We dropped spotify integration as a use case right after submitting that sprint since it did not align with our app's desirability and goals based on further user testing. We instead used the time to improve our UI and usability and make the main concert video filtering experience more solid (overall please don't deduct points for no spotify integration, because this was not truly one of our goals). Additionally, our feeds are automatically sorted alphabetically, and we changed our liking feature to a saving feature to better accomodate for our user testing results, so we could not implement sorting by popularity and sorting alphabetically (which is the default case). Again, please don't deduct points for missing these two, since they were impossible to do with the design changes we made after further user testing. TA Sooyoung and Prof H. both approved of this message.
 
 ## Required Packages on Xcode
 firebase-ios-sdk
